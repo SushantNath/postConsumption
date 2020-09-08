@@ -1,10 +1,58 @@
-<mvc:View controllerName="sap.com.postconsumption.postConsumption.controller.Settings" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-	xmlns="sap.m">
+<mvc:View controllerName="sap.com.postconsumption.postConsumption.controller.Settings" xmlns:mvc="sap.ui.core.mvc"  xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns="sap.m" xmlns:f="sap.ui.layout.form">
 	<Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
-					<content></content>
+					<content>
+						<VBox class="sapUiSmallMargin">
+						<f:SimpleForm id="OthersSimpleFormId" editable="false" layout="ResponsiveGridLayout"  labelSpanXL="4" labelSpanL="3"
+								labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2"
+								columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<f:content>
+									
+									<Label text="{i18n>manufacturingOrder}"/>
+									<Input id="deliveryInput" placeholder="Enter Delivery" showSuggestion="true" showValueHelp="true">
+									</Input>
+									<Label text="{i18n>opForAct}"/>
+										<Input id="opForActId" placeholder="Enter Delivery" showSuggestion="true" showValueHelp="true">
+									</Input>
+									<Label text="{i18n>handlingUnit}"/>
+									<Input id="shipToInput" placeholder="Enter ship to customer " showSuggestion="true" showValueHelp="false"></Input>
+									<Label text="{i18n>prodForCons}"/>
+									<Input id="soldToInput" placeholder="Enter sold to customer " showSuggestion="true" showValueHelp="true"></Input>
+									<Label text="{i18n>prodSupArea}"/>
+									<Input id="externalDelivery" placeholder="Enter external delivery " showSuggestion="true" showValueHelp="true"></Input>
+									<core:Title text="{i18n>invoiceType}"/>
+									<Label text="{i18n>immInvoicetype}" required="true"/>
+									<Input id="immediateinvoiceInput" placeholder="Enter immediate invoice type " showSuggestion="true" showValueHelp="false">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+									</Input>
+									<Label text="{i18n>revenueInvoiceType}" required="true"/>
+									<Input id="revenueInvoiceInput" placeholder="Enter revenue invoice type " showSuggestion="true" showValueHelp="false">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+									</Input>
+									<Label text="{i18n>revenueInvoiceDate}" required="true"/>
+								<DatePicker id="invoiceDateInput"  placeholder="Enter revenue invoice date ..." change="handleChange" class="sapUiSmallMarginBottom">
+								<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+                                </DatePicker>
+								</f:content>
+							</f:SimpleForm>	
+							</VBox>
+					</content>
+						<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="{i18n>extractDocuments}" type="Accept" press="onClickGetDocs"/>
+						
+						</OverflowToolbar>
+					</footer>
 				</Page>
 			</pages>
 		</App>
