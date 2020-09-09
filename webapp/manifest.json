@@ -12,6 +12,15 @@
 		"sourceTemplate": {
 			"id": "ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.38.11"
+		},
+			"dataSources": {
+			"Northwind": {
+				"uri": "/destinations/northwind/V2/Northwind/Northwind.svc/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
 		}
 	},
 
@@ -58,6 +67,9 @@
 				"settings": {
 					"bundleName": "sap.com.postconsumption.postConsumption.i18n.i18n"
 				}
+			},
+				"": {
+				"dataSource": "Northwind"
 			}
 		},
 		"resources": {

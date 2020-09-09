@@ -11,37 +11,33 @@
 								columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<f:content>
 									
-									<Label text="{i18n>manufacturingOrder}"/>
-									<Input id="deliveryInput" placeholder="Enter Delivery" showSuggestion="true" showValueHelp="true">
+									<Label text="{i18n>manufacturingOrder}" required="true"/>
+									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequested">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>	
+					
+						
 									</Input>
 									<Label text="{i18n>opForAct}"/>
-										<Input id="opForActId" placeholder="Enter Delivery" showSuggestion="true" showValueHelp="true">
+										<Input id="opForActId"  showSuggestion="true" showValueHelp="true">
 									</Input>
 									<Label text="{i18n>handlingUnit}"/>
-									<Input id="shipToInput" placeholder="Enter ship to customer " showSuggestion="true" showValueHelp="false"></Input>
+									<Input id="handlingUnitId" showSuggestion="true" showValueHelp="false"></Input>
 									<Label text="{i18n>prodForCons}"/>
-									<Input id="soldToInput" placeholder="Enter sold to customer " showSuggestion="true" showValueHelp="true"></Input>
+									<Input id="prodForConsId" showSuggestion="true" showValueHelp="true"></Input>
 									<Label text="{i18n>prodSupArea}"/>
-									<Input id="externalDelivery" placeholder="Enter external delivery " showSuggestion="true" showValueHelp="true"></Input>
-									<core:Title text="{i18n>invoiceType}"/>
-									<Label text="{i18n>immInvoicetype}" required="true"/>
-									<Input id="immediateinvoiceInput" placeholder="Enter immediate invoice type " showSuggestion="true" showValueHelp="false">
-										<customData>
-                                    <core:CustomData key="required" value="true" writeToDom="true" />
-                                </customData>
+									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true"></Input>
+								
+									<Label text="{i18n>quantityProduced}"/>
+									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true">
+										
 									</Input>
-									<Label text="{i18n>revenueInvoiceType}" required="true"/>
-									<Input id="revenueInvoiceInput" placeholder="Enter revenue invoice type " showSuggestion="true" showValueHelp="false">
-										<customData>
-                                    <core:CustomData key="required" value="true" writeToDom="true" />
-                                </customData>
+									<Label text="{i18n>unitMeasure}" />
+									<Input id="unitMeasureId" showSuggestion="true" showValueHelp="false">
+									
 									</Input>
-									<Label text="{i18n>revenueInvoiceDate}" required="true"/>
-								<DatePicker id="invoiceDateInput"  placeholder="Enter revenue invoice date ..." change="handleChange" class="sapUiSmallMarginBottom">
-								<customData>
-                                    <core:CustomData key="required" value="true" writeToDom="true" />
-                                </customData>
-                                </DatePicker>
+								
 								</f:content>
 							</f:SimpleForm>	
 							</VBox>
@@ -49,8 +45,8 @@
 						<footer>
 						<OverflowToolbar>
 							<ToolbarSpacer/>
-							<Button text="{i18n>extractDocuments}" type="Accept" press="onClickGetDocs"/>
-						
+							<Button text="{i18n>consumption}" type="Emphasized" press="onClickConsumption"/>
+							<Button text="{i18n>reversal}" type="Emphasized" press="onClickreversal"/>
 						</OverflowToolbar>
 					</footer>
 				</Page>
