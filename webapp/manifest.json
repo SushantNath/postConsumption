@@ -13,9 +13,16 @@
 			"id": "ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.38.11"
 		},
-			"dataSources": {
+		"dataSources": {
 			"Northwind": {
 				"uri": "/destinations/northwind/V2/Northwind/Northwind.svc/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			},
+			"manage": {
+				"uri": "/sap/opu/odata/sap/PP_MPE_OPER_MANAGE",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
@@ -23,7 +30,6 @@
 			}
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -40,7 +46,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -68,14 +73,19 @@
 					"bundleName": "sap.com.postconsumption.postConsumption.i18n.i18n"
 				}
 			},
-				"": {
+			"": {
 				"dataSource": "Northwind"
+			},
+			"cds": {
+				"dataSource": "manage"
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -87,11 +97,15 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteSettings",
-				"pattern": "RouteSettings",
-				"target": ["TargetSettings"]
-			}],
+			"routes": [
+				{
+					"name": "RouteSettings",
+					"pattern": "RouteSettings",
+					"target": [
+						"TargetSettings"
+					]
+				}
+			],
 			"targets": {
 				"TargetSettings": {
 					"viewType": "XML",
@@ -99,6 +113,10 @@
 					"clearControlAggregation": false,
 					"viewId": "Settings",
 					"viewName": "Settings"
+				},
+				"postConsumption": {
+					"viewType": "XML",
+					"viewName": "postConsumption"
 				}
 			}
 		}
