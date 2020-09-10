@@ -7,8 +7,9 @@ sap.ui.define([
 	'sap/m/Label',
 	'sap/m/Token',
 	'sap/ui/model/Filter',
-	'sap/ui/model/FilterOperator'
-], function (Controller,JSONModel,SearchField,typeString,ColumnListItem,Label,Token,Filter, FilterOperator) {
+	'sap/ui/model/FilterOperator',
+		"sap/ui/core/UIComponent"
+], function (Controller,JSONModel,SearchField,typeString,ColumnListItem,Label,Token,Filter, FilterOperator,UIComponent) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.Settings", {
@@ -153,7 +154,7 @@ sap.ui.define([
             return requiredInputs;
         },
         validateEventFeedbackForm: function(requiredInputs) {
-        //	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 var _self = this;
                 var valid = true;
                 requiredInputs.forEach(function (input) {
@@ -164,7 +165,8 @@ sap.ui.define([
                     }
                     else {
                        sInput.setValueState("Success");
-                      // 	_self.getView().byId("dynamicPageId").setShowFooter(true);
+                  
+			oRouter.navTo("postConsumption");
                     }
                 });
                 return valid;

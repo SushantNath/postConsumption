@@ -1,9 +1,138 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
 	controllerName="sap.com.postconsumption.postConsumption.controller.postConsumption" xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="Title">
-				<content></content>
+			<Page title="Title" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					
+						<Panel backgroundDesign="Transparent"  expandable="true" expanded="true" height="auto"
+				id="cardPanels" width="auto" >
+				<l:BlockLayout >
+					<l:BlockLayoutRow class="sapUiSizeCompact">
+						<!--Order Number Card-->
+						<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>consumptionPosting}" width="1">
+							<VBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom" height="auto">
+									<HBox>
+									<Label wrapping="true" class="cardTitle" design="Bold" textAlign="Right" text="{i18n>handlingUnit}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+								</HBox>
+							
+							
+									
+										<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>productConsumption}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+							
+									
+								
+								
+								<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>batch}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+								
+									<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>shelfLife}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+								<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+							</VBox>
+						</l:BlockLayoutCell>
+						
+						
+						<!--Order Details Card-->
+							
+	<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>additionalInformation}" width="1">
+							<VBox>
+								<HBox class="sapUiTinyMargin sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true" class="cardTitle" design="Bold" text="{i18n>ordDetText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>distRefNumText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label wrapping="true" id="distRefNumLabel" text="{orderDetails>/DistRefNumber}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>castrolPONumText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label wrapping="true" id="custPoNumLabel2" text="{orderDetails>/PurchOrdNoExt}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>orderCreatDateText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label id="creatDateLabel" wrapping="true"
+										text="{ path:'orderDetails>/CreatedDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'long', UTC: true} }"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>totVolText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label wrapping="true" id="totValLabel" text="{orderDetails>/TotalVolume} &#160; {orderDetails>/VolumeUom}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>totWeightText}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true" id="totWeightLabel" text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
+								</HBox>
+							</VBox>
+						</l:BlockLayoutCell>
+					
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+			</Panel>
+			
+				<Table alternateRowColors="true" class="sapUiTinyMargin" growing="true" growingScrollToLoad="true"
+					growingThreshold="5" headerText="{i18n>prodOrdHeader}" id="productsOrderedTable" width='auto'>
+					
+						<headerToolbar>
+					<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
+						<Title text="{i18n>materialsText}"/>
+						<Title id="materialResultsText" text=""/>
+					</OverflowToolbar>
+				</headerToolbar>
+					
+					<columns>
+						<Column width="auto">
+							<Text text="{i18n>matIdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>descripText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>unitText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>plantText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>plntDesText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>qtyOrdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>qtyDelText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>matStatText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto">
+							<Text text="{i18n>delNumText}"/>
+						</Column>
+					</columns>
+				</Table>
+		
+				</content>
 			</Page>
 		</pages>
 	</App>

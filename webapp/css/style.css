@@ -1,1 +1,13 @@
 /* Enter your custom styles here */
+/* Styling for Cards */
+
+.orderNumberCardStyle {
+    background-color: #E8F8F5 !important;
+    display: inline-block;
+    padding: 10px;
+}
+.orderDetailsCardStyle {
+    background-color: #D8D8D8 !important;
+    display: inline-block;
+    padding: 10px;
+}

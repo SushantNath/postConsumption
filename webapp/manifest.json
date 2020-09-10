@@ -104,6 +104,14 @@
 					"target": [
 						"TargetSettings"
 					]
+				},
+				
+					{
+					"name": "postConsumption",
+					"pattern": "postConsumption",
+					"target": [
+						"postConsumption"
+					]
 				}
 			],
 			"targets": {
@@ -111,7 +119,7 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewId": "Settings",
+					
 					"viewName": "Settings"
 				},
 				"postConsumption": {

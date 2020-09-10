@@ -1,6 +1,7 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+		"sap/ui/core/routing/History"
+], function (Controller,History) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -13,6 +14,12 @@ sap.ui.define([
 		onInit: function () {
 
 		},
+
+	onNavBack: function () {
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("RouteSettings", true);
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
