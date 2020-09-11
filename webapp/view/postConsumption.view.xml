@@ -15,7 +15,7 @@
 								<HBox class="sapUiTinyMargin sapUiNoMarginBottom" height="auto">
 									<HBox>
 									<Label wrapping="true" class="cardTitle" design="Bold" textAlign="Right" text="{i18n>handlingUnit}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>
 									</HBox>
 								</HBox>
 							
@@ -42,6 +42,28 @@
 									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
 									<Input class="sapUiSmallMarginBegin">  </Input>
 									</HBox>
+									
+										<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>operation}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+										<HBox>
+									<CheckBox text="Restricted Use" />
+									</HBox>
+									
+									<HBox>
+								<RadioButton  text="Consumption Quantity" />
+									</HBox>
+									
+										<HBox>
+								<RadioButton  text="Remaining Quantity" />
+									</HBox>
+									
+								<HBox>
+									<Button text="{i18n>valuation}" press="onValuationPress" />
+				                  <Button text="{i18n>serial}" press="onSerialNoPress" />
+									</HBox>
+									
 							</VBox>
 						</l:BlockLayoutCell>
 						
