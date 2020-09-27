@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-		"sap/ui/core/routing/History"
-], function (Controller,History) {
+		"sap/ui/core/routing/History",
+			"sap/m/TablePersoController"
+], function (Controller,History,TablePersoController) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -13,12 +14,55 @@ sap.ui.define([
 		 */
 		onInit: function () {
 
+// 	//Get personalisation
+// 			this.oPersonalization = sap.ushell.Container.getService("Personalization");
+// 			if (this.oPersonalization) {
+// 				this.oConstants = this.oPersonalization.constants;
+// 			}
+
+// 	var oTableColmnPers = {};
+// 		oTableColmnPers = {
+// 					container: "lubesSelfOrders-Overview",
+// 					item: "selfOrder-item"
+// 				};
+
+// // Get a personalization service provider from the shell (or create your own)
+// 			var oTableColmnPersProvider = this.oPersonalization.getPersonalizer(oTableColmnPers);
+
+// 			//Initialise and Activate Table Column visibility Personalisation Controller
+// 			this._oTPC = new TablePersoController({
+// 				table: this.getView().byId("consumptionTable"),
+// 				componentName: "perso",
+// 				persoService: oTableColmnPersProvider
+// 			}).activate();
+
+
+			// Create a persistence key
+ var oPersId = {container: "mycontainer-1", item: "myitem-1"};
+
+// // Get a personalization service provider from the shell (or create your own)
+var oProvider = sap.ushell.Container.getService("Personalization").getPersonalizer(oPersId);
+
+// Instantiate a controller connecting your table and the persistence service
+this._oTPC = new TablePersoController({
+    table: this.getView().byId("productsTable"),
+    persoService: oProvider
+  // persoService: persoService
+}).activate();
+
+
 		},
 
 	onNavBack: function () {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("RouteSettings", true);
+		},
+		
+		//Personalisation button click event
+		_onPersoButtonPressed: function (oEvent) {
+			this._oTPC.openDialog();
+		//	this.oTablePersoController.openDialog();
 		}
 
 		/**

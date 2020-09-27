@@ -1,0 +1,137 @@
+	<Table id="productsTable" >
+					
+					
+						<headerToolbar>
+					<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
+						<Title text="{i18n>stockConsumption}"/>
+						<Title id="materialResultsText" text=""/>
+							<ToolbarSpacer/>
+					<Button icon="sap-icon://download" id="ordersSortTblBtn" press="handleSortButtonPressed"/>
+					<Button icon="sap-icon://action-settings" type="Transparent" press="_onPersoButtonPressed"/>
+					</OverflowToolbar>
+				</headerToolbar>
+					
+					<columns>
+						<Column width="auto" demandPopin="true" visible="true">
+							<Text text="{i18n>matIdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
+							<Text text="{i18n>descripText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
+							<Text text="{i18n>unitText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
+							<Text text="{i18n>plantText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>plntDesText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>qtyOrdText}"/>
+						</Column>
+					<!--	<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
+							<Text text="{i18n>qtyDelText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>matStatText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>delNumText}"/>
+						</Column>
+							<Column width="auto" visible="false" demandPopin="true">
+							<Text text="{i18n>matIdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>descripText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>unitText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>plantText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>plntDesText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>qtyOrdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>qtyDelText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>matStatText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>delNumText}"/>
+						</Column>
+							<Column width="auto" visible="false" demandPopin="true">
+							<Text text="{i18n>matIdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>descripText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>unitText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>plantText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>plntDesText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>qtyOrdText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>qtyDelText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>matStatText}"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
+							<Text text="{i18n>delNumText}"/>
+						</Column>-->
+					</columns>
+					
+						<items>
+				<ColumnListItem>
+				
+					<cells>
+					
+						<Text text="StatusText"/>
+						<Text text="ICustPoNumber"/>
+						<Text text="formatStringDate"/>
+						<Text text="formatCreatedTime"/>
+						<Text text="ShipToExt"/>
+						<Text text="ShipToName"/>
+					<!--	<Text text="ShipToAddress"/>
+							<Text text="StatusText"/>
+						<Text text="ICustPoNumber"/>
+						<Text text="formatStringDate"/>
+						<Text text="formatCreatedTime"/>
+						<Text text="ShipToExt"/>
+						<Text text="ShipToName"/>
+						<Text text="ShipToAddress"/>
+							<Text text="StatusText"/>
+						<Text text="ICustPoNumber"/>
+						<Text text="formatStringDate"/>
+						<Text text="formatCreatedTime"/>
+						<Text text="ShipToExt"/>
+						<Text text="ShipToName"/>
+						<Text text="ShipToAddress"/>
+							<Text text="StatusText"/>
+						<Text text="ICustPoNumber"/>
+						<Text text="formatStringDate"/>
+						<Text text="formatCreatedTime"/>
+						<Text text="ShipToExt"/>
+						<Text text="ShipToName"/>
+					-->
+					
+					</cells>
+				</ColumnListItem>
+			</items>
+					
+					
+				</Table>
