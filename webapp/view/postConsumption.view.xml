@@ -156,6 +156,7 @@
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
+								
 								<Column id="orderCol"><Text text="Order#"/></Column>
 								<Column id="orderStatusCol" minScreenWidth="Tablet" demandPopin="true"><Text text="OrderStatus"/></Column>
 								<Column id="POCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="CastrolPO#"/></Column>
