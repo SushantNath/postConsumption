@@ -1,8 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 		"sap/ui/core/routing/History",
-			"sap/m/TablePersoController"
-], function (Controller,History,TablePersoController) {
+			"sap/m/TablePersoController",
+			'sap/ui/core/util/Export',
+		'sap/ui/core/util/ExportTypeCSV',
+		'sap/m/MessageBox',
+				"sap/com/postconsumption/postConsumption/utilities/Formatter"
+], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Formatter) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -63,6 +67,209 @@ this._oTPC = new TablePersoController({
 		_onPersoButtonPressed: function (oEvent) {
 			this._oTPC.openDialog();
 		//	this.oTablePersoController.openDialog();
+		},
+		
+// Export to excel
+
+	_onDataExport : function(oEvent) {
+
+			var oExport = new Export({
+
+				// Type that will be used to generate the content. Own ExportType's can be created to support other formats
+				exportType : new ExportTypeCSV({
+					separatorChar : ";"
+				}),
+
+				// Pass in the model created above
+				models : this.getView().getModel(),
+
+				// binding information for the rows aggregation
+				rows : {
+					path : "/Invoices"
+				},
+
+				// column definitions with column name and binding info for the content
+
+				columns : [{
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("handlingUnit"),
+					template : {
+						content : "{Name}"
+					}
+				}, {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("prodConsumption"),
+					template : {
+						content : "{ShipName}"
+					}
+				}, {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockProd"),
+					template : {
+						content : "{SupplierName}"
+					}
+				}, {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("auom"),
+					template : {
+						content : {
+							parts : ["Width", "Depth", "Height", "DimUnit"],
+							formatter : function(width, depth, height, dimUnit) {
+								return width + " x " + depth + " x " + height + " " + dimUnit;
+							},
+							state : "Warning"
+						}
+					// "{Width} x {Depth} x {Height} {DimUnit}"
+					}
+				}, {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("description"),
+					template : {
+						content : "{WeightMeasure} {WeightUnit}"
+					}
+				}, {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("batch"),
+					template : {
+						content : "{Price} {CurrencyCode}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("shelfLife"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("originCountry"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("handlingUnit"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("restrictedUse"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockType"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockTypeDesc"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("supplyAreaProd"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("storageBin"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("owner"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("valuation"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("valuationUnit"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("valuationMeasured"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("type"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("salesOrder"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("salesOrderItem"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("baseUnitMeasure"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("operationActivity"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("ownerRole"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("partyEntitled"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockIdentification"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockProdSupply"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				 {
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("storageType"),
+					template : {
+						content : "{ShipName}"
+					}
+				}
+				
+				]
+			});
+
+			// download exported file
+			oExport.saveFile().catch(function(oError) {
+				MessageBox.error("Error when downloading data. Browser might not be supported!\n\n" + oError);
+			}).then(function() {
+				oExport.destroy();
+			});
 		}
 
 		/**

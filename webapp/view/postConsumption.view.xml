@@ -141,18 +141,26 @@
 			</Panel>
 			
 			
-				<Table id="productsTable" class="sapUiResponsiveMargin " mode="SingleSelectMaster" width="95%" items="{/Invoices}" growing="true"
+				<Table id="productsTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{/Invoices}" growing="true"
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
+								
 								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
 									<Title text="Stock for consumption"/>
 									<ToolbarSpacer/>
+									
 									<Button icon="sap-icon://download" press="_onDataExport"/>
-									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed">
-										<layoutData>
+									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
+										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="Post Consumption" type="Transparent">
+					<customData>
+						<core:CustomData key="option" value="expXmlBtn"/>
+					</customData>
+				</Button>		
+									<!--	<layoutData>
 											<OverflowToolbarLayoutData priority="NeverOverflow"/>
 										</layoutData>
-									</Button>
+									</Button>-->
+									
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
