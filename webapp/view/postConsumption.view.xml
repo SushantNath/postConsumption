@@ -145,7 +145,7 @@
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
-									<Title id="title"/>
+									<Title text="Stock for consumption"/>
 									<ToolbarSpacer/>
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed">
@@ -157,20 +157,35 @@
 							</headerToolbar>
 							<columns>
 								
-								<Column id="orderCol"><Text text="Order#"/></Column>
-								<Column id="orderStatusCol" minScreenWidth="Tablet" demandPopin="true"><Text text="OrderStatus"/></Column>
-								<Column id="POCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="CastrolPO#"/></Column>
-								<Column id="CreateDateCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Creation date"/></Column>
-								<Column id="DeliveryIdCol" hAlign="Center"><Text text="DeliveryId"/></Column>
-								<Column id="shipToCol"><Text text="ship To"/></Column>
-								<Column id="deliveryLocationCol" minScreenWidth="Tablet" demandPopin="true"><Text text="Delivery Location"/></Column>
-								<Column id="duplicateCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Duplicate"/></Column>
-								<Column id="amendCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Amend"/></Column>
-								<Column id="requestedDeliveryCol" hAlign="Center"><Text text="Requested Delivery"/></Column>
-								<Column id="actualDeliveryCol"><Text text="Actual Delivery"/></Column>
-								<Column id="invoiceNumCol" minScreenWidth="Tablet" demandPopin="true"><Text text="invoice#"/></Column>
-								<Column id="invoiceDCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Invoice"/></Column>
-								<Column id="invoiceAmountCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Invoice Amount"/></Column>
+								<Column id="hadlingunitCol" visible="true"><Text text="{i18n>handlingUnit}"/></Column>
+								<Column id="prodConsCol" visible="true" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>prodConsumption}"/></Column>
+								<Column id="stockprodCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>stockProd}"/></Column>
+								<Column id="auomCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>auom}"/></Column>
+								<Column id="descriptionCol" visible="true" hAlign="Center"><Text text="{i18n>description}"/></Column>
+								<Column id="batchCol" visible="true"><Text text="{i18n>batch}"/></Column>
+								<Column id="shelflifeCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>shelfLife}"/></Column>
+								<Column id="origincountryCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>originCountry}"/></Column>
+								<Column id="restrictedUseCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>restrictedUse}"/></Column>
+								<Column id="stockTypeCol" visible="false" hAlign="Center"><Text text="{i18n>stockType}"/></Column>
+								<Column id="stockTypeDescCol" visible="false"><Text text="{i18n>stockTypeDesc}"/></Column>
+								<Column id="suppyareaprodCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>supplyAreaProd}"/></Column>
+								<Column id="storageBinCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageBin}"/></Column>
+								<Column id="ownerCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>owner}"/></Column>
+							
+								<Column id="valuationQuanCol" visible="false"><Text text="{i18n>valuation}"/></Column>
+								<Column id="valuationUnitCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>valuationUnit}"/></Column>
+								<Column id="valuationMeasCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>valuationMeasured}"/></Column>
+								<Column id="typeCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>type}"/></Column>
+								<Column id="salesOrderCol" visible="false" hAlign="Center"><Text text="{i18n>salesOrder}"/></Column>
+								<Column id="salesOrditemCol" visible="false"><Text text="{i18n>salesOrderItem}"/></Column>
+								<Column id="baseUOMCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>baseUnitMeasure}"/></Column>
+								<Column id="operationCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>operationActivity}"/></Column>
+								<Column id="ownerRoleCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>ownerRole}"/></Column>
+								<Column id="partyEntCol" visible="false" hAlign="Center"><Text text="{i18n>partyEntitled}"/></Column>
+								<Column id="stockIdenCol" visible="false"><Text text="{i18n>stockIdentification}"/></Column>
+								<Column id="stockProdSupCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>stockProdSupply}"/></Column>
+								<Column id="storagetypeCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageType}"/></Column>
+							
 							</columns>
 							<items>
 								<ColumnListItem>
@@ -195,6 +210,31 @@
 										<Text text="{ProductName}"/>
 										<Text text="{ShipperName}"/>
 										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+										
+										
+										
+										
+											<m:Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											emphasized="false" subtle="false"/>
+										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCity}"/>
+										<Text text="{ShipCity}"/>
+										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCountry}"/>
+										<Text text="{CustomerID}"/>
+										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ProductName}"/>
+										<Text text="{ShipperName}"/>
+										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+										
 									</cells>
 								</ColumnListItem>
 							</items>
