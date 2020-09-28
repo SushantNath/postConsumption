@@ -1,3 +1,5 @@
+var collectionSet;
+
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	'sap/ui/model/json/JSONModel',
@@ -17,7 +19,194 @@ sap.ui.define([
 			
 				this.oColModel = new JSONModel(sap.ui.require.toUrl("sap/com/postconsumption/postConsumption/model") + "/columnsModel.json");
 	this._oManuOrdInput = this.getView().byId("manuOrderId");
+	
+	var oModel = this.getView().getModel("revenueModel");
+	
+/*		oModel.read("/HTvfkSet", {
+
+				success: function (oData, Response) {
+
+					var orderModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(orderModel, "shipToModel");
+					oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+					sap.ui.core.BusyIndicator.hide();
+					collectionSet = oData.results;
+					console.log("Inside Success function", oData.results);
+				},
+
+				error: function (oData, Response, oError) {
+					console.log("Inside Error function");
+				}
+
+			});  */
+	
+	
+	
 		},
+		
+		//value help for manufacturing order
+			onValueHelpManufacturing: function() {
+			
+				this.loadManufacturing();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogManufacturing) {
+				this._valueHelpDialogManufacturing = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.manufacturingOrder",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogManufacturing);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogManufacturing.open();	
+				
+			},
+			
+					loadManufacturing: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var shipToModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(shipToModel, "shipToModel");
+			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside revenue invoice value help
+		handleSearchManufacturing: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseManufacturing: function (oEvent) {
+
+			var selectedManufacturing;
+
+			var oMultiInputManufacturing = this.byId("manuOrderId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedManufacturing= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputManufacturing.setValue(selectedManufacturing);
+		},
+
+//Value help for operation
+		onValueHelpOperation: function() {
+			
+				this.loadOperation();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogOperation) {
+				this._valueHelpDialogOperation = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.operation",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogOperation);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogOperation.open();	
+				
+			},
+			
+					loadOperation: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var shipToModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(shipToModel, "shipToModel");
+			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside revenue invoice value help
+		handleSearchOperation: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseOperation: function (oEvent) {
+
+			var selectedOperation;
+
+			var oMultiInputOperation = this.byId("opForActId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedOperation= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputOperation.setValue(selectedOperation);
+		},
+
+		
 				// #region
 		onValueHelpRequested: function() {
 			var aCols = this.oColModel.getData().cols;
@@ -46,11 +235,11 @@ sap.ui.define([
 				oTable.setModel(this.oColModel, "columns");
 
 				if (oTable.bindRows) {
-					oTable.bindAggregation("rows", "/Invoices");
+					oTable.bindAggregation("rows", "/Products");
 				}
 
 				if (oTable.bindItems) {
-					oTable.bindAggregation("items", "/Invoices", function () {
+					oTable.bindAggregation("items", "/Products", function () {
 						return new ColumnListItem({
 							cells: aCols.map(function (column) {
 								return new Label({ text: "{" + column.template + "}" });
@@ -104,8 +293,8 @@ sap.ui.define([
 			aFilters.push(new Filter({
 				filters: [
 					new Filter({ path: "ProductID", operator: FilterOperator.Contains, value1: sSearchQuery }),
-					new Filter({ path: "ProductName", operator: FilterOperator.Contains, value1: sSearchQuery }),
-					new Filter({ path: "ProductName", operator: FilterOperator.Contains, value1: sSearchQuery })
+					new Filter({ path: "Name", operator: FilterOperator.Contains, value1: sSearchQuery })
+				
 				],
 				and: false
 			}));

@@ -20,7 +20,11 @@
 				"settings": {
 					"odataVersion": "2.0"
 				}
+				
 			},
+			
+			
+			
 			"manage": {
 				"uri": "/sap/opu/odata/sap/PP_MPE_OPER_MANAGE",
 				"type": "OData",
@@ -76,9 +80,11 @@
 			"": {
 				"dataSource": "Northwind"
 			},
-			"cds": {
-				"dataSource": "manage"
+		
+				"revenueModel": {
+				"dataSource": "Revenue"
 			}
+				
 		},
 		"resources": {
 			"css": [
