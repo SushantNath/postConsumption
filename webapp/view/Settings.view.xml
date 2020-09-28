@@ -25,16 +25,16 @@
 									<Label text="{i18n>handlingUnit}"/>
 									<Input id="handlingUnitId" showSuggestion="true" showValueHelp="false"></Input>
 									<Label text="{i18n>prodForCons}"/>
-									<Input id="prodForConsId" showSuggestion="true" showValueHelp="true"></Input>
+									<Input id="prodForConsId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProduct"></Input>
 									<Label text="{i18n>prodSupArea}"/>
-									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true"></Input>
+									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProdSup"></Input>
 								
 									<Label text="{i18n>quantityProduced}"/>
-									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true">
+									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpQuanProd">
 										
 									</Input>
 									<Label text="{i18n>unitMeasure}" />
-									<Input id="unitMeasureId" showSuggestion="true" showValueHelp="false">
+									<Input id="unitMeasureId" showSuggestion="true" showValueHelp="false" >
 									
 									</Input>
 								

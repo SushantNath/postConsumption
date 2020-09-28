@@ -207,6 +207,254 @@ sap.ui.define([
 		},
 
 		
+		//Value help for Product
+		onValueHelpProduct: function() {
+			
+				this.loadProduct();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogProduct) {
+				this._valueHelpDialogProduct = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.product",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogProduct);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogProduct.open();	
+				
+			},
+			
+					loadProduct: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var shipToModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(shipToModel, "shipToModel");
+			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside revenue invoice value help
+		handleSearchProduct: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseProduct: function (oEvent) {
+
+			var selectedProduct;
+
+			var oMultiInputProduct = this.byId("prodForConsId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedProduct= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputProduct.setValue(selectedProduct);
+		},
+
+		
+		
+			//Value help for Product for Supply
+		onValueHelpProdSup: function() {
+			
+				this.loadProdSup();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogProdSup) {
+				this._valueHelpDialogProdSup = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.productSupply",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogProdSup);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogProdSup.open();	
+				
+			},
+			
+					loadProdSup: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var shipToModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(shipToModel, "shipToModel");
+			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside product for supply value help
+		handleSearchProdSup: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseProdSup: function (oEvent) {
+
+			var selectedProdSup;
+
+			var oMultiInputProdSup = this.byId("prodSupAreaId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedProdSup= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputProdSup.setValue(selectedProdSup);
+		},
+
+
+
+		//Value help for quantity produced
+		onValueHelpQuanProd: function() {
+			
+				this.loadQuanProd();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogQuanProd) {
+				this._valueHelpDialogQuanProd = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.quantityProduced",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogQuanProd);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogQuanProd.open();	
+				
+			},
+			
+					loadQuanProd: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var shipToModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(shipToModel, "shipToModel");
+			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside product for supply value help
+		handleSearchQuanProd: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseQuanProd: function (oEvent) {
+
+			var selectedQuanProd;
+
+			var oMultiInputQuanProd = this.byId("quantityProducedId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedQuanProd= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputQuanProd.setValue(selectedQuanProd);
+		},
+
+		
 				// #region
 		onValueHelpRequested: function() {
 			var aCols = this.oColModel.getData().cols;
