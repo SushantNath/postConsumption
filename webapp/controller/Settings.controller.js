@@ -607,6 +607,38 @@ sap.ui.define([
                     }
                 });
                 return valid;
+        },
+        
+        	/* code to check validation for filters */
+		onClickReversal: function () {
+			
+			 var requiredInputs = this.returnIdListOfRequiredFields();
+            var passedValidation = this.validateEventFeedbackFormReversal(requiredInputs);
+            if(passedValidation === false)
+            {
+                //show an error message, rest of code will not execute.
+                return false;
+            }
+
+		},
+		
+		   validateEventFeedbackFormReversal: function(requiredInputs) {
+        	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                var _self = this;
+                var valid = true;
+                requiredInputs.forEach(function (input) {
+                    var sInput = _self.getView().byId(input);
+                    if (sInput.getValue() == "" || sInput.getValue() == undefined) {
+                        valid = false;
+                        sInput.setValueState("Error");
+                    }
+                    else {
+                       sInput.setValueState("Success");
+                  
+			oRouter.navTo("reversalPosting");
+                    }
+                });
+                return valid;
         }
 
 		// #endregion

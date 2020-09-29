@@ -193,12 +193,17 @@
 								<Column id="stockIdenCol" visible="false"><Text text="{i18n>stockIdentification}"/></Column>
 								<Column id="stockProdSupCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>stockProdSupply}"/></Column>
 								<Column id="storagetypeCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageType}"/></Column>
+								
+								<!-- Extra columns as per WRICEF 4899-->
+								
+								<Column id="quanConsumeCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>quantityConsume}"/></Column>
+								<Column id="quanPSACol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>quantityPSA}"/></Column>
 							
 							</columns>
 							<items>
 								<ColumnListItem>
 									<cells>
-										<m:Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+										<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
 											emphasized="false" subtle="false"/>
 										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
 										<Text text="{ShipCity}"/>
@@ -222,7 +227,7 @@
 										
 										
 										
-											<m:Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
 											emphasized="false" subtle="false"/>
 										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
 										<Text text="{ShipCity}"/>
@@ -243,6 +248,9 @@
 										<Text text="{ShipperName}"/>
 										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
 										
+											<!-- Text field as per WRICEF 4899-->
+											<Text text="{ProductName}"/>
+										<Text text="{ShipperName}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

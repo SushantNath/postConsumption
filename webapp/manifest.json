@@ -111,6 +111,14 @@
 					"target": [
 						"postConsumption"
 					]
+				},
+				
+					{
+					"name": "reversalPosting",
+					"pattern": "reversalPosting",
+					"target": [
+						"reversalPosting"
+					]
 				}
 			],
 			"targets": {

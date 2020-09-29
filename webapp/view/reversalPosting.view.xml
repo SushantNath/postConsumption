@@ -1,9 +1,256 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" 
 	controllerName="sap.com.postconsumption.postConsumption.controller.reversalPosting" xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="Title">
-				<content></content>
+			<Page title="{i18n>reversalTitle}">
+				<content>
+					
+					
+						<Panel backgroundDesign="Transparent"  expandable="true" expanded="true" height="auto"
+				id="cardPanels" width="auto" >
+				<l:BlockLayout >
+					<l:BlockLayoutRow class="sapUiSizeCompact">
+						<!--Consumption Posting Card-->
+						<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>consumptionPosting}" width="1">
+							<VBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom" height="auto">
+									<HBox>
+									<Label wrapping="true" class="cardTitle" design="Bold" textAlign="Right" text="{i18n>handlingUnit}"/>
+									<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>
+									</HBox>
+								</HBox>
+							
+							
+									
+										<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>productConsumption}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+							
+									
+								
+								
+								<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>batch}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+								
+									<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>shelfLife}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+								<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+									
+										<HBox>
+									<Label wrapping="true" design="Bold" text="{i18n>operation}"/>
+									<Input class="sapUiSmallMarginBegin">  </Input>
+									</HBox>
+										<HBox>
+									<CheckBox text="Restricted Use" />
+									</HBox>
+									
+									<HBox>
+								<RadioButton  text="Consumption Quantity" />
+									</HBox>
+									
+										<HBox>
+								<RadioButton  text="Remaining Quantity" />
+									</HBox>
+									
+								<HBox>
+									<Button text="{i18n>valuation}" press="onValuationPress" />
+				                  <Button text="{i18n>serial}" press="onSerialNoPress" />
+									</HBox>
+									
+							</VBox>
+						</l:BlockLayoutCell>
+						
+						
+						<!--Manufacturing information Card-->
+							
+	<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>additionalInformation}" width="1">
+							<VBox>
+								<HBox class="sapUiTinyMargin sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true" class="cardTitle" design="Bold" text="{i18n>finshedProduct}"/>
+									<Label wrapping="true"  text=""/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
+										<Label wrapping="true" id="distRefNumLabel" text="{orderDetails>/DistRefNumber}"/>
+								</HBox>
+							
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>manufacturingOrder}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label wrapping="true" id="custPoNumLabel2" text="{orderDetails>/PurchOrdNoExt}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>requirementStart}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label id="creatDateLabel" wrapping="true"
+										text="{ path:'orderDetails>/CreatedDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'long', UTC: true} }"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>reservation}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+									<Label wrapping="true" id="totValLabel" text="{orderDetails>/TotalVolume} &#160; {orderDetails>/VolumeUom}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>consumedQuality}"/>
+								</HBox>
+								<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true" id="totWeightLabel" text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
+								</HBox>
+									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>consumptionProgress}"/>
+								</HBox>
+									<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true"  text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
+								</HBox>
+								
+									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>operationActivity}"/>
+								</HBox>
+								
+									<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<Label wrapping="true"  text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
+								</HBox>
+								
+									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>itemNoOfReservation}"/>
+								</HBox>
+								
+									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>itemNoOfReservation}"/>
+								</HBox>
+								
+									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
+									<Label wrapping="true" design="Bold" text="{i18n>requiredQuantityBuom}"/>
+								</HBox>
+								
+							</VBox>
+						</l:BlockLayoutCell>
+					
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+			</Panel>
+			
+			
+				<Table id="productsTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{/Invoices}" growing="true"
+							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
+							<headerToolbar>
+								
+								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
+									<Title text="Stock for consumption"/>
+									<ToolbarSpacer/>
+									
+									<Button icon="sap-icon://download" press="_onDataExport"/>
+									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
+										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="Post Consumption" type="Transparent">
+					<customData>
+						<core:CustomData key="option" value="expXmlBtn"/>
+					</customData>
+				</Button>		
+									<!--	<layoutData>
+											<OverflowToolbarLayoutData priority="NeverOverflow"/>
+										</layoutData>
+									</Button>-->
+									
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								
+								<Column id="hadlingunitCol" visible="true"><Text text="{i18n>handlingUnit}"/></Column>
+								<Column id="prodConsCol" visible="true" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>prodConsumption}"/></Column>
+								<Column id="stockprodCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>stockProd}"/></Column>
+								<Column id="auomCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>auom}"/></Column>
+								<Column id="descriptionCol" visible="true" hAlign="Center"><Text text="{i18n>description}"/></Column>
+								<Column id="batchCol" visible="true"><Text text="{i18n>batch}"/></Column>
+								<Column id="shelflifeCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>shelfLife}"/></Column>
+								<Column id="origincountryCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>originCountry}"/></Column>
+								<Column id="restrictedUseCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>restrictedUse}"/></Column>
+								<Column id="stockTypeCol" visible="false" hAlign="Center"><Text text="{i18n>stockType}"/></Column>
+								<Column id="stockTypeDescCol" visible="false"><Text text="{i18n>stockTypeDesc}"/></Column>
+								<Column id="suppyareaprodCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>supplyAreaProd}"/></Column>
+								<Column id="storageBinCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageBin}"/></Column>
+								<Column id="ownerCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>owner}"/></Column>
+							
+								<Column id="valuationQuanCol" visible="false"><Text text="{i18n>valuation}"/></Column>
+								<Column id="valuationUnitCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>valuationUnit}"/></Column>
+								<Column id="valuationMeasCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>valuationMeasured}"/></Column>
+								<Column id="typeCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>type}"/></Column>
+								<Column id="salesOrderCol" visible="false" hAlign="Center"><Text text="{i18n>salesOrder}"/></Column>
+								<Column id="salesOrditemCol" visible="false"><Text text="{i18n>salesOrderItem}"/></Column>
+								<Column id="baseUOMCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>baseUnitMeasure}"/></Column>
+								<Column id="operationCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>operationActivity}"/></Column>
+								<Column id="ownerRoleCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>ownerRole}"/></Column>
+								<Column id="partyEntCol" visible="false" hAlign="Center"><Text text="{i18n>partyEntitled}"/></Column>
+								<Column id="stockIdenCol" visible="false"><Text text="{i18n>stockIdentification}"/></Column>
+								<Column id="stockProdSupCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>stockProdSupply}"/></Column>
+								<Column id="storagetypeCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageType}"/></Column>
+							
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											emphasized="false" subtle="false"/>
+										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCity}"/>
+										<Text text="{ShipCity}"/>
+										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCountry}"/>
+										<Text text="{CustomerID}"/>
+										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ProductName}"/>
+										<Text text="{ShipperName}"/>
+										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+										
+										
+										
+										
+											<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											emphasized="false" subtle="false"/>
+										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCity}"/>
+										<Text text="{ShipCity}"/>
+										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ShipCountry}"/>
+										<Text text="{CustomerID}"/>
+										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{CurrencyCode}"/>
+										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{ProductName}"/>
+										<Text text="{ShipperName}"/>
+										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+										
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>	
+					
+					
+				</content>
 			</Page>
 		</pages>
 	</App>

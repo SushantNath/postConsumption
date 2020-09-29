@@ -46,7 +46,7 @@
 						<OverflowToolbar>
 							<ToolbarSpacer/>
 							<Button text="{i18n>consumption}" type="Emphasized" press="onClickConsumption"/>
-							<Button text="{i18n>reversal}" type="Emphasized" press="onClickreversal"/>
+							<Button text="{i18n>reversal}" type="Emphasized" press="onClickReversal"/>
 						</OverflowToolbar>
 					</footer>
 				</Page>
