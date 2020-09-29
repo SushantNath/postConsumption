@@ -141,14 +141,15 @@
 			</Panel>
 			
 			
-				<Table id="productsTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{/Invoices}" growing="true"
+				<Table id="consumptionTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{path : 'shipToModel>/ShipToPartySet'}" growing="true" 
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								
-								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
+								<Toolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
 									<Title text="Stock for consumption"/>
-									<ToolbarSpacer/>
 									
+									<ToolbarSpacer/>
+									<SearchField  search=".onSearchConsumption" width="50%"/>	
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
 										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="Post Consumption" type="Transparent">
@@ -161,7 +162,7 @@
 										</layoutData>
 									</Button>-->
 									
-								</OverflowToolbar>
+								</Toolbar>
 							</headerToolbar>
 							<columns>
 								
@@ -203,54 +204,54 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+										<Link press="_onOrderClick" text="{shipToModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
 											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCity}"/>
-										<Text text="{ShipCity}"/>
-										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
+										<ObjectIdentifier title="{shipToModel>ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ShipCity}"/>
+										<Text text="{shipToModel>ShipCity}"/>
+										<ObjectNumber number="{shipToModel>UnitPrice}" unit="{shipToModel>WeightUnit}"/>
 										<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCountry}"/>
-										<Text text="{CustomerID}"/>
-										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
+											unit="{shipToModel>CurrencyCode}"/>
+										<ObjectIdentifier title="{shipToModel>Name}" text="{shipToModel>ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ShipCountry}"/>
+										<Text text="{shipToModel>CustomerID}"/>
+										<ObjectNumber number="{shipToModel>ExtendedPrice}" unit="{WeightUnit}"/>
 										<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ProductName}"/>
-										<Text text="{ShipperName}"/>
-										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+											unit="{shipToModel>CurrencyCode}"/>
+										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ProductName}"/>
+										<Text text="{shipToModel>ShipperName}"/>
+										<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>
 										
 										
 										
 										
-											<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											<Link press="_onOrderClick" text="{shipToModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
 											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCity}"/>
-										<Text text="{ShipCity}"/>
-										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
+										<ObjectIdentifier title="{shipToModel>ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ShipCity}"/>
+										<Text text="{shipToModel>ShipCity}"/>
+										<ObjectNumber number="{shipToModel>UnitPrice}" unit="{WeightUnit}"/>
 										<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCountry}"/>
-										<Text text="{CustomerID}"/>
-										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
+											unit="{shipToModel>CurrencyCode}"/>
+										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ShipCountry}"/>
+										<Text text="{shipToModel>CustomerID}"/>
+										<ObjectNumber number="{shipToModel>ExtendedPrice}" unit="{WeightUnit}"/>
 										<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ProductName}"/>
-										<Text text="{ShipperName}"/>
-										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
+											unit="{shipToModel>CurrencyCode}"/>
+										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
+										<Text text="{shipToModel>ProductName}"/>
+										<Text text="{shipToModel>ShipperName}"/>
+										<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>
 										
 											<!-- Text field as per WRICEF 4899-->
-											<Text text="{ProductName}"/>
-										<Text text="{ShipperName}"/>
+											<Text text="{shipToModel>ProductName}"/>
+										<Text text="{shipToModel>ShipperName}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

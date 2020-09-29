@@ -5,8 +5,10 @@ sap.ui.define([
 			'sap/ui/core/util/Export',
 		'sap/ui/core/util/ExportTypeCSV',
 		'sap/m/MessageBox',
+		"sap/ui/model/Filter",
+		"sap/ui/model/FilterOperator",
 				"sap/com/postconsumption/postConsumption/utilities/Formatter"
-], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Formatter) {
+], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,Formatter) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -49,11 +51,12 @@ var oProvider = sap.ushell.Container.getService("Personalization").getPersonaliz
 
 // Instantiate a controller connecting your table and the persistence service
 this._oTPC = new TablePersoController({
-    table: this.getView().byId("productsTable"),
+    table: this.getView().byId("consumptionTable"),
     persoService: oProvider
   // persoService: persoService
 }).activate();
 
+this.getConsumption();
 
 		},
 
@@ -67,6 +70,38 @@ this._oTPC = new TablePersoController({
 		_onPersoButtonPressed: function (oEvent) {
 			this._oTPC.openDialog();
 		//	this.oTablePersoController.openDialog();
+		},
+		
+		//Read  Consumtion service
+		
+		getConsumption: function () {
+			
+				var oModel = this.getOwnerComponent().getModel();
+			var that = this;
+			var oView = this.getView();
+			sap.ui.core.BusyIndicator.show();
+				oModel.read("/Invoices", {
+
+				success: function (oData, Response) {
+
+					var orderModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(orderModel, "shipToModel");
+					oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+					sap.ui.core.BusyIndicator.hide();
+					// var immInvoiceModel = new sap.ui.model.json.JSONModel(oData);
+					// 	that.getView().setModel(immInvoiceModel, "immInvoiceData");
+					// 	immInvoiceModel.setProperty("/immInvoiceSet", oData.results);
+	sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Success function", oData.results);
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function");
+				}
+
+			});
+			
 		},
 		
 // Export to excel
@@ -282,6 +317,67 @@ this._oTPC = new TablePersoController({
 			}).then(function() {
 				oExport.destroy();
 			});
+		},
+		
+		//Consumption table search
+		
+			onSearchConsumption: function (oEvent) {
+			// add filter for search
+			var aFilters = [];
+			var sQuery = oEvent.getSource().getValue();
+			if (sQuery && sQuery.length > 0) {
+				var handlingUnitFilter = new Filter("ShipName", FilterOperator.Contains, sQuery);
+				var prodConsumptionFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var stockProdSupFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var auomFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var descriptionFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+				var batchFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var shelfLifeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var countryOriginFilter = new Filter("ShipCountry", FilterOperator.Contains, sQuery);
+				var restrictedUseFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var stockTypeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+				var stockTypeDescFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var prodSupAreaFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var storageBinFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var ownerFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var valuationQuanFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+				var valuationUnitFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var valuationMeasFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var typeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var salesOrderFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var salesOrdItemFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+				var baseUOMFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var operatioActFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var ownerRoleFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var partyEntitledFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var stockIdenFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+				var stockProdBUOMFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var storageTypeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var quantityConsumeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var quanPSAFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				
+					var oFilter = new Filter([handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
+				batchFilter,shelfLifeFilter,countryOriginFilter,restrictedUseFilter,stockTypeFilter,stockTypeDescFilter,
+				prodSupAreaFilter,storageBinFilter,ownerFilter,valuationQuanFilter,valuationUnitFilter,valuationMeasFilter,
+				typeFilter,salesOrderFilter,salesOrdItemFilter,baseUOMFilter,operatioActFilter,ownerRoleFilter,partyEntitledFilter,
+				stockIdenFilter,stockProdBUOMFilter,storageTypeFilter,quantityConsumeFilter,quanPSAFilter]);
+				
+				// aFilters.push(handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
+				// batchFilter,shelfLifeFilter,countryOriginFilter,restrictedUseFilter,stockTypeFilter,stockTypeDescFilter,
+				// prodSupAreaFilter,storageBinFilter,ownerFilter,valuationQuanFilter,valuationUnitFilter,valuationMeasFilter,
+				// typeFilter,salesOrderFilter,salesOrdItemFilter,baseUOMFilter,operatioActFilter,ownerRoleFilter,partyEntitledFilter,
+				// stockIdenFilter,stockProdBUOMFilter,storageTypeFilter,quantityConsumeFilter,quanPSAFilter);
+			}
+
+			// update list binding
+			var oList = this.byId("consumptionTable");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(oFilter, "Application");
 		}
 
 		/**
