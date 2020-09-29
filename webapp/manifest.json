@@ -20,11 +20,7 @@
 				"settings": {
 					"odataVersion": "2.0"
 				}
-				
 			},
-			
-			
-			
 			"manage": {
 				"uri": "/sap/opu/odata/sap/PP_MPE_OPER_MANAGE",
 				"type": "OData",
@@ -80,11 +76,9 @@
 			"": {
 				"dataSource": "Northwind"
 			},
-		
-				"revenueModel": {
+			"revenueModel": {
 				"dataSource": "Revenue"
 			}
-				
 		},
 		"resources": {
 			"css": [
@@ -111,8 +105,7 @@
 						"TargetSettings"
 					]
 				},
-				
-					{
+				{
 					"name": "postConsumption",
 					"pattern": "postConsumption",
 					"target": [
@@ -125,12 +118,15 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					
 					"viewName": "Settings"
 				},
 				"postConsumption": {
 					"viewType": "XML",
 					"viewName": "postConsumption"
+				},
+				"reversalPosting": {
+					"viewType": "XML",
+					"viewName": "reversalPosting"
 				}
 			}
 		}

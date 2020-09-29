@@ -7,7 +7,7 @@
 		search= "handleSearchManufacturing"
 		confirm="handleCloseManufacturing"
 		cancel="_handleValueHelpCloseManufacturing"
-		
+			title="{i18n>manufacturingHeader}"
 		items="{
 			path : '/Invoices'}">             
 		<ColumnListItem>
@@ -16,26 +16,22 @@
 				title="{ProductId}" 
 				 />
 					<Text text="{ProductName}" />	
-					<Text text="{ProductName}" />	
+					
 					
 			</cells>
 		</ColumnListItem>
 		<columns>
 			<Column width="12em">
 				<header>
-					<Text text="{i18n>shipToCode}" />
+					<Text text="{i18n>warehouseNum}" />
 				</header>
 			</Column>
 				<Column width="12em">
 				<header>
-					<Text text="{i18n>text}" />
+					<Text text="{i18n>manufOrder}" />
 				</header>
 			</Column>
-				<Column width="12em">
-				<header>
-					<Text text="{i18n>shipToCountry}" />
-				</header>
-			</Column>
+			
 			
 		</columns>
 	</TableSelectDialog>

@@ -7,7 +7,7 @@
 		search= "handleSearchQuanProd"
 		confirm="handleCloseQuanProd"
 		cancel="_handleValueHelpCloseQuanProd"
-		
+		title="{i18n>QuantityProd}"
 		items="{
 			path : '/Invoices'}">             
 		<ColumnListItem>
