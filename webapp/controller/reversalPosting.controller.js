@@ -1,6 +1,10 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+    "sap/m/TablePersoController",
+			'sap/ui/core/util/Export',
+		'sap/ui/core/util/ExportTypeCSV',
+		'sap/m/MessageBox'
+], function (Controller,TablePersoController,Export,ExportTypeCSV,MessageBox) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.reversalPosting", {
@@ -11,8 +15,27 @@ sap.ui.define([
 		 * @memberOf sap.com.postconsumption.postConsumption.view.reversalPosting
 		 */
 		onInit: function () {
+			
+				// Create a persistence key
+ var oPersId = {container: "mycontainer-2", item: "myitem-2"};
+
+// // Get a personalization service provider from the shell (or create your own)
+var oProvider2 = sap.ushell.Container.getService("Personalization").getPersonalizer(oPersId);
+
+// Instantiate a controller connecting your table and the persistence service
+this._oTPC = new TablePersoController({
+    table: this.getView().byId("reversalPostingTable"),
+    persoService: oProvider2
+  // persoService: persoService
+}).activate();
 
 		},
+		
+			//Personalisation button click event
+		_onPersoReversalPressed: function (oEvent) {
+			this._oTPC.openDialog();
+		//	this.oTablePersoController.openDialog();
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

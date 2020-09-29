@@ -142,17 +142,17 @@
 			</Panel>
 			
 			
-				<Table id="productsTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{/Invoices}" growing="true"
+				<Table id="reversalPostingTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{/Invoices}" growing="true"
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								
 								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
-									<Title text="Stock for consumption"/>
+									<Title text="{i18n>consumedStock}"/>
 									<ToolbarSpacer/>
 									
 									<Button icon="sap-icon://download" press="_onDataExport"/>
-									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
-										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="Post Consumption" type="Transparent">
+									<Button icon="sap-icon://action-settings" press="_onPersoReversalPressed"/>
+										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="{i18n>postReversal}" type="Transparent">
 					<customData>
 						<core:CustomData key="option" value="expXmlBtn"/>
 					</customData>

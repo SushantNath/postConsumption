@@ -259,6 +259,18 @@ this._oTPC = new TablePersoController({
 					template : {
 						content : "{ShipName}"
 					}
+				},
+				{
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityConsume"),
+					template : {
+						content : "{ShipName}"
+					}
+				},
+				{
+					name : this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityPSA"),
+					template : {
+						content : "{ShipName}"
+					}
 				}
 				
 				]
