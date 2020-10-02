@@ -14,54 +14,60 @@
 							<VBox>
 								<HBox class="sapUiTinyMargin sapUiNoMarginBottom" height="auto">
 									<HBox>
-									<Label wrapping="true" class="cardTitle" design="Bold" textAlign="Right" text="{i18n>handlingUnit}"/>
-									<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>
+									<Label wrapping="true"   textAlign="Left" text="{i18n>handlingUnit}"/>
+									<!--<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 								</HBox>
 							
 							
 									
 										<HBox>
-									<Label wrapping="true" design="Bold" text="{i18n>productConsumption}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Label wrapping="true"  text="{i18n>productConsumption}"/>
+									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 							
 									
 								
 								
 								<HBox>
-									<Label wrapping="true" design="Bold" text="{i18n>batch}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Label wrapping="true" text="{i18n>batch}"/>
+									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 								
 									<HBox>
-									<Label wrapping="true" design="Bold" text="{i18n>shelfLife}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Label wrapping="true"  text="{i18n>shelfLife}"/>
+									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 								<HBox>
-									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Label wrapping="true"  text="{i18n>description}"/>
+									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 									
 										<HBox>
-									<Label wrapping="true" design="Bold" text="{i18n>operation}"/>
-									<Input class="sapUiSmallMarginBegin">  </Input>
+									<Label wrapping="true"  text="{i18n>operation}"/>
+									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
 									</HBox>
 										<HBox>
-									<CheckBox text="Restricted Use" />
+									<CheckBox id="restrictedUseId" enabled="false" text="Restricted Use" />
 									</HBox>
 									
 									<HBox>
-								<RadioButton  text="Consumption Quantity" />
+								<RadioButton id="consumptionQuantityId" enabled="false" text="Consumption Quantity" />
 									</HBox>
 									
 										<HBox>
-								<RadioButton  text="Remaining Quantity" />
+								<RadioButton id="remainingQuantityId" enabled="false" text="Remaining Quantity" />
 									</HBox>
 									
 								<HBox>
-									<Button text="{i18n>valuation}" press="onValuationPress" />
-				                  <Button text="{i18n>serial}" press="onSerialNoPress" />
+									<Button enabled="false" text="{i18n>valuation}" press="onValuationPress" />
+				                  <Button enabled="false" text="{i18n>serial}" press="onSerialNoPress" />
 									</HBox>
 									
 							</VBox>
@@ -72,65 +78,68 @@
 							
 	<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>additionalInformation}" width="1">
 							<VBox>
-								<HBox class="sapUiTinyMargin sapUiTinyMarginBottom" height="auto">
-									<Label wrapping="true" class="cardTitle" design="Bold" text="{i18n>finshedProduct}"/>
-									<Label wrapping="true"  text=""/>
+								<HBox  height="auto">
+									<Label wrapping="true" class="cardTitle"  text="{i18n>finshedProduct}"/>
+									<Label wrapping="true" class="sapUiSmallMarginBegin"  text="000000000006308043"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>description}"/>
+								<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>description}"/>
 										<Label wrapping="true" id="distRefNumLabel" text="{orderDetails>/DistRefNumber}"/>
 								</HBox>
 							
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>manufacturingOrder}"/>
+								<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>manufacturingOrder}"/>
+										<Link press="onManufacturePress" class="sapUiSmallMarginBegin" tooltip="" text="1000443">
+								
+								</Link>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+								<HBox  height="auto">
 									<Label wrapping="true" id="custPoNumLabel2" text="{orderDetails>/PurchOrdNoExt}"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>requirementStart}"/>
+								<HBox height="auto">
+									<Label wrapping="true"  text="{i18n>requirementStart}"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+								<HBox  height="auto">
 									<Label id="creatDateLabel" wrapping="true"
 										text="{ path:'orderDetails>/CreatedDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'long', UTC: true} }"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>reservation}"/>
+								<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>reservation}"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginTop " height="auto">
+								<HBox height="auto">
 									<Label wrapping="true" id="totValLabel" text="{orderDetails>/TotalVolume} &#160; {orderDetails>/VolumeUom}"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>consumedQuality}"/>
+								<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>consumedQuality}"/>
 								</HBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+								<HBox  height="auto">
 									<Label wrapping="true" id="totWeightLabel" text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
 								</HBox>
-									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>consumptionProgress}"/>
+									<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>consumptionProgress}"/>
 								</HBox>
-									<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<HBox  height="auto">
 									<Label wrapping="true"  text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
 								</HBox>
 								
-									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>operationActivity}"/>
+									<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>operationActivity}"/>
 								</HBox>
 								
-									<HBox class="sapUiTinyMargin sapUiNoMarginTop sapUiTinyMarginBottom" height="auto">
+									<HBox  height="auto">
 									<Label wrapping="true"  text="{orderDetails>/TotalWeight} &#160; {orderDetails>/WeightUom}"/>
 								</HBox>
 								
-									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>itemNoOfReservation}"/>
+									<HBox  height="auto">
+									<Label wrapping="true" text="{i18n>itemNoOfReservation}"/>
 								</HBox>
 								
-									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>itemNoOfReservation}"/>
+									<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>itemNoOfReservation}"/>
 								</HBox>
 								
-									<HBox class="sapUiTinyMargin sapUiNoMarginBottom sapUiNoMarginTop" height="auto">
-									<Label wrapping="true" design="Bold" text="{i18n>requiredQuantityBuom}"/>
+									<HBox  height="auto">
+									<Label wrapping="true"  text="{i18n>requiredQuantityBuom}"/>
 								</HBox>
 								
 							</VBox>
@@ -152,7 +161,7 @@
 									<SearchField  search=".onSearchConsumption" width="50%"/>	
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
-										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="Post Consumption" type="Transparent">
+										<Button class="sapUiTinyMargin" id="expXmlBtn" press="onPostConsumption" text="Post Consumption" type="Transparent">
 					<customData>
 						<core:CustomData key="option" value="expXmlBtn"/>
 					</customData>
@@ -245,12 +254,15 @@
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
 											unit="{shipToModel>CurrencyCode}"/>
 										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ProductName}"/>
-										<Text text="{shipToModel>ShipperName}"/>
-										<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>
+										<!--<Text text="{shipToModel>ProductName}"/>-->
+											<Input  enabled="true" value="CustmProductName" />
+										<!--<Text text="{shipToModel>ShipperName}"/>-->
+											<Input  enabled="false" value="CustmProductName" />
+										<!--<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>-->
+									<Text text="{shipToModel>ShipperName}"/>
 										
 											<!-- Text field as per WRICEF 4899-->
-											<Text text="{shipToModel>ProductName}"/>
+											<Text text="{shipToModel>ShipperName}"/>
 										<Text text="{shipToModel>ShipperName}"/>
 									</cells>
 								</ColumnListItem>

@@ -1,3 +1,5 @@
+var globalModel;
+
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 		"sap/ui/core/routing/History",
@@ -7,8 +9,9 @@ sap.ui.define([
 		'sap/m/MessageBox',
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
+		'sap/m/MessageToast',
 				"sap/com/postconsumption/postConsumption/utilities/Formatter"
-], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,Formatter) {
+], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,MessageToast,Formatter) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -56,6 +59,7 @@ this._oTPC = new TablePersoController({
   // persoService: persoService
 }).activate();
 
+
 this.getConsumption();
 
 		},
@@ -72,11 +76,32 @@ this.getConsumption();
 		//	this.oTablePersoController.openDialog();
 		},
 		
+		// on selecta particular comsumption
+		
+		onPressOrderNumber: function (oEvent) {
+			
+	//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
+			console.log("Inside press order number");
+			this.getView().byId("restrictedUseId").setEnabled(true);
+			this.getView().byId("consumptionQuantityId").setEnabled(true);
+			this.getView().byId("remainingQuantityId").setEnabled(true);
+		//	this.oTablePersoController.openDialog();
+		},
+		
+		//open manufacture details
+		onManufacturePress: function (oEvent) {
+			console.log("Inside manufacture link press");
+		
+		},
+		
+		
+		
 		//Read  Consumtion service
 		
 		getConsumption: function () {
-			
+		
 				var oModel = this.getOwnerComponent().getModel();
+					globalModel=oModel;
 			var that = this;
 			var oView = this.getView();
 			sap.ui.core.BusyIndicator.show();
@@ -101,6 +126,49 @@ this.getConsumption();
 				}
 
 			});
+			
+		},
+		
+		//Post consumption functionality
+		onPostConsumption: function(oEvent) {
+				var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
+				
+				
+			
+				
+				var aSelectedItems = [];
+				var selectedArray = [];
+					if (consTableLength.length > 0) {
+						
+						
+							var aItems = this.getView().byId('consumptionTable').getItems();
+var aSelectedItems = [];
+for (var i=0; i<aItems.length;i++) {
+     if (aItems[i].getSelected()) {
+          aSelectedItems.push(aItems[i]);
+     }
+}
+						
+					// 	consTableLength.forEach(function (oItem) {
+
+					// 	var selectedValue = oItem.oBindingContexts.shipToModel.sPath;
+					// 	var tableValue = oEvent.getSource().getModel().getProperty(selectedValue);
+					// //	globalModel;
+					// 	//	var serverMessage;
+					
+					// 	selectedArray.push(tableValue);
+
+
+					// });
+						
+						
+						console.log("Inside table length",aSelectedItems);
+					}
+					
+					else{
+							MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("tableLengthMessage"));
+						console.log("Outside table length");
+					}
 			
 		},
 		

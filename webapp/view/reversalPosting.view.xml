@@ -146,10 +146,10 @@
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								
-								<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
+								<Toolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
 									<Title text="{i18n>consumedStock}"/>
 									<ToolbarSpacer/>
-									
+									<SearchField  search=".onSearchReversal" width="50%"/>
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoReversalPressed"/>
 										<Button class="sapUiTinyMargin" id="expXmlBtn" press="tblButtonPressed" text="{i18n>postReversal}" type="Transparent">
@@ -162,7 +162,7 @@
 										</layoutData>
 									</Button>-->
 									
-								</OverflowToolbar>
+								</Toolbar>
 							</headerToolbar>
 							<columns>
 								
