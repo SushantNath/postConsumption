@@ -58,11 +58,12 @@
 									</HBox>
 									
 									<HBox>
-								<RadioButton id="consumptionQuantityId" enabled="false" text="Consumption Quantity" />
+								<RadioButton id="consumptionQuantityId" enabled="false" text="Consumption Quantity" select="consQuanSel" />
+							
 									</HBox>
 									
 										<HBox>
-								<RadioButton id="remainingQuantityId" enabled="false" text="Remaining Quantity" />
+								<RadioButton id="remainingQuantityId" enabled="false" text="Remaining Quantity" select="remQuanSel" />
 									</HBox>
 									
 								<HBox>
@@ -255,10 +256,14 @@
 											unit="{shipToModel>CurrencyCode}"/>
 										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
 										<!--<Text text="{shipToModel>ProductName}"/>-->
-											<Input  enabled="true" value="CustmProductName" />
+											<Input id="quanConsInpId" editable="false"  value="CustmProductName" />
+											<!--<TextField value="Consumption" editable="{isEnabled}" />-->
+
 										<!--<Text text="{shipToModel>ShipperName}"/>-->
-											<Input  enabled="false" value="CustmProductName" />
+											<Input  id="quanPSAInpId" editable="false"  value="CustmProductName" />
 										<!--<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>-->
+										<!--<TextField value="Consumption" editable="{isEnabled}" />-->
+
 									<Text text="{shipToModel>ShipperName}"/>
 										
 											<!-- Text field as per WRICEF 4899-->

@@ -10,8 +10,9 @@ sap.ui.define([
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
 		'sap/m/MessageToast',
+			'sap/ui/model/json/JSONModel',
 				"sap/com/postconsumption/postConsumption/utilities/Formatter"
-], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,MessageToast,Formatter) {
+], function (Controller,History,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,MessageToast,JSONModel,Formatter) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
@@ -85,6 +86,29 @@ this.getConsumption();
 			this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
+			
+			 //var aIndices = oEvent.getSource().getSelectedIndices(),
+    //         myData = this.getView().getModel().getProperty("/data"),
+    //         that = this;
+        
+    //     $.each(myData,function(i, v){
+    //         that.getView().getModel().setProperty("/data/" + v + "/isEnabled", false);
+    //     });
+    //     $.each(aIndices,function(i, v){
+    //         that.getView().getModel().setProperty("/data/" + v + "/isEnabled", true);
+    //     });
+    
+			
+		// 	this.getView().byId("consumptionTable").getItems().forEach(function (item) {
+		// 					//	if (item.getCells()[8].getText() === "Completely processed") {
+		// 					if (item.getCells()[6].getText() !== "" || item.getCells()[7].getText() !== "") {
+		// 						item.getCells()[27].setEnabled(true);
+		// 					}
+		// 				});
+				
+		// //	this.oTablePersoController.openDialog();
+		// },
+			
 		//	this.oTablePersoController.openDialog();
 		},
 		
@@ -170,6 +194,32 @@ for (var i=0; i<aItems.length;i++) {
 						console.log("Outside table length");
 					}
 			
+		},
+		
+		// on selection of consumption quantity radio button
+		
+		consQuanSel: function(oEvent) {
+				this.getView().byId("consumptionQuantityId").setEnabled(true);
+				var oTable = this.getView().byId("consumptionTable");
+      var aItems = oTable.getItems();
+      for (var i = 0; i < aItems.length; i++) {
+         aItems[i].getCells()[27].setEditable(aItems[i].getSelected());
+      }
+	
+		},
+		
+		
+			// on selection of consumption quantity radio button
+		
+		remQuanSel: function(oEvent) {
+				this.getView().byId("remainingQuantityId").setEnabled(true);
+				var oTable = this.getView().byId("consumptionTable");
+      var aItems = oTable.getItems();
+      for (var i = 0; i < aItems.length; i++) {
+         aItems[i].getCells()[28].setEditable(aItems[i].getSelected());
+      }
+      
+  		
 		},
 		
 // Export to excel
