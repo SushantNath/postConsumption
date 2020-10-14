@@ -16,7 +16,7 @@
 									<HBox>
 									<Label wrapping="true"   textAlign="Left" text="{i18n>handlingUnit}"/>
 									<!--<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>-->
-									<Label wrapping="true" class="cardTitle"  textAlign="Right" text=""/>
+									<Label id="handlingTextId" wrapping="true"  class="cardTitle"  textAlign="Right" />
 									</HBox>
 								</HBox>
 							
@@ -214,9 +214,9 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Link press="_onOrderClick" text="{shipToModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+										<Link press="_onOrderClick" text="{shipToModel>Huident}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
 											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{shipToModel>ShipAddress}" class="sapMTableContentMargin"/>
+										<ObjectIdentifier title="{shipToModel>Matnr}" class="sapMTableContentMargin"/>
 										<Text text="{shipToModel>ShipCity}"/>
 										<Text text="{shipToModel>ShipCity}"/>
 										<ObjectNumber number="{shipToModel>UnitPrice}" unit="{shipToModel>WeightUnit}"/>

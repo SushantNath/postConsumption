@@ -21,8 +21,8 @@
 					"odataVersion": "2.0"
 				}
 			},
-			"manage": {
-				"uri": "/sap/opu/odata/sap/PP_MPE_OPER_MANAGE",
+			"Consumption": {
+				"uri": "/sap/opu/odata/sap/ZPTM_CONSUMPTION_BY_PROD_SRV",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
@@ -76,8 +76,8 @@
 			"": {
 				"dataSource": "Northwind"
 			},
-			"revenueModel": {
-				"dataSource": "Revenue"
+			"consumptionModel": {
+				"dataSource": "Consumption"
 			}
 		},
 		"resources": {
