@@ -151,7 +151,7 @@
 			</Panel>
 			
 			
-				<Table id="consumptionTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{path : 'shipToModel>/ShipToPartySet'}" growing="true" 
+				<Table id="consumptionTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{path : 'stockConsModel>/stockConsSet'}" growing="true" 
 							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								
@@ -214,61 +214,65 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Link press="_onOrderClick" text="{shipToModel>Huident}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{shipToModel>Matnr}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ShipCity}"/>
-										<Text text="{shipToModel>ShipCity}"/>
-										<ObjectNumber number="{shipToModel>UnitPrice}" unit="{shipToModel>WeightUnit}"/>
-										<ObjectNumber
+											<Text text="{stockConsModel>Huident}"/>
+										<!--<Link press="_onOrderClick" text="{stockConsModel>Huident}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											emphasized="false" subtle="false"/>-->
+										<ObjectIdentifier title="{stockConsModel>Matnr}" class="sapMTableContentMargin"/>
+										<Text text="{stockConsModel>Quan}"/>
+										<Text text="{stockConsModel>ShipCity}"/>
+										<!--<ObjectNumber number="{stockConsModel>Maktx}" unit="{stockConsModel>WeightUnit}"/>-->
+										<Text text="{stockConsModel>Maktx}"/>
+											<Text text="{stockConsModel>Charg}"/>
+									<!--	<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{shipToModel>CurrencyCode}"/>
-										<ObjectIdentifier title="{shipToModel>Name}" text="{shipToModel>ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ShipCountry}"/>
-										<Text text="{shipToModel>CustomerID}"/>
-										<ObjectNumber number="{shipToModel>ExtendedPrice}" unit="{WeightUnit}"/>
-										<ObjectNumber
+											unit="{stockConsModel>CurrencyCode}"/>-->
+										<ObjectIdentifier title="{stockConsModel>Vfdat}" />
+										<Text text="{stockConsModel>Coo}"/>
+										<Text text="{stockConsModel>Brestr}"/>
+										<ObjectNumber number="{stockConsModel>Cat}" />
+											<Text text="{stockConsModel>CatTxt}"/>
+									<!--	<ObjectNumber
 											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{shipToModel>CurrencyCode}"/>
-										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ProductName}"/>
-										<Text text="{shipToModel>ShipperName}"/>
-										<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>
+											unit="{stockConsModel>CurrencyCode}"/>-->
+										<ObjectIdentifier title="{stockConsModel>Psa}" />
+										<Text text="{stockConsModel>Lgpla}"/>
+										<Text text="{stockConsModel>Owner}"/>
+										<ObjectNumber number="{stockConsModel>Cwquan}" />
 										
 										
 										
-										
-											<Link press="_onOrderClick" text="{shipToModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{shipToModel>ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ShipCity}"/>
-										<Text text="{shipToModel>ShipCity}"/>
-										<ObjectNumber number="{shipToModel>UnitPrice}" unit="{WeightUnit}"/>
+											<Text text="{stockConsModel>Cwunit}"/>
+											<!--<Link press="_onOrderClick" text="{stockConsModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
+											emphasized="false" subtle="false"/>-->
+										<ObjectIdentifier title="{stockConsModel>ShipAddress}" class="sapMTableContentMargin"/>
+										<Text text="{stockConsModel>ShipCity}"/>
+										<Text text="{stockConsModel>StockDoccat}"/>
+										<ObjectNumber number="{stockConsModel>StockItmno}" />
 										<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{shipToModel>CurrencyCode}"/>
-										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{shipToModel>ShipCountry}"/>
-										<Text text="{shipToModel>CustomerID}"/>
-										<ObjectNumber number="{shipToModel>ExtendedPrice}" unit="{WeightUnit}"/>
+											number="{stockConsModel>Unit}"
+											/>
+										<ObjectIdentifier title="" text="{stockConsModel>Operation}" class="sapMTableContentMargin"/>
+										<Text text="{stockConsModel>OwnerRole}"/>
+										<Text text="{stockConsModel>Entitled}"/>
+										<ObjectNumber number="{stockConsModel>Idplate}" />
 										<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{shipToModel>CurrencyCode}"/>
-										<ObjectIdentifier title="{shipToModel>Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<!--<Text text="{shipToModel>ProductName}"/>-->
+											number="{stockConsModel>Quan}"
+											/>
+										<ObjectIdentifier title="" text="{stockConsModel>Quan}" class="sapMTableContentMargin"/>
+										<!--<Text text="{stockConsModel>ProductName}"/>-->
 											<Input id="quanConsInpId" editable="false"  value="CustmProductName" />
 											<!--<TextField value="Consumption" editable="{isEnabled}" />-->
 
-										<!--<Text text="{shipToModel>ShipperName}"/>-->
+										<!--<Text text="{stockConsModel>ShipperName}"/>-->
 											<Input  id="quanPSAInpId" editable="false"  value="CustmProductName" />
-										<!--<ObjectNumber number="{shipToModel>WeightMeasure}" unit="{WeightUnit}"/>-->
+										<!--<ObjectNumber number="{stockConsModel>WeightMeasure}" unit="{WeightUnit}"/>-->
 										<!--<TextField value="Consumption" editable="{isEnabled}" />-->
 
-									<Text text="{shipToModel>ShipperName}"/>
+									<Text text="{stockConsModel>Lgtyp}"/>
 										
 											<!-- Text field as per WRICEF 4899-->
-											<Text text="{shipToModel>ShipperName}"/>
-										<Text text="{shipToModel>ShipperName}"/>
+										<!--	<Text text="{stockConsModel>ShipperName}"/>
+										<Text text="{stockConsModel>ShipperName}"/>-->
 									</cells>
 								</ColumnListItem>
 							</items>

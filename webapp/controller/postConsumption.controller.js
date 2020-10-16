@@ -89,28 +89,44 @@ sap.ui.define([
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
 
-			//var aIndices = oEvent.getSource().getSelectedIndices(),
-			//         myData = this.getView().getModel().getProperty("/data"),
-			//         that = this;
+			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-			//     $.each(myData,function(i, v){
-			//         that.getView().getModel().setProperty("/data/" + v + "/isEnabled", false);
-			//     });
-			//     $.each(aIndices,function(i, v){
-			//         that.getView().getModel().setProperty("/data/" + v + "/isEnabled", true);
-			//     });
+			var manuOrder = "1000443";
+			var quanProd = "4A10";
+			var handlingUnit = "112345678000012066";
+			
+			
+			
+			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
+			var quanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
+			var handleunitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
 
-			// 	this.getView().byId("consumptionTable").getItems().forEach(function (item) {
-			// 					//	if (item.getCells()[8].getText() === "Completely processed") {
-			// 					if (item.getCells()[6].getText() !== "" || item.getCells()[7].getText() !== "") {
-			// 						item.getCells()[27].setEnabled(true);
-			// 					}
-			// 				});
+			oModel.read("/HandlUnitStockSet", {
 
-			// //	this.oTablePersoController.openDialog();
-			// },
+				success: function (oData, Response) {
+					
+					var selHandleUnit = oData.Huident;
+					var selprodCons = oData.Matnr;
+					var selBatch = oData.Charg;
+					var selShelfExp = oData.Vfdat;
+					var selDescription = oData.Maktx;
+					var selOperation = oData.Rsnum;
+					
+					console.log("Selected values are",selHandleUnit,selprodCons,selBatch,selShelfExp,selDescription,selOperation);
+				
 
-			//	this.oTablePersoController.openDialog();
+					sap.ui.core.BusyIndicator.hide();
+
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function");
+				},
+				filters: [handleunitFilter, manuOrderFilter, quanProdFilter]
+
+			});
+
 		},
 
 		//open manufacture details
@@ -132,35 +148,35 @@ sap.ui.define([
 			var operation = "0010";
 			var materNo = "3008040";
 			var prodSupArea = "PSA-P100 /4110";
-			var handlingUnit = "4A10";
-			var quanProd = "112345678000012066";
-       var aFilterData=[];
+			var quanProd = "4A10";
+			var handlingUnit = "112345678000012066";
+			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
 			var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
-var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
-var handlingUnitFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, handlingUnit);
-		var	varquanProdFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, quanProd);
-			
-		//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
+			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
+			var varquanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
+			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
+
+			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
+			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
 
 			var that = this;
 			var oView = this.getView();
 			var arrayValue = [];
 			sap.ui.core.BusyIndicator.show();
-	var oFilter3 = new sap.ui.model.Filter([manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter], true);
+			//	var oFilter3 = new sap.ui.model.Filter([manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter], true);
 
-//aFilterData.push(oFilter3);
+			//aFilterData.push(oFilter3);
 
-	aFilterData.push(new Filter({
-				filters: [
-					
-				oFilter3	
+			// aFilterData.push(new Filter({
+			// 			filters: [
 
-				],
-				and: true
-			}));
+			// 			oFilter3	
 
+			// 			],
+			// 			and: true
+			// 		}));
 
 			var that = this;
 			var oView = this.getView();
@@ -170,30 +186,25 @@ var handlingUnitFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOpe
 
 				success: function (oData, Response) {
 
-					var orderModel = new sap.ui.model.json.JSONModel();
-					oView.setModel(orderModel, "shipToModel");
-					oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+					// var orderModel = new sap.ui.model.json.JSONModel();
+					// oView.setModel(orderModel, "stockConsModel");
+					// oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 
-				
+					var orderModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(orderModel, "stockConsModel");
+					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
 
 					sap.ui.core.BusyIndicator.hide();
 
-					// var immInvoiceModel = new sap.ui.model.json.JSONModel(oData);
-					// 	that.getView().setModel(immInvoiceModel, "immInvoiceData");
-					// 	immInvoiceModel.setProperty("/immInvoiceSet", oData.results);
-				//	sap.ui.core.BusyIndicator.hide();
-					//	oView.byId("handlingTextId").setText( oData.results[0].ShipAddress);
-					console.log("Inside Success function maunal entry model", oManualEntryModel);
 				},
 
 				error: function (oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				},
-					filters: aFilterData
+				filters: [handlingUnitFilter, manuOrderFilter, operationFilter, varquanProdFilter, materNoFilter]
 
 			});
-
 
 		},
 
@@ -215,7 +226,7 @@ var handlingUnitFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOpe
 
 				// 	consTableLength.forEach(function (oItem) {
 
-				// 	var selectedValue = oItem.oBindingContexts.shipToModel.sPath;
+				// 	var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
 				// 	var tableValue = oEvent.getSource().getModel().getProperty(selectedValue);
 				// //	globalModel;
 				// 	//	var serverMessage;

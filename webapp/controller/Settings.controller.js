@@ -27,8 +27,8 @@ sap.ui.define([
 				success: function (oData, Response) {
 
 					var orderModel = new sap.ui.model.json.JSONModel();
-					oView.setModel(orderModel, "shipToModel");
-					oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+					oView.setModel(orderModel, "stockConsModel");
+					oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 					sap.ui.core.BusyIndicator.hide();
 					collectionSet = oData.results;
 					console.log("Inside Success function", oData.results);
@@ -77,9 +77,9 @@ sap.ui.define([
 
 				
 
-			// 		var shipToModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(shipToModel, "shipToModel");
-			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 			// 		sap.ui.core.BusyIndicator.hide();
 			// 		console.log("Inside Success function revenue invoice", oData.results);
 			// 	},
@@ -158,9 +158,9 @@ sap.ui.define([
 
 				
 
-			// 		var shipToModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(shipToModel, "shipToModel");
-			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 			// 		sap.ui.core.BusyIndicator.hide();
 			// 		console.log("Inside Success function revenue invoice", oData.results);
 			// 	},
@@ -240,9 +240,9 @@ sap.ui.define([
 
 				
 
-			// 		var shipToModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(shipToModel, "shipToModel");
-			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 			// 		sap.ui.core.BusyIndicator.hide();
 			// 		console.log("Inside Success function revenue invoice", oData.results);
 			// 	},
@@ -323,9 +323,9 @@ sap.ui.define([
 
 				
 
-			// 		var shipToModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(shipToModel, "shipToModel");
-			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 			// 		sap.ui.core.BusyIndicator.hide();
 			// 		console.log("Inside Success function revenue invoice", oData.results);
 			// 	},
@@ -406,9 +406,9 @@ sap.ui.define([
 
 				
 
-			// 		var shipToModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(shipToModel, "shipToModel");
-			// 		oView.getModel("shipToModel").setProperty("/ShipToPartySet", oData.results);
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 			// 		sap.ui.core.BusyIndicator.hide();
 			// 		console.log("Inside Success function revenue invoice", oData.results);
 			// 	},
