@@ -94,38 +94,30 @@ sap.ui.define([
 			var manuOrder = "1000443";
 			var quanProd = "4A10";
 			var handlingUnit = "112345678000012066";
-			
-			
-			
-			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
-			var quanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
-			var handleunitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
+		oModel.read("/HandlUnitStockSet('Lgnum' + '=' + '" + quanProd + "' + 'Huident' + '=' + '" + handlingUnit + "' + 'MfgOrder' + '=' + '" + manuOrder + "')", {
 
-			oModel.read("/HandlUnitStockSet", {
+		success: function (oData, Response) {
 
-				success: function (oData, Response) {
+					var orderModel = new sap.ui.model.json.JSONModel();
+					// oView.setModel(orderModel, "stockConsModel");
+					// oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 					
-					var selHandleUnit = oData.Huident;
-					var selprodCons = oData.Matnr;
-					var selBatch = oData.Charg;
-					var selShelfExp = oData.Vfdat;
-					var selDescription = oData.Maktx;
-					var selOperation = oData.Rsnum;
 					
-					console.log("Selected values are",selHandleUnit,selprodCons,selBatch,selShelfExp,selDescription,selOperation);
-				
+					
 
 					sap.ui.core.BusyIndicator.hide();
 
+				
 				},
 
 				error: function (oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
-				},
-				filters: [handleunitFilter, manuOrderFilter, quanProdFilter]
-
+				}
+					
 			});
+			
+
 
 		},
 
