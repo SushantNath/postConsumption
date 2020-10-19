@@ -11,6 +11,17 @@
 								columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<f:content>
 									
+										<Label text="{i18n>warehouse}" required="true"/>
+									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>	
+					
+						
+									</Input>
+									
+									
+									
 									<Label text="{i18n>manufacturingOrder}" required="true"/>
 									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpManufacturing">
 										<customData>

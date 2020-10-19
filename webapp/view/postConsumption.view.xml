@@ -217,25 +217,20 @@
 								<ColumnListItem>
 									<cells>
 											<Text text="{stockConsModel>Huident}"/>
-										<!--<Link press="_onOrderClick" text="{stockConsModel>Huident}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>-->
+									
 										<ObjectIdentifier title="{stockConsModel>Matnr}" class="sapMTableContentMargin"/>
 										<Text text="{stockConsModel>Quan}"/>
-										<Text text="{stockConsModel>ShipCity}"/>
-										<!--<ObjectNumber number="{stockConsModel>Maktx}" unit="{stockConsModel>WeightUnit}"/>-->
+										<Text text="{stockConsModel>Altme}"/>
+									
 										<Text text="{stockConsModel>Maktx}"/>
 											<Text text="{stockConsModel>Charg}"/>
-									<!--	<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{stockConsModel>CurrencyCode}"/>-->
+								
 										<ObjectIdentifier title="{stockConsModel>Vfdat}" />
 										<Text text="{stockConsModel>Coo}"/>
 										<Text text="{stockConsModel>Brestr}"/>
 										<ObjectNumber number="{stockConsModel>Cat}" />
 											<Text text="{stockConsModel>CatTxt}"/>
-									<!--	<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{stockConsModel>CurrencyCode}"/>-->
+								
 										<ObjectIdentifier title="{stockConsModel>Psa}" />
 										<Text text="{stockConsModel>Lgpla}"/>
 										<Text text="{stockConsModel>Owner}"/>
@@ -244,11 +239,11 @@
 										
 										
 											<Text text="{stockConsModel>Cwunit}"/>
-											<!--<Link press="_onOrderClick" text="{stockConsModel>ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>-->
-										<ObjectIdentifier title="{stockConsModel>ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{stockConsModel>ShipCity}"/>
+										
+										<ObjectIdentifier title="{stockConsModel>Cwexact}" class="sapMTableContentMargin"/>
+									
 										<Text text="{stockConsModel>StockDoccat}"/>
+											<Text text="{stockConsModel>StockItmno}"/>
 										<ObjectNumber number="{stockConsModel>StockItmno}" />
 										<ObjectNumber
 											number="{stockConsModel>Unit}"

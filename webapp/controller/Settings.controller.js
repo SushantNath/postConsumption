@@ -44,6 +44,89 @@ sap.ui.define([
 	
 		},
 		
+		
+		//value help for Warehouse
+				//value help for manufacturing order
+			onValueHelpWarehouse: function() {
+			
+				this.loadWarehouse();
+			var oView = this.getView();
+			var that = this;
+
+			// create value help dialog
+			if (!this._valueHelpDialogWarehouse) {
+				this._valueHelpDialogWarehouse = sap.ui.xmlfragment(
+					this.getView().getId(), "sap.com.postconsumption.postConsumption.fragments.warehouse",
+					this
+				);
+
+				this.getView().addDependent(this._valueHelpDialogWarehouse);
+			}
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogWarehouse.open();	
+				
+			},
+			
+					loadWarehouse: function () {
+		//	var oModel = this.getView().getModel("revenueModel");
+			var that = this;
+			var oView = this.getView();
+			// sap.ui.core.BusyIndicator.show();
+			// oModel.read("/DebiaSet", {
+
+			// 	success: function (oData, Response) {
+
+				
+
+			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
+			// 		oView.setModel(stockConsModel, "stockConsModel");
+			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		console.log("Inside Success function revenue invoice", oData.results);
+			// 	},
+
+			// 	error: function (oData, Response, oError) {
+			// 		console.log("Inside Error function");
+			// 	}
+
+			// });
+
+			// console.log("Inside Filter options");
+
+		},
+		
+			//Code to hadle serach inside revenue invoice value help
+		handleSearchWarehouse: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+
+			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+
+			var oFilter = new Filter([filter1, filter2]);
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(oFilter, sap.ui.model.FilterType.Application);
+		},
+		
+			handleCloseWarehouse: function (oEvent) {
+
+			var selectedWarehouse;
+
+			var oMultiInputWarehouse = this.byId("warehouseId");
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+				aContexts.forEach(function (oItem) {
+
+					selectedWarehouse= oItem.oModel.getProperty(oItem.sPath).ProductName;
+
+				});
+
+			}
+
+			oMultiInputWarehouse.setValue(selectedWarehouse);
+		},
+		
 		//value help for manufacturing order
 			onValueHelpManufacturing: function() {
 			
