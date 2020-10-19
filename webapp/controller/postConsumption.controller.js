@@ -88,22 +88,40 @@ sap.ui.define([
 			this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
-
+            var oView= this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
 			var manuOrder = "1000443";
 			var quanProd = "4A10";
 			var handlingUnit = "112345678000012066";
-		oModel.read("/HandlUnitStockSet('Lgnum' + '=' + '" + quanProd + "' + 'Huident' + '=' + '" + handlingUnit + "' + 'MfgOrder' + '=' + '" + manuOrder + "')", {
+				sap.ui.core.BusyIndicator.show();
+			
+	oModel.read("/HandlUnitStockSet(Lgnum='"+ quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
+
 
 		success: function (oData, Response) {
 
-					var orderModel = new sap.ui.model.json.JSONModel();
-					// oView.setModel(orderModel, "stockConsModel");
-					// oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-					
-					
-					
+			//	oView.byId("handlingTextId").setText(oData.Huident);
+				oView.byId("handlingTextId").setText(oData.Huident);
+				oView.byId("productConsumtionId").setText(oData.Matnr);
+				oView.byId("batchId").setText(oData.Charg);
+				oView.byId("shelfLifeId").setText(oData.Vfdat);
+				oView.byId("descriptionId").setText(oData.Maktx);
+				oView.byId("operationId").setText(oData.Operation);
+				
+			//Additional manufacturing order information
+			
+				oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
+				oView.byId("addlDescriptionId").setText(oData.CatTxt);
+				oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+				oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
+				oView.byId("addlReservationId").setText(oData.AdiRsnum);
+				oView.byId("addlConsumedQuantityId").setText(oData.AdiReqUomGi);
+				
+				//	oView.byId("addlConsumedProgressId").setText(oData.Matnr);
+				oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
+				oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
+				oView.byId("addlrequiredQuantityBuomId").setText(oData.ReqUom);
 
 					sap.ui.core.BusyIndicator.hide();
 
