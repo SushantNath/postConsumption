@@ -101,16 +101,27 @@ sap.ui.define([
 		onPressOrderNumber: function (oEvent) {
 
 			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
+			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
+			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 			console.log("Inside press order number");
 			this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
+			
+			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
+			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
+			// var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
+			// var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
+			// var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
+			// var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 
 			var manuOrder = "1000443";
 			var quanProd = "4A10";
-			var handlingUnit = "112345678000012066";
+			//var handlingUnit = "112345678000012066";
+			var handlingUnit = tableValue.Huident;
 			sap.ui.core.BusyIndicator.show();
 
 			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
@@ -176,7 +187,16 @@ sap.ui.define([
 			globalModel = oModel;
 			var oManualEntryModel;
 
-			//Read values tp variables
+			//Read values to variables
+			
+			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
+			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
+			// var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
+			// var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
+			// var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
+			// var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+			
 			var manuOrder = "1000443";
 			var operation = "0010";
 			var materNo = "3008040";

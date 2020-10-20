@@ -1,4 +1,5 @@
 var collectionSet;
+var storedWarehouseValue;
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
@@ -22,6 +23,24 @@ sap.ui.define([
 	this._oManuOrdInput = this.getView().byId("manuOrderId");
 	
 	var oModel = this.getView().getModel("revenueModel");
+	
+	var storagevalue = localStorage.getItem("warehouse");
+
+	if(storagevalue === null){
+
+		console.log("No warehouse value saved");
+	}
+
+	else{
+
+var headerText= "Warehouse is :" + storagevalue;
+
+this.getView().byId("page").setTitle(headerText);
+
+this.byId("warehouseId").setValue(storagevalue);
+
+
+	}
 	
 /*		oModel.read("/HTvfkSet", {
 
@@ -131,6 +150,8 @@ this.getView().byId("page").setTitle(headerText);
 			}
 
 			oMultiInputWarehouse.setValue(selectedWarehouse);
+			this.storedWarehouseValue = selectedWarehouse;
+			localStorage.setItem("warehouse", this.storedWarehouseValue);
 		},
 		
 		//value help for manufacturing order
