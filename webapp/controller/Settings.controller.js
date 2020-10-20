@@ -10,8 +10,9 @@ sap.ui.define([
 	'sap/m/Token',
 	'sap/ui/model/Filter',
 	'sap/ui/model/FilterOperator',
-		"sap/ui/core/UIComponent"
-], function (Controller,JSONModel,SearchField,typeString,ColumnListItem,Label,Token,Filter, FilterOperator,UIComponent) {
+		"sap/ui/core/UIComponent",
+		'sap/m/MessageToast'
+], function (Controller,JSONModel,SearchField,typeString,ColumnListItem,Label,Token,Filter, FilterOperator,UIComponent,MessageToast) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.Settings", {
@@ -69,28 +70,28 @@ sap.ui.define([
 			},
 			
 					loadWarehouse: function () {
-		//	var oModel = this.getView().getModel("revenueModel");
+			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
 			// sap.ui.core.BusyIndicator.show();
-			// oModel.read("/DebiaSet", {
+			oModel.read("/scwm_shLgnumSet", {
 
-			// 	success: function (oData, Response) {
+				success: function (oData, Response) {
 
 				
 
-			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(stockConsModel, "stockConsModel");
-			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-			// 		sap.ui.core.BusyIndicator.hide();
-			// 		console.log("Inside Success function revenue invoice", oData.results);
-			// 	},
+					var warehouseModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(warehouseModel, "warehouseModel");
+					oView.getModel("warehouseModel").setProperty("/warehouseSet", oData.results);
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside warehouse success function", oData.results);
+				},
 
-			// 	error: function (oData, Response, oError) {
-			// 		console.log("Inside Error function");
-			// 	}
+				error: function (oData, Response, oError) {
+					console.log("Inside Error function");
+				}
 
-			// });
+			});
 
 			// console.log("Inside Filter options");
 
@@ -100,8 +101,8 @@ sap.ui.define([
 		handleSearchWarehouse: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 
-			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
-			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter1 = new Filter("Lgnum", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Lnumt", sap.ui.model.FilterOperator.Contains, sValue);
 
 			var oFilter = new Filter([filter1, filter2]);
 			var oBinding = oEvent.getSource().getBinding("items");
@@ -118,9 +119,14 @@ sap.ui.define([
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedWarehouse= oItem.oModel.getProperty(oItem.sPath).ProductName;
+					selectedWarehouse= oItem.oModel.getProperty(oItem.sPath).Lgnum;
 
 				});
+				
+				var headerText= "Warehouse is :" + selectedWarehouse;
+
+this.getView().byId("page").setTitle(headerText);
+
 
 			}
 
@@ -129,6 +135,14 @@ sap.ui.define([
 		
 		//value help for manufacturing order
 			onValueHelpManufacturing: function() {
+				
+			var warehouseValue =	this.getView().byId("warehouseId").getValue();
+
+			if (warehouseValue === "") {
+						MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehouseValueSelect"));
+			}
+
+			else{
 			
 				this.loadManufacturing();
 			var oView = this.getView();
@@ -146,7 +160,7 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogManufacturing.open();	
-				
+			}
 			},
 			
 					loadManufacturing: function () {
@@ -199,21 +213,30 @@ sap.ui.define([
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedManufacturing= oItem.oModel.getProperty(oItem.sPath).ProductName;
+				selectedManufacturing= oItem.oModel.getProperty(oItem.sPath).ProductName;
 
 				});
 
 			}
 
 			oMultiInputManufacturing.setValue(selectedManufacturing);
+			this.maufOrder=selectedManufacturing;
 		},
 
 //Value help for operation
 		onValueHelpOperation: function() {
 			
+				var warehouseValue =	this.getView().byId("warehouseId").getValue();
+
+			if (warehouseValue === "") {
+						MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehouseValueSelect"));
+			}
+
+			else{
+			
 				this.loadOperation();
-			var oView = this.getView();
-			var that = this;
+			// var oView = this.getView();
+			// var that = this;
 
 			// create value help dialog
 			if (!this._valueHelpDialogOperation) {
@@ -227,6 +250,8 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogOperation.open();	
+			
+			}
 				
 			},
 			
@@ -287,15 +312,24 @@ sap.ui.define([
 			}
 
 			oMultiInputOperation.setValue(selectedOperation);
+			this.operation=selectedOperation;
 		},
 
 		
 		//Value help for Product
 		onValueHelpProduct: function() {
 			
+				var warehouseValue =	this.getView().byId("warehouseId").getValue();
+
+			if (warehouseValue === "") {
+						MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehouseValueSelect"));
+			}
+
+			else{
+			
 				this.loadProduct();
-			var oView = this.getView();
-			var that = this;
+			// var oView = this.getView();
+			// var that = this;
 
 			// create value help dialog
 			if (!this._valueHelpDialogProduct) {
@@ -309,6 +343,8 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogProduct.open();	
+			
+			}
 				
 			},
 			
@@ -369,6 +405,7 @@ sap.ui.define([
 			}
 
 			oMultiInputProduct.setValue(selectedProduct);
+				this.productCons=selectedProduct;
 		},
 
 		
@@ -376,9 +413,17 @@ sap.ui.define([
 			//Value help for Product for Supply
 		onValueHelpProdSup: function() {
 			
+				var warehouseValue =	this.getView().byId("warehouseId").getValue();
+
+			if (warehouseValue === "") {
+						MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehouseValueSelect"));
+			}
+
+			else{
+			
 				this.loadProdSup();
-			var oView = this.getView();
-			var that = this;
+			// var oView = this.getView();
+			// var that = this;
 
 			// create value help dialog
 			if (!this._valueHelpDialogProdSup) {
@@ -392,6 +437,8 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogProdSup.open();	
+			
+			}
 				
 			},
 			
@@ -452,6 +499,7 @@ sap.ui.define([
 			}
 
 			oMultiInputProdSup.setValue(selectedProdSup);
+				this.productSupply= selectedProdSup;
 		},
 
 
@@ -459,9 +507,17 @@ sap.ui.define([
 		//Value help for quantity produced
 		onValueHelpQuanProd: function() {
 			
+				var warehouseValue =	this.getView().byId("warehouseId").getValue();
+
+			if (warehouseValue === "") {
+						MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehouseValueSelect"));
+			}
+
+			else{
+			
 				this.loadQuanProd();
-			var oView = this.getView();
-			var that = this;
+			// var oView = this.getView();
+			// var that = this;
 
 			// create value help dialog
 			if (!this._valueHelpDialogQuanProd) {
@@ -474,7 +530,8 @@ sap.ui.define([
 			}
 
 			// open value help dialog filtered by the input value
-			this._valueHelpDialogQuanProd.open();	
+			this._valueHelpDialogQuanProd.open();
+			}
 				
 			},
 			
@@ -535,6 +592,7 @@ sap.ui.define([
 			}
 
 			oMultiInputQuanProd.setValue(selectedQuanProd);
+				this.quantityProd= selectedQuanProd;
 		},
 
 		
@@ -674,6 +732,51 @@ sap.ui.define([
             return requiredInputs;
         },
         validateEventFeedbackForm: function(requiredInputs) {
+        	
+        	var oView= this.getView();
+        	var manufacturingOrder=this.maufOrder;
+        	var operation= this.operation;
+        	var product= this.productCons;
+        	var prodSupArea = this.productSupply;
+        	var quantityProduced = this.quantityProd;
+        	 var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
+                       var uomValue = oView.byId("unitMeasureId").getValue();
+        	
+        	if(operation === undefined){
+        		
+        	operation= "";	
+        	}
+        	
+        		if(product === undefined){
+        		
+        	product= "";	
+        	}
+        	
+        		if(prodSupArea === undefined){
+        		
+        	prodSupArea= "";	
+        	}
+        	
+        	if(quantityProduced === undefined){
+        		
+        	quantityProduced= "";	
+        	}
+        	
+        	
+        	
+       // json model to pass parameters from one view to other 	
+        var	oViewModel = new sap.ui.model.json.JSONModel({
+				"handlingUnitvalue" : handlingUnitvalue,
+				"uomValue" : uomValue,
+				"manufacturingOrder" : manufacturingOrder,
+				"operation" : operation,
+				"product" : product,
+				"prodSupArea" : prodSupArea,
+				"quantityProduced" : quantityProduced
+						});
+					
+        	sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
+        	
         	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 var _self = this;
                 var valid = true;
@@ -685,8 +788,19 @@ sap.ui.define([
                     }
                     else {
                        sInput.setValueState("Success");
+                       
+                      	oRouter.navTo("postConsumption");
                   
-			oRouter.navTo("postConsumption");
+			// oRouter.navTo("postConsumption",{
+			// 	"handlingUnitvalue" : handlingUnitvalue,
+			// 	"uomValue" : uomValue,
+			// 	"manufacturingOrder" : manufacturingOrder,
+			// 	"operation" : operation,
+			// 	"product" : product,
+			// 	"prodSupArea" : prodSupArea,
+			// 	"quantityProduced" : quantityProduced
+				
+			// });
                     }
                 });
                 return valid;

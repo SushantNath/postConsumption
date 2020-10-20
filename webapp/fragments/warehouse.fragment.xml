@@ -9,13 +9,15 @@
 		cancel="_handleValueHelpCloseWarehouse"
 			title="{i18n>warehouseSelection}"
 		items="{
-			path : '/Invoices'}">             
+			path : 'warehouseModel>/warehouseSet'}">             
 		<ColumnListItem>
 			<cells>
-				<ObjectIdentifier 
-				title="{ProductId}" 
-				 />
-					<Text text="{ProductName}" />	
+			<!--	<ObjectIdentifier 
+				title="{warehouseModel>/Lgnum}" 
+				 />-->
+				 
+				 <Text text="{warehouseModel>Lgnum}" />
+					<Text text="{warehouseModel>Lnumt}" />	
 					
 					
 			</cells>
@@ -28,7 +30,7 @@
 			</Column>
 				<Column width="12em">
 				<header>
-					<Text text="{i18n>manufOrder}" />
+					<Text text="Text" />
 				</header>
 			</Column>
 			

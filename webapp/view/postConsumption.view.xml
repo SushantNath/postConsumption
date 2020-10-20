@@ -12,7 +12,7 @@
 						<!--Consumption Posting Card-->
 						<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>consumptionPosting}" width="1">
 							<VBox>
-								<HBox class="sapUiTinyMargin sapUiNoMarginBottom" height="auto">
+								<HBox  height="auto">
 									<HBox>
 									<Label wrapping="true" design="Bold"   text="{i18n>handlingUnit}:"/>
 									<!--<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>-->
@@ -116,6 +116,7 @@
 									<HBox  height="auto">
 									<Label wrapping="true"  design="Bold" text="{i18n>consumptionProgress}:"/>
 									<ProgressIndicator
+									width="300%"
 			class="sapUiTinyMarginBegin" 
 			id="addlConsumedProgressId"
 				percentValue="30"
@@ -164,7 +165,7 @@
 									<SearchField  search=".onSearchConsumption" width="50%"/>	
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
-										<Button class="sapUiTinyMargin" id="expXmlBtn" press="onPostConsumption" text="Post Consumption" type="Transparent">
+										<Button class="sapUiTinyMargin" id="postConsId" press="onPostConsumption" text="Post Consumption" type="Transparent">
 					<customData>
 						<core:CustomData key="option" value="expXmlBtn"/>
 					</customData>
@@ -210,7 +211,7 @@
 								<!-- Extra columns as per WRICEF 4899-->
 								
 								<Column id="quanConsumeCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>quantityConsume}"/></Column>
-								<Column id="quanPSACol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>quantityPSA}"/></Column>
+								<Column id="quanPSACol" visible="false"  minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>quantityPSA}"/></Column>
 							
 							</columns>
 							<items>
@@ -218,58 +219,66 @@
 									<cells>
 											<Text text="{stockConsModel>Huident}"/>
 									
-										<ObjectIdentifier title="{stockConsModel>Matnr}" class="sapMTableContentMargin"/>
+										<!--<ObjectIdentifier title="{stockConsModel>Matnr}" class="sapMTableContentMargin"/>-->
+										<Text text="{stockConsModel>Matnr}"/>
 										<Text text="{stockConsModel>Quan}"/>
 										<Text text="{stockConsModel>Altme}"/>
 									
 										<Text text="{stockConsModel>Maktx}"/>
 											<Text text="{stockConsModel>Charg}"/>
 								
-										<ObjectIdentifier title="{stockConsModel>Vfdat}" />
+										<!--<ObjectIdentifier title="{stockConsModel>Vfdat}" />-->
+											<Text text="{stockConsModel>Vfdat}"/>
 										<Text text="{stockConsModel>Coo}"/>
 										<Text text="{stockConsModel>Brestr}"/>
-										<ObjectNumber number="{stockConsModel>Cat}" />
+										<!--<ObjectNumber number="{stockConsModel>Cat}" />-->
+											<Text text="{stockConsModel>Cat}"/>
 											<Text text="{stockConsModel>CatTxt}"/>
 								
-										<ObjectIdentifier title="{stockConsModel>Psa}" />
+										<!--<ObjectIdentifier title="{stockConsModel>Psa}" />-->
+										<Text text="{stockConsModel>Psa}"/>
 										<Text text="{stockConsModel>Lgpla}"/>
 										<Text text="{stockConsModel>Owner}"/>
-										<ObjectNumber number="{stockConsModel>Cwquan}" />
-										
+										<!--<ObjectNumber number="{stockConsModel>Cwquan}" />-->
+										<Text text="{stockConsModel>Cwquan}"/>
 										
 										
 											<Text text="{stockConsModel>Cwunit}"/>
 										
-										<ObjectIdentifier title="{stockConsModel>Cwexact}" class="sapMTableContentMargin"/>
-									
+										<!--<ObjectIdentifier title="{stockConsModel>Cwexact}" class="sapMTableContentMargin"/>-->
+										<Text text="{stockConsModel>Cwexact}"/>
 										<Text text="{stockConsModel>StockDoccat}"/>
 											<Text text="{stockConsModel>StockItmno}"/>
-										<ObjectNumber number="{stockConsModel>StockItmno}" />
-										<ObjectNumber
+										<!--<ObjectNumber number="{stockConsModel>StockItmno}" />-->
+									<!--	<ObjectNumber
 											number="{stockConsModel>Unit}"
-											/>
-										<ObjectIdentifier title="" text="{stockConsModel>Operation}" class="sapMTableContentMargin"/>
+											/>-->
+												<Text text="{stockConsModel>Unit}"/>
+										<!--<ObjectIdentifier title="" text="{stockConsModel>Operation}" class="sapMTableContentMargin"/>-->
+										<Text text="{stockConsModel>Operation}"/>
 										<Text text="{stockConsModel>OwnerRole}"/>
 										<Text text="{stockConsModel>Entitled}"/>
-										<ObjectNumber number="{stockConsModel>Idplate}" />
-										<ObjectNumber
-											number="{stockConsModel>Quan}"
-											/>
-										<ObjectIdentifier title="" text="{stockConsModel>Quan}" class="sapMTableContentMargin"/>
-										<!--<Text text="{stockConsModel>ProductName}"/>-->
-											<Input id="quanConsInpId" editable="false"  value="CustmProductName" />
-											<!--<TextField value="Consumption" editable="{isEnabled}" />-->
-
-										<!--<Text text="{stockConsModel>ShipperName}"/>-->
-											<Input  id="quanPSAInpId" editable="false"  value="CustmProductName" />
-										<!--<ObjectNumber number="{stockConsModel>WeightMeasure}" unit="{WeightUnit}"/>-->
-										<!--<TextField value="Consumption" editable="{isEnabled}" />-->
-
-									<Text text="{stockConsModel>Lgtyp}"/>
+										<!--<ObjectNumber number="{stockConsModel>Idplate}" />-->
+											<Text text="{stockConsModel>Idplate}"/>
+										<!--<ObjectNumber
+											number="{stockConsModel>Quana}"
+											/>-->
+										<Text text="{stockConsModel>Quana}"/>	
+										<!--<ObjectIdentifier title="" text="{stockConsModel>Quan}" class="sapMTableContentMargin"/>-->
+										<Text text="{stockConsModel>Quan}"/>
 										
-											<!-- Text field as per WRICEF 4899-->
-										<!--	<Text text="{stockConsModel>ShipperName}"/>
-										<Text text="{stockConsModel>ShipperName}"/>-->
+										<Text text="{stockConsModel>Lgtyp}"/>
+									
+											<Input id="quanConsInpId" editable="false"   />
+											
+
+									
+											<Input  id="quanPSAInpId" editable="false"   />
+									
+
+									
+										
+										
 									</cells>
 								</ColumnListItem>
 							</items>

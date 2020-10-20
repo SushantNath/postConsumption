@@ -17,7 +17,7 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.postConsumption", {
-
+		formatter: Formatter,
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -47,6 +47,9 @@ sap.ui.define([
 			// 				persoService: oTableColmnPersProvider
 			// 			}).activate();
 
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("postConsumption").attachMatched(this._onRouteMatched, this);
+
 			// Create a persistence key
 			var oPersId = {
 				container: "mycontainer-1",
@@ -65,6 +68,20 @@ sap.ui.define([
 
 			this.getConsumption();
 
+		},
+
+		_onRouteMatched: function (oEvent) {
+
+			//logic to get values from first screen using json model
+			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
+			var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
+			var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
+			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
+			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
+			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+
+			console.log("Passed values are", manufacturingOrder,handlingUnitvalue,uomValue,operation,product,prodSupArea,quantityProduced);
 		},
 
 		onNavBack: function () {
@@ -88,60 +105,66 @@ sap.ui.define([
 			this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
-            var oView= this.getView();
+			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
 			var manuOrder = "1000443";
 			var quanProd = "4A10";
 			var handlingUnit = "112345678000012066";
-				sap.ui.core.BusyIndicator.show();
-			
-	oModel.read("/HandlUnitStockSet(Lgnum='"+ quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
+			sap.ui.core.BusyIndicator.show();
 
+			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
 
-		success: function (oData, Response) {
+				success: function (oData, Response) {
 
-			//	oView.byId("handlingTextId").setText(oData.Huident);
-				oView.byId("handlingTextId").setText(oData.Huident);
-				oView.byId("productConsumtionId").setText(oData.Matnr);
-				oView.byId("batchId").setText(oData.Charg);
-				oView.byId("shelfLifeId").setText(oData.Vfdat);
-				oView.byId("descriptionId").setText(oData.Maktx);
-				oView.byId("operationId").setText(oData.Operation);
-				
-			//Additional manufacturing order information
-			
-				oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
-				oView.byId("addlDescriptionId").setText(oData.CatTxt);
-				oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-				oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
-				oView.byId("addlReservationId").setText(oData.AdiRsnum);
-				oView.byId("addlConsumedQuantityId").setText(oData.AdiReqUomGi);
-				
-				//	oView.byId("addlConsumedProgressId").setText(oData.Matnr);
-				oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
-				oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
-				oView.byId("addlrequiredQuantityBuomId").setText(oData.ReqUom);
+					//	oView.byId("handlingTextId").setText(oData.Huident);
+					oView.byId("handlingTextId").setText(oData.Huident);
+					oView.byId("productConsumtionId").setText(oData.Matnr);
+					oView.byId("batchId").setText(oData.Charg);
+					oView.byId("shelfLifeId").setText(oData.Vfdat);
+					oView.byId("descriptionId").setText(oData.Maktx);
+					oView.byId("operationId").setText(oData.Operation);
+
+					//Additional manufacturing order information
+
+					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
+					oView.byId("addlDescriptionId").setText(oData.CatTxt);
+					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
+					oView.byId("addlReservationId").setText(oData.AdiRsnum);
+					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqUomGi);
+
+					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
+					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
+					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
+					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
+					oView.byId("addlrequiredQuantityBuomId").setText(oData.ReqUom);
 
 					sap.ui.core.BusyIndicator.hide();
 
-				
 				},
 
 				error: function (oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				}
-					
-			});
-			
 
+			});
 
 		},
 
 		//open manufacture details
 		onManufacturePress: function (oEvent) {
 			console.log("Inside manufacture link press");
+
+			var urlValue = window.location.href;
+			var urlHostname = window.location.hostname;
+			var urlPort = window.location.port;
+
+			var urlAppend = "https://" + urlHostname + ":" + urlPort + "/ui2/nwbc";
+			//window.location();
+
+			window.open(urlAppend);
 
 		},
 
@@ -212,7 +235,8 @@ sap.ui.define([
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				},
-				filters: [handlingUnitFilter, manuOrderFilter, operationFilter, varquanProdFilter, materNoFilter]
+				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
+				filters: [manuOrderFilter, varquanProdFilter]
 
 			});
 
@@ -221,7 +245,7 @@ sap.ui.define([
 		//Post consumption functionality
 		onPostConsumption: function (oEvent) {
 			var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
-
+			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
 			if (consTableLength.length > 0) {
@@ -234,16 +258,91 @@ sap.ui.define([
 					}
 				}
 
-				// 	consTableLength.forEach(function (oItem) {
+				consTableLength.forEach(function (oItem) {
 
-				// 	var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
-				// 	var tableValue = oEvent.getSource().getModel().getProperty(selectedValue);
-				// //	globalModel;
-				// 	//	var serverMessage;
+					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
+					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
+					//	var serverMessage;
 
-				// 	selectedArray.push(tableValue);
+					selectedArray.push(tableValue);
 
-				// });
+					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
+
+				});
+
+				var aCreateDocPayload = selectedArray;
+				oModel.setDeferredGroups(["PostConsumptionBatch"]);
+				oModel.setUseBatch(true);
+				//	var aCreateDocPayload = selectedArray;
+				var that = this;
+
+				//code to pass matid as blank to backend for post
+
+				// 						for(var k=0;k<aCreateDocPayload.length;k++){
+				// aCreateDocPayload[k].Matid="";
+
+				// 						}
+
+				var mParameter = {
+
+					urlParameters: null,
+					groupId: "PostConsumptionBatch",
+					success: function (oData, oRet) {
+
+						var serverMessage = oRet.headers["sap-message"];
+
+						//	console.log("Message from server", serverMessage);
+						console.log("Inside mparameter success");
+						sap.ui.core.BusyIndicator.hide();
+						//This success handler will only be called if batch support is enabled. 
+						//If multiple batch groups are submitted the handlers will be called for every batch group.
+
+					},
+					error: function (oError) {
+						console.log("Inside mparameter error");
+						sap.ui.core.BusyIndicator.hide();
+
+					}
+				};
+
+				var singleentry = {
+					groupId: "PostConsumptionBatch",
+					urlParameters: null,
+					success: function (oData, oRet) {
+						console.log("Inside singleentry success");
+						//The success callback function for each record
+
+						var serverMessage = oRet.headers["sap-message"];
+
+						if (serverMessage === undefined) {
+							console.log("Inside if block for message toast");
+
+						} else {
+
+							console.log("Inside else block for message toast");
+
+						}
+
+						MessageToast.show("success");
+
+					},
+					error: function (oError) {
+						console.log("Inside singleentry error");
+						//	MessageToast.show("Inside single entry success");
+						//The error callback function for each record
+					}
+
+				};
+
+				for (var m = 0; m < aCreateDocPayload.length; m++) {
+					//oModel.create("/DeliverySet", aCreateDocPayload[m], mParameters);
+
+					singleentry.properties = aCreateDocPayload[m];
+					singleentry.changeSetId = "changeset " + m;
+					oModel.createEntry("/StockForConsumptionSet", singleentry);
+
+				}
+				oModel.submitChanges(mParameter);
 
 				console.log("Inside table length", aSelectedItems);
 			} else {
@@ -317,7 +416,7 @@ sap.ui.define([
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("auom"),
 						template: {
 							content: "{Altme}"
-						
+
 						}
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("description"),
@@ -339,7 +438,7 @@ sap.ui.define([
 						template: {
 							content: "{Coo}"
 						}
-					},  {
+					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("restrictedUse"),
 						template: {
 							content: "{Brestr}"
@@ -392,7 +491,7 @@ sap.ui.define([
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("salesOrder"),
 						template: {
-							content: "{StockItmno}"
+							content: "{StockDocno}"
 						}
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("salesOrderItem"),
@@ -427,7 +526,7 @@ sap.ui.define([
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockProdSupply"),
 						template: {
-							content: "{Quan}"
+							content: "{Quana}"
 						}
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("storageType"),
@@ -445,7 +544,7 @@ sap.ui.define([
 					// 	template: {
 					// 		content: "{ShipName}"
 					// 	}
-				//	}
+					//	}
 
 				]
 			});
@@ -465,46 +564,46 @@ sap.ui.define([
 			var aFilters = [];
 			var sQuery = oEvent.getSource().getValue();
 			if (sQuery && sQuery.length > 0) {
-				var handlingUnitFilter = new Filter("ShipName", FilterOperator.Contains, sQuery);
-				var prodConsumptionFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var stockProdSupFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var auomFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var descriptionFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var handlingUnitFilter = new Filter("Huident", FilterOperator.EQ, sQuery);
+				var prodConsumptionFilter = new Filter("Matnr", FilterOperator.EQ, sQuery);
+				var stockProdSupFilter = new Filter("Quan", FilterOperator.EQ, sQuery);
+				var auomFilter = new Filter("Altme", FilterOperator.EQ, sQuery);
+				var descriptionFilter = new Filter("Maktx", FilterOperator.EQ, sQuery);
 
-				var batchFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var shelfLifeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var countryOriginFilter = new Filter("ShipCountry", FilterOperator.Contains, sQuery);
-				var restrictedUseFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var stockTypeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var batchFilter = new Filter("Charg", FilterOperator.EQ, sQuery);
+				var shelfLifeFilter = new Filter("Vfdat", FilterOperator.EQ, sQuery);
+				var countryOriginFilter = new Filter("Coo", FilterOperator.EQ, sQuery);
+				var restrictedUseFilter = new Filter("Brestr", FilterOperator.EQ, sQuery);
+				var stockTypeFilter = new Filter("Cat", FilterOperator.EQ, sQuery);
 
-				var stockTypeDescFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var prodSupAreaFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var storageBinFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var ownerFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var valuationQuanFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var stockTypeDescFilter = new Filter("CatTxt", FilterOperator.EQ, sQuery);
+				var prodSupAreaFilter = new Filter("Psa", FilterOperator.EQ, sQuery);
+				var storageBinFilter = new Filter("Lgpla", FilterOperator.EQ, sQuery);
+				var ownerFilter = new Filter("Owner", FilterOperator.EQ, sQuery);
+				var valuationQuanFilter = new Filter("Cwquan", FilterOperator.EQ, sQuery);
 
-				var valuationUnitFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var valuationMeasFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var typeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var salesOrderFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var salesOrdItemFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var valuationUnitFilter = new Filter("Cwunit", FilterOperator.EQ, sQuery);
+				var valuationMeasFilter = new Filter("Cwexact", FilterOperator.EQ, sQuery);
+				var typeFilter = new Filter("StockDoccat", FilterOperator.EQ, sQuery);
+				var salesOrderFilter = new Filter("StockItmno", FilterOperator.EQ, sQuery);
+				var salesOrdItemFilter = new Filter("StockItmno", FilterOperator.EQ, sQuery);
 
-				var baseUOMFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var operatioActFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var ownerRoleFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var partyEntitledFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var stockIdenFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var baseUOMFilter = new Filter("Unit", FilterOperator.EQ, sQuery);
+				var operatioActFilter = new Filter("Operation", FilterOperator.EQ, sQuery);
+				var ownerRoleFilter = new Filter("OwnerRole", FilterOperator.EQ, sQuery);
+				var partyEntitledFilter = new Filter("Entitled", FilterOperator.EQ, sQuery);
+				var stockIdenFilter = new Filter("Idplate", FilterOperator.EQ, sQuery);
 
-				var stockProdBUOMFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var storageTypeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var quantityConsumeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				var quanPSAFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				var stockProdBUOMFilter = new Filter("Quana", FilterOperator.EQ, sQuery);
+				var storageTypeFilter = new Filter("Lgtyp", FilterOperator.EQ, sQuery);
+				// var quantityConsumeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+				// var quanPSAFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
 
 				var oFilter = new Filter([handlingUnitFilter, prodConsumptionFilter, stockProdSupFilter, auomFilter, descriptionFilter,
 					batchFilter, shelfLifeFilter, countryOriginFilter, restrictedUseFilter, stockTypeFilter, stockTypeDescFilter,
 					prodSupAreaFilter, storageBinFilter, ownerFilter, valuationQuanFilter, valuationUnitFilter, valuationMeasFilter,
 					typeFilter, salesOrderFilter, salesOrdItemFilter, baseUOMFilter, operatioActFilter, ownerRoleFilter, partyEntitledFilter,
-					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter, quantityConsumeFilter, quanPSAFilter
+					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter
 				]);
 
 				// aFilters.push(handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
