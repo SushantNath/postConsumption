@@ -12,10 +12,10 @@
 								<f:content>
 									
 										<Label text="{i18n>warehouse}" required="true"/>
-									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse">
-										<customData>
+									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse" value="4A10" >
+									<!--	<customData>
                                     <core:CustomData key="required" value="true" writeToDom="true" />
-                                </customData>	
+                                </customData>	-->
 					
 						
 									</Input>
@@ -23,25 +23,25 @@
 									
 									
 									<Label text="{i18n>manufacturingOrder}" required="true"/>
-									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpManufacturing">
-										<customData>
+									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpManufacturing" value="1000443">
+									<!--	<customData>
                                     <core:CustomData key="required" value="true" writeToDom="true" />
-                                </customData>	
+                                </customData>-->	
 					
 						
 									</Input>
 									<Label text="{i18n>opForAct}"/>
-										<Input id="opForActId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpOperation">
+										<Input id="opForActId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpOperation" value="0010">
 									</Input>
 									<Label text="{i18n>handlingUnit}"/>
 									<Input id="handlingUnitId" showSuggestion="true" showValueHelp="false"></Input>
 									<Label text="{i18n>prodForCons}"/>
-									<Input id="prodForConsId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProduct"></Input>
+									<Input id="prodForConsId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProduct" ></Input>
 									<Label text="{i18n>prodSupArea}"/>
-									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProdSup"></Input>
+									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProdSup" ></Input>
 								
 									<Label text="{i18n>quantityProduced}"/>
-									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpQuanProd">
+									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpQuanProd" value="4A10">
 										
 									</Input>
 									<Label text="{i18n>unitMeasure}" />

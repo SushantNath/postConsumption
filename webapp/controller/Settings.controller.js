@@ -1,5 +1,13 @@
 var collectionSet;
 var storedWarehouseValue;
+var manufOrderNavigate;
+var operationNavigate;
+var handlingunitNavigate;
+var productNavigate;
+var prodSupplyNavigate;
+var quanProdNavigate;
+var uomNavigate;
+
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
@@ -735,13 +743,78 @@ this.getView().byId("page").setTitle(headerText);
 		/* code to check validation for filters */
 		onClickConsumption: function () {
 			
-			 var requiredInputs = this.returnIdListOfRequiredFields();
-            var passedValidation = this.validateEventFeedbackForm(requiredInputs);
-            if(passedValidation === false)
-            {
-                //show an error message, rest of code will not execute.
-                return false;
-            }
+			  	var oView= this.getView();
+        	// var manufacturingOrder=this.maufOrder;
+        	// var operation= this.operation;
+        	// var product= this.productCons;
+        	// var prodSupArea = this.productSupply;
+        	// var quantityProduced = this.quantityProd;
+        		var manufacturingOrder=oView.byId("manuOrderId").getValue();
+        	var operation= oView.byId("opForActId").getValue();
+        	var product= oView.byId("prodForConsId").getValue();
+        	var prodSupArea = oView.byId("prodSupAreaId").getValue();
+        	var quantityProduced = oView.byId("quantityProducedId").getValue();
+        	 var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
+                       var uomValue = oView.byId("unitMeasureId").getValue();
+                       var warehouseValue = oView.byId("warehouseId").getValue();
+        	
+        	if(operation === undefined){
+        		
+        	operation= "";	
+        	}
+        	
+        		if(product === undefined){
+        		
+        	product= "";	
+        	}
+        	
+        		if(prodSupArea === undefined){
+        		
+        	prodSupArea= "";	
+        	}
+        	
+        	if(quantityProduced === undefined){
+        		
+        	quantityProduced= "";	
+        	}
+        	
+        	
+        	
+       // json model to pass parameters from one view to other 	
+        var	oViewModel = new sap.ui.model.json.JSONModel({
+				"handlingUnitvalue" : handlingUnitvalue,
+				"uomValue" : uomValue,
+				"manufacturingOrder" : manufacturingOrder,
+				"operation" : operation,
+				"product" : product,
+				"prodSupArea" : prodSupArea,
+				"quantityProduced" : quantityProduced
+						});
+					
+        	sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
+        	
+        	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                var _self = this;
+                var valid = true;
+			
+			if (manufacturingOrder === "" || manufacturingOrder === undefined || warehouseValue === "" || warehouseValue === undefined) {
+                        valid = false;
+                       // oView.byId("manuOrderId").setValueState("Error");
+                       MessageToast.show("Please fill all mandatory fields");
+                    }
+                    else {
+                      // oView.byId("manuOrderId").setValueState("Success");
+                       
+                      	oRouter.navTo("postConsumption");
+                    }
+			
+			 //var requiredInputs = this.returnIdListOfRequiredFields();
+    //         var passedValidation = this.validateEventFeedbackForm(requiredInputs);
+    //         if(passedValidation === false)
+    //         {
+    //             //show an error message, rest of code will not execute.
+    //             return false;
+    //         }
 
 		},
 		 returnIdListOfRequiredFields: function()
@@ -755,11 +828,16 @@ this.getView().byId("page").setTitle(headerText);
         validateEventFeedbackForm: function(requiredInputs) {
         	
         	var oView= this.getView();
-        	var manufacturingOrder=this.maufOrder;
-        	var operation= this.operation;
-        	var product= this.productCons;
-        	var prodSupArea = this.productSupply;
-        	var quantityProduced = this.quantityProd;
+        	// var manufacturingOrder=this.maufOrder;
+        	// var operation= this.operation;
+        	// var product= this.productCons;
+        	// var prodSupArea = this.productSupply;
+        	// var quantityProduced = this.quantityProd;
+        		var manufacturingOrder=oView.byId("manuOrderId").getValue();
+        	var operation= oView.byId("opForActId").getValue();
+        	var product= oView.byId("prodForConsId").getValue();
+        	var prodSupArea = oView.byId("prodSupAreaId").getValue();
+        	var quantityProduced = oView.byId("quantityProducedId").getValue();
         	 var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
                        var uomValue = oView.byId("unitMeasureId").getValue();
         	
@@ -830,13 +908,76 @@ this.getView().byId("page").setTitle(headerText);
         	/* code to check validation for filters */
 		onClickReversal: function () {
 			
-			 var requiredInputs = this.returnIdListOfRequiredFields();
-            var passedValidation = this.validateEventFeedbackFormReversal(requiredInputs);
-            if(passedValidation === false)
-            {
-                //show an error message, rest of code will not execute.
-                return false;
-            }
+						  	var oView= this.getView();
+        	// var manufacturingOrder=this.maufOrder;
+        	// var operation= this.operation;
+        	// var product= this.productCons;
+        	// var prodSupArea = this.productSupply;
+        	// var quantityProduced = this.quantityProd;
+        		var manufacturingOrder=oView.byId("manuOrderId").getValue();
+        	var operation= oView.byId("opForActId").getValue();
+        	var product= oView.byId("prodForConsId").getValue();
+        	var prodSupArea = oView.byId("prodSupAreaId").getValue();
+        	var quantityProduced = oView.byId("quantityProducedId").getValue();
+        	 var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
+                       var uomValue = oView.byId("unitMeasureId").getValue();
+        	
+        	if(operation === undefined){
+        		
+        	operation= "";	
+        	}
+        	
+        		if(product === undefined){
+        		
+        	product= "";	
+        	}
+        	
+        		if(prodSupArea === undefined){
+        		
+        	prodSupArea= "";	
+        	}
+        	
+        	if(quantityProduced === undefined){
+        		
+        	quantityProduced= "";	
+        	}
+        	
+        	
+        	
+       // json model to pass parameters from one view to other 	
+        var	oViewModel = new sap.ui.model.json.JSONModel({
+				"handlingUnitvalue" : handlingUnitvalue,
+				"uomValue" : uomValue,
+				"manufacturingOrder" : manufacturingOrder,
+				"operation" : operation,
+				"product" : product,
+				"prodSupArea" : prodSupArea,
+				"quantityProduced" : quantityProduced
+						});
+					
+        	sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
+        	
+        	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                var _self = this;
+                var valid = true;
+			
+			if (manufacturingOrder === "" || manufacturingOrder === undefined) {
+                        valid = false;
+                        oView.byId("manuOrderId").setValueState("Error");
+                    }
+                    else {
+                       oView.byId("manuOrderId").setValueState("Success");
+                       
+                      	oRouter.navTo("reversalPosting");
+                    }
+			
+			 //var requiredInputs = this.returnIdListOfRequiredFields();
+    //         var passedValidation = this.validateEventFeedbackFormReversal(requiredInputs);
+    //         if(passedValidation === false)
+    //         {
+    //             //show an error message, rest of code will not execute.
+    //             return false;
+    //         }
 
 		},
 		

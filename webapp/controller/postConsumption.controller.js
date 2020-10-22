@@ -1,4 +1,11 @@
 var globalModel;
+var manufOrderNavigate;
+var operationNavigate;
+var handlingunitNavigate;
+var productNavigate;
+var prodSupplyNavigate;
+var quanProdNavigate;
+var uomNavigate;
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
@@ -66,7 +73,7 @@ sap.ui.define([
 					// persoService: persoService
 			}).activate();
 
-			this.getConsumption();
+	//		this.getConsumption();
 
 		},
 
@@ -80,7 +87,7 @@ sap.ui.define([
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
-
+           this.getConsumption();
 			console.log("Passed values are", manufacturingOrder,handlingUnitvalue,uomValue,operation,product,prodSupArea,quantityProduced);
 		},
 
@@ -189,24 +196,31 @@ sap.ui.define([
 
 			//Read values to variables
 			
-			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
-			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
-			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
-			// var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
-			// var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
-			// var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
-			// var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
+			var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
+			var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
+			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
+			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
+			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 			
-			var manuOrder = "1000443";
-			var operation = "0010";
-			var materNo = "3008040";
-			var prodSupArea = "PSA-P100 /4110";
-			var quanProd = "4A10";
-			var handlingUnit = "112345678000012066";
+			// var manuOrder = "1000443";
+			// var operation = "0010";
+			// var materNo = "3008040";
+			// var prodSupArea = "PSA-P100 /4110";
+			// var quanProd = "4A10";
+			// var handlingUnit = "112345678000012066";
+			
+			var manuOrder = manufacturingOrder;
+			var operation = operation;
+			//var materNo = "3008040";
+			var prodSupArea = prodSupArea;
+			var quanProd = quantityProduced;
+			var handlingUnit = handlingUnitvalue;
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
-			var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
+		//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
 			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
 			var varquanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
@@ -256,7 +270,8 @@ sap.ui.define([
 					console.log("Inside Error function");
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
-				filters: [manuOrderFilter, varquanProdFilter]
+			//	filters: [manuOrderFilter, varquanProdFilter]
+			filters: [manuOrderFilter,operationFilter,handlingUnitFilter,varquanProdFilter]
 
 			});
 
@@ -277,6 +292,8 @@ sap.ui.define([
 						aSelectedItems.push(aItems[i]);
 					}
 				}
+
+	sap.ui.core.BusyIndicator.show();
 
 				consTableLength.forEach(function (oItem) {
 
@@ -302,6 +319,20 @@ sap.ui.define([
 				// aCreateDocPayload[k].Matid="";
 
 				// 						}
+				
+// 				var PADDING = "00000000"
+
+// var string = "TEST"
+// var resultArray = []
+
+// for (var i = 0; i < string.length; i++) {
+//   var compact = string.charCodeAt(i).toString(2)
+//   var padded  = compact.substring(0, PADDING.length - compact.length) + compact
+
+//   resultArray.push(padded)
+// }
+
+// console.log(resultArray.join(" "))
 
 				var mParameter = {
 
