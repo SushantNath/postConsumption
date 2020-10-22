@@ -54,7 +54,7 @@
 									<Label id="operationId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
 									</HBox>
 										<HBox>
-									<CheckBox id="restrictedUseId" enabled="false" text="Restricted Use" />
+									<CheckBox id="restrictedUseId" enabled="false" text="Restricted Use" select="restUseSel" />
 									</HBox>
 									
 									<HBox>
@@ -119,8 +119,6 @@
 									width="300%"
 			class="sapUiTinyMarginBegin" 
 			id="addlConsumedProgressId"
-				percentValue="30"
-				displayValue="30%"
 				showValue="true"
 				state="None" />
 								</HBox>
@@ -230,7 +228,9 @@
 										<!--<ObjectIdentifier title="{stockConsModel>Vfdat}" />-->
 											<Text text="{stockConsModel>Vfdat}"/>
 										<Text text="{stockConsModel>Coo}"/>
-										<Text text="{stockConsModel>Brestr}"/>
+										<!--<CheckBox  selected="{path : 'stockConsModel>Brestr', type : 'sap.ui.model.type.Boolean' }"  />-->
+											<CheckBox  enabled="{=${stockConsModel>Brestr}=== 'false' ? false  :  true }"  />
+										<!--<Text text="{stockConsModel>Brestr}"/>-->
 										<!--<ObjectNumber number="{stockConsModel>Cat}" />-->
 											<Text text="{stockConsModel>Cat}"/>
 											<Text text="{stockConsModel>CatTxt}"/>
@@ -249,10 +249,7 @@
 										<Text text="{stockConsModel>Cwexact}"/>
 										<Text text="{stockConsModel>StockDoccat}"/>
 											<Text text="{stockConsModel>StockItmno}"/>
-										<!--<ObjectNumber number="{stockConsModel>StockItmno}" />-->
-									<!--	<ObjectNumber
-											number="{stockConsModel>Unit}"
-											/>-->
+								
 												<Text text="{stockConsModel>Unit}"/>
 										<!--<ObjectIdentifier title="" text="{stockConsModel>Operation}" class="sapMTableContentMargin"/>-->
 										<Text text="{stockConsModel>Operation}"/>
@@ -260,16 +257,14 @@
 										<Text text="{stockConsModel>Entitled}"/>
 										<!--<ObjectNumber number="{stockConsModel>Idplate}" />-->
 											<Text text="{stockConsModel>Idplate}"/>
-										<!--<ObjectNumber
-											number="{stockConsModel>Quana}"
-											/>-->
+									
 										<Text text="{stockConsModel>Quana}"/>	
 										<!--<ObjectIdentifier title="" text="{stockConsModel>Quan}" class="sapMTableContentMargin"/>-->
 										<Text text="{stockConsModel>Quan}"/>
 										
-										<Text text="{stockConsModel>Lgtyp}"/>
+										<Text text="{stockConsModel>Lgtyp}" />
 									
-											<Input id="quanConsInpId" editable="false"   />
+											<Input id="quanConsInpId" editable="false" />
 											
 
 									

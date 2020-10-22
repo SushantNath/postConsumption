@@ -224,7 +224,8 @@
 									
 									<Text text="{reverseConsModel>Vfdat}"/>
 									<Text text="{reverseConsModel>Coo}"/>
-									<Text text="{reverseConsModel>Brestr}"/>
+									<CheckBox  enabled="{=${reverseConsModel>Brestr}=== 'false' ? false  :  true }"  />
+									<!--<Text text="{reverseConsModel>Brestr}"/>-->
 									<Text text="{reverseConsModel>Cat}"/>
 									<Text text="{reverseConsModel>CatTxt}"/>
 									<Text text="{reverseConsModel>Psa}"/>

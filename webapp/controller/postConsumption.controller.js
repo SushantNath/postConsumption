@@ -426,6 +426,20 @@ sap.ui.define([
 			}
 
 		},
+		
+			// on selection of restriced use checkbox
+
+		restUseSel: function (oEvent) {
+		//	this.getView().byId("remainingQuantityId").setEnabled(true);
+			var oTable = this.getView().byId("consumptionTable");
+			var aItems = oTable.getItems();
+			// for (var i = 0; i < aItems.length; i++) {
+			// 	aItems[i].getCells()[8].setText(aItems[i].getSelected());
+			// }
+			
+			console.log("Inside restricted use");
+
+		},
 
 		// Export to excel
 
