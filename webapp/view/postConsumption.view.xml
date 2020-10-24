@@ -228,8 +228,8 @@
 										<!--<ObjectIdentifier title="{stockConsModel>Vfdat}" />-->
 											<Text text="{stockConsModel>Vfdat}"/>
 										<Text text="{stockConsModel>Coo}"/>
-										<!--<CheckBox  selected="{path : 'stockConsModel>Brestr', type : 'sap.ui.model.type.Boolean' }"  />-->
-											<CheckBox  enabled="{=${stockConsModel>Brestr}=== 'false' ? false  :  true }"  />
+										<CheckBox  selected="{path : 'stockConsModel>Brestr', type : 'sap.ui.model.type.Boolean' }"  />
+											<!--<CheckBox  enabled="{=${stockConsModel>Brestr}=== 'false' ? false  :  true }"  />-->
 										<!--<Text text="{stockConsModel>Brestr}"/>-->
 										<!--<ObjectNumber number="{stockConsModel>Cat}" />-->
 											<Text text="{stockConsModel>Cat}"/>
@@ -264,11 +264,11 @@
 										
 										<Text text="{stockConsModel>Lgtyp}" />
 									
-											<Input id="quanConsInpId" editable="false" />
+											<Input id="quanConsInpId" editable="false" value="{stockConsModel>ConsQuana}"/>
 											
 
 									
-											<Input  id="quanPSAInpId" editable="false"   />
+											<Input  id="quanPSAInpId" editable="false" value="{stockConsModel>ConsQuanaRem}"  />
 									
 
 									

@@ -111,7 +111,7 @@ sap.ui.define([
 			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
 			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 			console.log("Inside press order number");
-			this.getView().byId("restrictedUseId").setEnabled(true);
+		//	this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oView = this.getView();
@@ -283,6 +283,7 @@ sap.ui.define([
 			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
+			var that = this;
 			if (consTableLength.length > 0) {
 
 				var aItems = this.getView().byId('consumptionTable').getItems();
@@ -379,7 +380,7 @@ sap.ui.define([
 					},
 					error: function (oError) {
 						console.log("Inside singleentry error");
-						//	MessageToast.show("Inside single entry success");
+							MessageToast.show("Error");
 						//The error callback function for each record
 					}
 
@@ -411,6 +412,7 @@ sap.ui.define([
 			var aItems = oTable.getItems();
 			for (var i = 0; i < aItems.length; i++) {
 				aItems[i].getCells()[27].setEditable(aItems[i].getSelected());
+				aItems[i].getCells()[28].setEditable(false);
 			}
 
 		},
@@ -423,6 +425,7 @@ sap.ui.define([
 			var aItems = oTable.getItems();
 			for (var i = 0; i < aItems.length; i++) {
 				aItems[i].getCells()[28].setEditable(aItems[i].getSelected());
+				aItems[i].getCells()[27].setEditable(false);
 			}
 
 		},
