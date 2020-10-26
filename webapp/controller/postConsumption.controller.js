@@ -87,6 +87,8 @@ sap.ui.define([
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+         
+         //function to call consumption service
            this.getConsumption();
 			console.log("Passed values are", manufacturingOrder,handlingUnitvalue,uomValue,operation,product,prodSupArea,quantityProduced);
 		},
@@ -193,7 +195,7 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
 			var oManualEntryModel;
-
+var oTable = this.getView().byId("consumptionTable");
 			//Read values to variables
 			
 			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
@@ -260,7 +262,7 @@ sap.ui.define([
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
 					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
-
+                    oTable.selectAll();
 					sap.ui.core.BusyIndicator.hide();
 
 				},
@@ -442,6 +444,20 @@ sap.ui.define([
 			
 			console.log("Inside restricted use");
 
+		},
+		
+		//Function to handle change in quantity
+		onQuanConsChange: function (oEvent) {
+			
+			console.log("Inside Quantity change");
+			//logic to calculate difference between Quantity in PSA and quantity remaining
+		var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+			var consQuanValue =  selectionCheck.mAggregations.cells[27].getValue();
+			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
+
+			var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+
+var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
 		},
 
 		// Export to excel

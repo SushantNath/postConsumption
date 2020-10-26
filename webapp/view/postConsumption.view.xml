@@ -58,12 +58,12 @@
 									</HBox>
 									
 									<HBox>
-								<RadioButton id="consumptionQuantityId" enabled="false" text="Consumption Quantity" select="consQuanSel" />
+								<RadioButton id="consumptionQuantityId" enabled="true" selected="true" text="Consumption Quantity" select="consQuanSel" />
 							
 									</HBox>
 									
 										<HBox>
-								<RadioButton id="remainingQuantityId" enabled="false" text="Remaining Quantity" select="remQuanSel" />
+								<RadioButton id="remainingQuantityId" enabled="true" text="Remaining Quantity" select="remQuanSel" />
 									</HBox>
 									
 								<HBox>
@@ -264,7 +264,7 @@
 										
 										<Text text="{stockConsModel>Lgtyp}" />
 									
-											<Input id="quanConsInpId" editable="false" value="{stockConsModel>ConsQuana}"/>
+											<Input id="quanConsInpId" editable="true" value="{stockConsModel>ConsQuana}" submit="onQuanConsChange"/>
 											
 
 									
