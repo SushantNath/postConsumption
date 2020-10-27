@@ -73,7 +73,7 @@ sap.ui.define([
 					// persoService: persoService
 			}).activate();
 
-	//		this.getConsumption();
+			//		this.getConsumption();
 
 		},
 
@@ -87,10 +87,10 @@ sap.ui.define([
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
-         
-         //function to call consumption service
-           this.getConsumption();
-			console.log("Passed values are", manufacturingOrder,handlingUnitvalue,uomValue,operation,product,prodSupArea,quantityProduced);
+
+			//function to call consumption service
+			this.getConsumption();
+			console.log("Passed values are", manufacturingOrder, handlingUnitvalue, uomValue, operation, product, prodSupArea, quantityProduced);
 		},
 
 		onNavBack: function () {
@@ -113,12 +113,12 @@ sap.ui.define([
 			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
 			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 			console.log("Inside press order number");
-		//	this.getView().byId("restrictedUseId").setEnabled(true);
+			//	this.getView().byId("restrictedUseId").setEnabled(true);
 			this.getView().byId("consumptionQuantityId").setEnabled(true);
 			this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
-			
+
 			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
 			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
 			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
@@ -195,9 +195,9 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
 			var oManualEntryModel;
-var oTable = this.getView().byId("consumptionTable");
+			var oTable = this.getView().byId("consumptionTable");
 			//Read values to variables
-			
+
 			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
 			var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
 			var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
@@ -205,29 +205,41 @@ var oTable = this.getView().byId("consumptionTable");
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
-			
+
 			// var manuOrder = "1000443";
 			// var operation = "0010";
 			// var materNo = "3008040";
 			// var prodSupArea = "PSA-P100 /4110";
 			// var quanProd = "4A10";
 			// var handlingUnit = "112345678000012066";
-			
+
 			var manuOrder = manufacturingOrder;
 			var operation = operation;
 			//var materNo = "3008040";
 			var prodSupArea = prodSupArea;
 			var quanProd = quantityProduced;
 			var handlingUnit = handlingUnitvalue;
-			var uom=uomValue;
+			var uom = uomValue;
+			//logic to handle blank quantity produced field
+			if (quanProd === "") {
+				quanProd = "0";
+
+			}
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
-		//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
+			//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
 			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
 			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
+			
+			//Check if filter has a value and according send to to service
+			// var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter];
+			// var useFilters = filters.filter(function (item) {
+			// 	return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
+			// });
+
 
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
@@ -264,7 +276,7 @@ var oTable = this.getView().byId("consumptionTable");
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
 					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
-                    oTable.selectAll();
+					oTable.selectAll();
 					sap.ui.core.BusyIndicator.hide();
 
 				},
@@ -274,9 +286,9 @@ var oTable = this.getView().byId("consumptionTable");
 					console.log("Inside Error function");
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
-			//	filters: [manuOrderFilter, varquanProdFilter]
-			filters: [manuOrderFilter,operationFilter,handlingUnitFilter,quanProdFilter,uomFilter]
-
+				//	filters: [manuOrderFilter, varquanProdFilter]
+				//  filters: useFilters
+				filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
 
 		},
@@ -298,7 +310,7 @@ var oTable = this.getView().byId("consumptionTable");
 					}
 				}
 
-	sap.ui.core.BusyIndicator.show();
+				sap.ui.core.BusyIndicator.show();
 
 				consTableLength.forEach(function (oItem) {
 
@@ -324,20 +336,20 @@ var oTable = this.getView().byId("consumptionTable");
 				// aCreateDocPayload[k].Matid="";
 
 				// 						}
-				
-// 				var PADDING = "00000000"
 
-// var string = "TEST"
-// var resultArray = []
+				// 				var PADDING = "00000000"
 
-// for (var i = 0; i < string.length; i++) {
-//   var compact = string.charCodeAt(i).toString(2)
-//   var padded  = compact.substring(0, PADDING.length - compact.length) + compact
+				// var string = "TEST"
+				// var resultArray = []
 
-//   resultArray.push(padded)
-// }
+				// for (var i = 0; i < string.length; i++) {
+				//   var compact = string.charCodeAt(i).toString(2)
+				//   var padded  = compact.substring(0, PADDING.length - compact.length) + compact
 
-// console.log(resultArray.join(" "))
+				//   resultArray.push(padded)
+				// }
+
+				// console.log(resultArray.join(" "))
 
 				var mParameter = {
 
@@ -384,7 +396,7 @@ var oTable = this.getView().byId("consumptionTable");
 					},
 					error: function (oError) {
 						console.log("Inside singleentry error");
-							MessageToast.show("Error");
+						MessageToast.show("Error");
 						//The error callback function for each record
 					}
 
@@ -433,49 +445,49 @@ var oTable = this.getView().byId("consumptionTable");
 			}
 
 		},
-		
-			// on selection of restriced use checkbox
+
+		// on selection of restriced use checkbox
 
 		restUseSel: function (oEvent) {
-		//	this.getView().byId("remainingQuantityId").setEnabled(true);
+			//	this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oTable = this.getView().byId("consumptionTable");
 			var aItems = oTable.getItems();
 			// for (var i = 0; i < aItems.length; i++) {
 			// 	aItems[i].getCells()[8].setText(aItems[i].getSelected());
 			// }
-			
+
 			console.log("Inside restricted use");
 
 		},
-		
+
 		//Function to handle change in quantity
 		onQuanConsChange: function (oEvent) {
-			
+
 			console.log("Inside Quantity change");
 			//logic to calculate difference between Quantity in PSA and quantity remaining
-		var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
-			var consQuanValue =  selectionCheck.mAggregations.cells[27].getValue();
+			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+			var consQuanValue = selectionCheck.mAggregations.cells[27].getValue();
 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-            var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
-		//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
-		var iTempTotRemaining = substractVal.toFixed(3);
+			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+			var iTempTotRemaining = substractVal.toFixed(3);
 
-var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
+			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
 		},
-		
-			//Function to handle change in Remaining Quantity
+
+		//Function to handle change in Remaining Quantity
 		onQuanRemChange: function (oEvent) {
-			
+
 			console.log("Inside Quantity change");
 			//logic to calculate difference between Quantity in PSA and quantity remaining
-		var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
-			var consRemValue =  selectionCheck.mAggregations.cells[28].getValue();
+			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+			var consRemValue = selectionCheck.mAggregations.cells[28].getValue();
 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-            var substractVal = parseFloat(prodSupAreavalue - consRemValue);
-		//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consRemValue));
-		   	var iTempTotRemaining = substractVal.toFixed(3);
+			var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consRemValue));
+			var iTempTotRemaining = substractVal.toFixed(3);
 
-var selectedRow = selectionCheck.mAggregations.cells[27].setValue(iTempTotRemaining);
+			var selectedRow = selectionCheck.mAggregations.cells[27].setValue(iTempTotRemaining);
 		},
 
 		// Export to excel
