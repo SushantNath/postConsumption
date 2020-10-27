@@ -219,13 +219,15 @@ var oTable = this.getView().byId("consumptionTable");
 			var prodSupArea = prodSupArea;
 			var quanProd = quantityProduced;
 			var handlingUnit = handlingUnitvalue;
+			var uom=uomValue;
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
 		//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
 			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
-			var varquanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
+			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
+			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
 
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
@@ -273,7 +275,7 @@ var oTable = this.getView().byId("consumptionTable");
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 			//	filters: [manuOrderFilter, varquanProdFilter]
-			filters: [manuOrderFilter,operationFilter,handlingUnitFilter,varquanProdFilter]
+			filters: [manuOrderFilter,operationFilter,handlingUnitFilter,quanProdFilter,uomFilter]
 
 			});
 
@@ -454,10 +456,26 @@ var oTable = this.getView().byId("consumptionTable");
 		var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
 			var consQuanValue =  selectionCheck.mAggregations.cells[27].getValue();
 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-
-			var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+            var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+		//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+		var iTempTotRemaining = substractVal.toFixed(3);
 
 var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
+		},
+		
+			//Function to handle change in Remaining Quantity
+		onQuanRemChange: function (oEvent) {
+			
+			console.log("Inside Quantity change");
+			//logic to calculate difference between Quantity in PSA and quantity remaining
+		var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+			var consRemValue =  selectionCheck.mAggregations.cells[28].getValue();
+			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
+            var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+		//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consRemValue));
+		   	var iTempTotRemaining = substractVal.toFixed(3);
+
+var selectedRow = selectionCheck.mAggregations.cells[27].setValue(iTempTotRemaining);
 		},
 
 		// Export to excel

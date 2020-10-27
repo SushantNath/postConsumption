@@ -860,6 +860,10 @@ this.getView().byId("page").setTitle(headerText);
         		
         	quantityProduced= "";	
         	}
+        		if(uomValue === undefined){
+        		
+        	uomValue= "";	
+        	}
         	
         	
         	
@@ -999,8 +1003,20 @@ this.getView().byId("page").setTitle(headerText);
                 });
                 return valid;
         }
+        
+  //      onFormatDate : function(vDate) {
+		// 	// if (vDate === "Vegie-spread") {
+		
+		// 	// return true;
+			
+		// 	// }
+		// 	// else{
+		// 	// return false;	
+				
+		// 	// }
+		// }
 
-		// #endregion
+	
 		
 	});
 });
