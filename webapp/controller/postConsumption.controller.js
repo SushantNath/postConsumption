@@ -445,29 +445,38 @@ sap.ui.define([
 
 			console.log("Inside Quantity change");
 			//logic to calculate difference between Quantity in PSA and quantity remaining
-			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
-			var consQuanValue = selectionCheck.mAggregations.cells[27].getValue();
-			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
-			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
-			var iTempTotRemaining = substractVal.toFixed(3);
+// 			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+// 			var consQuanValue = selectionCheck.mAggregations.cells[27].getValue();
+// 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
+// 			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+// 			var sPath = oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.sPath;
+//           var initialvalue =  oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.oModel.getProperty(sPath).ConsQuanaRem;
+// 			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+// 			var iTempTotRemaining = substractVal.toFixed(3);
+// //initialvalue.setValue(iTempTotRemaining);
+// 			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
 
-			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
+var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
+var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+var iTempTotRemaining = substractVal.toFixed(3);
+			
+			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
+            oRemainingValue.setValue(iTempTotRemaining);
 		},
 
 		//Function to handle change in Remaining Quantity
 		onQuanRemChange: function (oEvent) {
 
-			console.log("Inside Quantity change");
-			//logic to calculate difference between Quantity in PSA and quantity remaining
-			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
-			var consRemValue = selectionCheck.mAggregations.cells[28].getValue();
-			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-			var substractVal = parseFloat(prodSupAreavalue - consRemValue);
-			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consRemValue));
-			var iTempTotRemaining = substractVal.toFixed(3);
-
-			var selectedRow = selectionCheck.mAggregations.cells[27].setValue(iTempTotRemaining);
+			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
+var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+var iTempTotRemaining = substractVal.toFixed(3);
+			
+			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
+            oRemainingValue.setValue(iTempTotRemaining);
 		},
 
 		// Export to excel
