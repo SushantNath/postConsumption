@@ -32,27 +32,7 @@ sap.ui.define([
 		 */
 		onInit: function () {
 
-			// 	//Get personalisation
-			// 			this.oPersonalization = sap.ushell.Container.getService("Personalization");
-			// 			if (this.oPersonalization) {
-			// 				this.oConstants = this.oPersonalization.constants;
-			// 			}
-
-			// 	var oTableColmnPers = {};
-			// 		oTableColmnPers = {
-			// 					container: "lubesSelfOrders-Overview",
-			// 					item: "selfOrder-item"
-			// 				};
-
-			// // Get a personalization service provider from the shell (or create your own)
-			// 			var oTableColmnPersProvider = this.oPersonalization.getPersonalizer(oTableColmnPers);
-
-			// 			//Initialise and Activate Table Column visibility Personalisation Controller
-			// 			this._oTPC = new TablePersoController({
-			// 				table: this.getView().byId("consumptionTable"),
-			// 				componentName: "perso",
-			// 				persoService: oTableColmnPersProvider
-			// 			}).activate();
+		
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("postConsumption").attachMatched(this._onRouteMatched, this);
