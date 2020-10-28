@@ -152,13 +152,13 @@ sap.ui.define([
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
 					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
-					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqUomGi);
+					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
 
 					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
 					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
 					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
-					oView.byId("addlrequiredQuantityBuomId").setText(oData.ReqUom);
+					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
 
 					sap.ui.core.BusyIndicator.hide();
 
@@ -221,10 +221,10 @@ sap.ui.define([
 			var handlingUnit = handlingUnitvalue;
 			var uom = uomValue;
 			//logic to handle blank quantity produced field
-			if (quanProd === "") {
-				quanProd = "0";
+			// if (quanProd === "") {
+			// 	quanProd = "0";
 
-			}
+			// }
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
@@ -235,10 +235,10 @@ sap.ui.define([
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
 			
 			//Check if filter has a value and according send to to service
-			// var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter];
-			// var useFilters = filters.filter(function (item) {
-			// 	return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
-			// });
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter];
+			var useFilters = filters.filter(function (item) {
+				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
+			});
 
 
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
@@ -287,8 +287,8 @@ sap.ui.define([
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 				//	filters: [manuOrderFilter, varquanProdFilter]
-				//  filters: useFilters
-				filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
+				  filters: useFilters
+			//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
 
 		},
@@ -731,7 +731,20 @@ sap.ui.define([
 			var oList = this.byId("consumptionTable");
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(oFilter, "Application");
+		},
+		
+		//logic to make quantiyy field editable based on PSA
+		 onFormatQuantity : function(quantity) {
+		if(quantity > 0){
+
+	return true;
+}
+
+else{
+
+	return false;
 		}
+		 }
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
