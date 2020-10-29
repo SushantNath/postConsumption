@@ -257,6 +257,9 @@ sap.ui.define([
 					oView.setModel(orderModel, "stockConsModel");
 					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
 					oTable.selectAll();
+					//logic to select consumption quantity to selected on navigation
+					that.getView().byId("consumptionQuantityId").setSelected(true);
+					that.consQuanSel();
 					sap.ui.core.BusyIndicator.hide();
 
 				},
@@ -372,6 +375,7 @@ sap.ui.define([
 						}
 
 						MessageToast.show("success");
+						that.getConsumption();
 
 					},
 					error: function (oError) {
