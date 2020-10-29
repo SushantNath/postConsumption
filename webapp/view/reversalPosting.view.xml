@@ -9,7 +9,7 @@
 							<l:BlockLayoutRow class="sapUiSizeCompact">
 								<!--Consumption Posting Card-->
 								<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle"
-									title="{i18n>consumptionPosting}" width="1">
+									title="{i18n>reversalPosting}" width="1">
 									<VBox>
 										<HBox height="auto">
 											<HBox>
@@ -100,7 +100,7 @@
 										</HBox>
 										<HBox height="auto">
 											<Label wrapping="true" design="Bold" text="{i18n>consumptionProgress}:"/>
-											<ProgressIndicator width="300%" class="sapUiTinyMarginBegin" id="addlConsumedProgressId" percentValue="30" displayValue="30%"
+											<ProgressIndicator width="300%" class="sapUiTinyMarginBegin" id="addlConsumedProgressId" 
 												showValue="true" state="None"/>
 										</HBox>
 										<HBox height="auto">
