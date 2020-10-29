@@ -788,7 +788,8 @@ this.getView().byId("page").setTitle(headerText);
 				"operation" : operation,
 				"product" : product,
 				"prodSupArea" : prodSupArea,
-				"quantityProduced" : quantityProduced
+				"quantityProduced" : quantityProduced,
+				"warehouse" : warehouseValue
 						});
 					
         	sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
@@ -967,12 +968,13 @@ this.getView().byId("page").setTitle(headerText);
                 var _self = this;
                 var valid = true;
 			
-			if (manufacturingOrder === "" || manufacturingOrder === undefined) {
+		if (manufacturingOrder === "" || manufacturingOrder === undefined || warehouseValue === "" || warehouseValue === undefined) {
                         valid = false;
-                        oView.byId("manuOrderId").setValueState("Error");
+                       // oView.byId("manuOrderId").setValueState("Error");
+                       MessageToast.show("Please fill all mandatory fields");
                     }
                     else {
-                       oView.byId("manuOrderId").setValueState("Success");
+                      // oView.byId("manuOrderId").setValueState("Success");
                        
                       	oRouter.navTo("reversalPosting");
                     }

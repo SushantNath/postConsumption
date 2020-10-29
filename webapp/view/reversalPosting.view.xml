@@ -44,7 +44,7 @@
 											<Label id="operationId" wrapping="true" class="sapUiTinyMarginBegin" textAlign="Right" text=""/>
 										</HBox>
 										<HBox>
-											<Label wrapping="true" design="Bold" text="{i18n>reversalQuantity}:"/>
+											<Label wrapping="true" design="Bold" required="true" text="{i18n>reversalQuantity}:"/>
 											<Input id="reversalQuanId" class="sapUiSmallMarginBegin" enabled="false"></Input>
 											<!--<Label id="reversalQuanId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>-->
 										</HBox>
@@ -121,8 +121,8 @@
 							</l:BlockLayoutRow>
 						</l:BlockLayout>
 					</Panel>
-					<Table id="reversalPostingTable" class="sapUiResponsiveMargin " mode="SingleSelect" width="95%"
-						items="{path : 'reverseConsModel>/reverseConsSet'}" growing="true" growingScrollToLoad="true" growingThreshold="5"
+					<Table id="reversalPostingTable" class="sapUiResponsiveMargin " mode="SingleSelectLeft" width="95%"
+						items="{path : 'reverseConsModel>/reverseConsSet'}" 
 						updateFinished="onUpdateFinished" selectionChange="onPressStock">
 						<headerToolbar>
 							<Toolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
@@ -131,7 +131,7 @@
 								<SearchField search=".onSearchReversal" width="50%"/>
 								<Button icon="sap-icon://download" press="_onDataExportReversal"/>
 								<Button icon="sap-icon://action-settings" press="_onPersoReversalPressed"/>
-								<Button class="sapUiTinyMargin" id="reversalBtn" press="onPostReversal" text="{i18n>postReversal}" type="Transparent">
+								<Button class="sapUiTinyMargin" id="reversalBtn" press="onReversal" text="{i18n>postReversal}" type="Transparent">
 									<customData>
 										<core:CustomData key="option" value="expXmlBtn"/>
 									</customData>
@@ -145,7 +145,7 @@
 						<columns>
 							<Column id="hadlingunitCol" visible="true"><Text text="{i18n>handlingUnit}"/></Column>
 							<Column id="prodConsCol" visible="true" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>prodConsumption}"/></Column>
-							<Column id="stockprodCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>stockProd}"/></Column>
+							<Column id="consumedQuantityCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>consumedQuantityRev}"/></Column>
 							<Column id="auomCol" visible="true" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>auom}"/></Column>
 							<Column id="descriptionCol" visible="true" hAlign="Center"><Text text="{i18n>description}"/></Column>
 							<Column id="batchCol" visible="true"><Text text="{i18n>batch}"/></Column>
@@ -168,55 +168,16 @@
 							<Column id="baseUOMCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>baseUnitMeasure}"/></Column>
 							
 							<Column id="operationCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>operationActivity}"/></Column>
-							<Column id="ownerRoleCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>ownerRole}"/></Column>
+							<Column id="warehouseCol" visible="false" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>warehousenumber}"/></Column>
 							<Column id="partyEntCol" visible="false" hAlign="Center"><Text text="{i18n>partyEntitled}"/></Column>
-							<Column id="stockIdenCol" visible="false"><Text text="{i18n>prodSupplyArea}"/></Column>
-							<Column id="stockProdSupCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>stockProdSupply}"/></Column>
-							<Column id="storagetypeCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>storageBin}"/></Column>
+							<Column id="stockIdenCol" visible="false"><Text text="{i18n>stockIdentification}"/></Column>
+							<Column id="stockProdSupCol" visible="false" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>consumedQuantityRev}"/></Column>
+							<Column id="manufacOrderCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>manufOrder}"/></Column>
 						</columns>
 						<items>
 							<ColumnListItem>
 								<cells>
-									<!--	<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCity}"/>
-										<Text text="{ShipCity}"/>
-										<ObjectNumber number="{UnitPrice}" unit="{WeightUnit}"/>
-										<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCountry}"/>
-										<Text text="{CustomerID}"/>
-										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
-										<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ProductName}"/>
-										<Text text="{ShipperName}"/>
-										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>
-										
-										
-										
-										
-											<Link press="_onOrderClick" text="{ShipName}" visible="true" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true"
-											emphasized="false" subtle="false"/>
-										<ObjectIdentifier title="{ShipAddress}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCity}"/>
-									
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ShipCountry}"/>
-										<Text text="{CustomerID}"/>
-										<ObjectNumber number="{ExtendedPrice}" unit="{WeightUnit}"/>
-										<ObjectNumber
-											number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-											unit="{CurrencyCode}"/>
-										<ObjectIdentifier title="{Name}" text="{ProductId}" class="sapMTableContentMargin"/>
-										<Text text="{ProductName}"/>
-										<Text text="{ShipperName}"/>
-										<ObjectNumber number="{WeightMeasure}" unit="{WeightUnit}"/>-->
+							
 									<Text text="{reverseConsModel>Huident}"/>
 									<Text text="{reverseConsModel>Matnr}"/>
 									<Text text="{reverseConsModel>Quan}"/>
@@ -226,7 +187,7 @@
 									
 									<Text text="{reverseConsModel>Vfdat}"/>
 									<Text text="{reverseConsModel>Coo}"/>
-									<CheckBox  enabled="{=${reverseConsModel>Brestr}=== 'false' ? false  :  true }"  />
+									<CheckBox  enabled="false"  />
 									<!--<Text text="{reverseConsModel>Brestr}"/>-->
 									<Text text="{reverseConsModel>Cat}"/>
 									<Text text="{reverseConsModel>CatTxt}"/>
@@ -243,12 +204,12 @@
 									<Text text="{reverseConsModel>Unit}"/>
 									
 									<Text text="{reverseConsModel>Operation}"/>
-									<Text text="{reverseConsModel>OwnerRole}"/>
+									<Text text="{reverseConsModel>Lgnum}"/>
 									<Text text="{reverseConsModel>Entitled}"/>
 									<Text text="{reverseConsModel>Idplate}"/>
 								<!--	<Text text="{reverseConsModel>Quana}"/>-->
 									<Text text="{reverseConsModel>Quan}"/>
-									<Text text="{reverseConsModel>Lgtyp}"/>
+									<Text text="{reverseConsModel>MfgOrder}"/>
 								</cells>
 							</ColumnListItem>
 						</items>

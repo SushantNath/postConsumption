@@ -155,7 +155,7 @@ this._oTPC = new TablePersoController({
 			var oView = this.getView();
 			var arrayValue = [];
 			sap.ui.core.BusyIndicator.show();
-			oModel.read("/StockForConsumptionSet", {
+			oModel.read("/ReversalConsumptionSet", {
 
 				success: function (oData, Response) {
 
@@ -372,15 +372,19 @@ this._oTPC = new TablePersoController({
 		//On reversal post
 		
 				//Post consumption functionality
-					onReversal: function (oEvent) {
+				onReversal: function (oEvent) {
 	//	onPostReversal: function (oEvent) {
-			var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
+
+		var revQuantityValue = this.getView().byId("reversalQuanId").getValue();
+
+           var that = this;
+			var consTableLength = this.getView().byId("reversalPostingTable").getSelectedItems();
 			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
-			if (consTableLength.length > 0) {
+			if (consTableLength.length > 0 && revQuantityValue !== "" ) {
 
-				var aItems = this.getView().byId('consumptionTable').getItems();
+				var aItems = this.getView().byId('reversalPostingTable').getItems();
 				var aSelectedItems = [];
 				for (var i = 0; i < aItems.length; i++) {
 					if (aItems[i].getSelected()) {
@@ -390,20 +394,25 @@ this._oTPC = new TablePersoController({
 
 	sap.ui.core.BusyIndicator.show();
 
+//	var revQuantityValue = this.getView().byId("reversalQuanId").getValue();
+
 				consTableLength.forEach(function (oItem) {
 
-					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
-					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
+					var selectedValue = oItem.oBindingContexts.reverseConsModel.sPath;
+					var tableValue = oEvent.getSource().getModel("reverseConsModel").getProperty(selectedValue);
 					//	var serverMessage;
-
+tableValue.RevQuana=revQuantityValue;
 					selectedArray.push(tableValue);
 
-					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
-
+				
 				});
+				
 
+
+				var revQuantityValue= this.getView().byId("reversalQuanId").getValue();
+                selectedArray.RevQuana=revQuantityValue;
 				var aCreateDocPayload = selectedArray;
-				oModel.setDeferredGroups(["PostConsumptionBatch"]);
+				oModel.setDeferredGroups(["ReversalConsumptionBatch"]);
 				oModel.setUseBatch(true);
 				//	var aCreateDocPayload = selectedArray;
 				var that = this;
@@ -418,7 +427,7 @@ this._oTPC = new TablePersoController({
 				var mParameter = {
 
 					urlParameters: null,
-					groupId: "PostConsumptionBatch",
+					groupId: "ReversalConsumptionBatch",
 					success: function (oData, oRet) {
 
 						var serverMessage = oRet.headers["sap-message"];
@@ -426,8 +435,7 @@ this._oTPC = new TablePersoController({
 						//	console.log("Message from server", serverMessage);
 						console.log("Inside mparameter success");
 						sap.ui.core.BusyIndicator.hide();
-						//This success handler will only be called if batch support is enabled. 
-						//If multiple batch groups are submitted the handlers will be called for every batch group.
+						
 
 					},
 					error: function (oError) {
@@ -438,7 +446,7 @@ this._oTPC = new TablePersoController({
 				};
 
 				var singleentry = {
-					groupId: "PostConsumptionBatch",
+					groupId: "ReversalConsumptionBatch",
 					urlParameters: null,
 					success: function (oData, oRet) {
 						console.log("Inside singleentry success");
@@ -456,12 +464,11 @@ this._oTPC = new TablePersoController({
 						}
 
 						MessageToast.show("success");
-
+                       that.getReversal();
 					},
 					error: function (oError) {
 						console.log("Inside singleentry error");
-						//	MessageToast.show("Inside single entry success");
-						//The error callback function for each record
+					
 					}
 
 				};
@@ -471,19 +478,24 @@ this._oTPC = new TablePersoController({
 
 					singleentry.properties = aCreateDocPayload[m];
 					singleentry.changeSetId = "changeset " + m;
-					oModel.createEntry("/StockForConsumptionSet", singleentry);
+					oModel.createEntry("/ReversalConsumptionSet", singleentry);
 
 				}
 				oModel.submitChanges(mParameter);
 
 				console.log("Inside table length", aSelectedItems);
-			} else {
-				MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("tableLengthMessage"));
+			///////////////
+			
+
+			}
+
+
+			 else {
+				MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("tableLengthMessageRev"));
 				console.log("Outside table length");
 			}
 
 		},
-
 		
 		
 		//On select a stock

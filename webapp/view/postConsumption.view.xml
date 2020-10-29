@@ -154,8 +154,8 @@
 			</Panel>
 			
 			
-				<Table id="consumptionTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{path : 'stockConsModel>/stockConsSet'}" growing="true" 
-							growingScrollToLoad="true" growingThreshold="5" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
+				<Table id="consumptionTable" class="sapUiResponsiveMargin " mode="MultiSelect" width="95%" items="{path : 'stockConsModel>/stockConsSet'}" 
+						 updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber">
 							<headerToolbar>
 								
 								<Toolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
