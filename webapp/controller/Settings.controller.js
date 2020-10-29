@@ -924,7 +924,8 @@ this.getView().byId("page").setTitle(headerText);
         	var prodSupArea = oView.byId("prodSupAreaId").getValue();
         	var quantityProduced = oView.byId("quantityProducedId").getValue();
         	 var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
-                       var uomValue = oView.byId("unitMeasureId").getValue();
+             var uomValue = oView.byId("unitMeasureId").getValue();
+              var warehouseValue = oView.byId("warehouseId").getValue();
         	
         	if(operation === undefined){
         		
@@ -956,7 +957,8 @@ this.getView().byId("page").setTitle(headerText);
 				"operation" : operation,
 				"product" : product,
 				"prodSupArea" : prodSupArea,
-				"quantityProduced" : quantityProduced
+				"quantityProduced" : quantityProduced,
+				"warehouse" : warehouseValue
 						});
 					
         	sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
