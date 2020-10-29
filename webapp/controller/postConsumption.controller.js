@@ -179,6 +179,7 @@ sap.ui.define([
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+			var warehouse = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
 
 			// var manuOrder = "1000443";
 			// var operation = "0010";
@@ -193,6 +194,7 @@ sap.ui.define([
 			var prodSupArea = prodSupArea;
 			var quanProd = quantityProduced;
 			var handlingUnit = handlingUnitvalue;
+			var warehouse = warehouse;
 			var uom = uomValue;
 			//logic to handle blank quantity produced field
 			// if (quanProd === "") {
@@ -207,9 +209,9 @@ sap.ui.define([
 			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
-			
+		    var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
 			//Check if filter has a value and according send to to service
-			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter];
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter,wareHouseFilter];
 			var useFilters = filters.filter(function (item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});

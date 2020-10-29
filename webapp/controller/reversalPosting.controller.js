@@ -216,7 +216,7 @@ this._oTPC = new TablePersoController({
 							content: "{Matnr}"
 						}
 					}, {
-						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockProd"),
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("consumedQuantityRev"),
 						template: {
 							content: "{Quan}"
 						}
@@ -321,9 +321,9 @@ this._oTPC = new TablePersoController({
 							content: "{Operation}"
 						}
 					}, {
-						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("ownerRole"),
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("warehousenumber"),
 						template: {
-							content: "{OwnerRole}"
+							content: "{Lgnum}"
 						}
 					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("partyEntitled"),
@@ -336,14 +336,14 @@ this._oTPC = new TablePersoController({
 							content: "{Idplate}"
 						}
 					}, {
-						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("stockProdSupply"),
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("consumedQuantityRev"),
 						template: {
-							content: "{Quana}"
+							content: "{Quan}"
 						}
 					}, {
-						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("storageType"),
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("manufOrder"),
 						template: {
-							content: "{Lgtyp}"
+							content: "{MfgOrder}"
 						}
 					}
 					// {
@@ -463,7 +463,7 @@ tableValue.RevQuana=revQuantityValue;
 
 						}
 
-						MessageToast.show("success");
+						MessageToast.show("Reversal done successfully");
                        that.getReversal();
 					},
 					error: function (oError) {
