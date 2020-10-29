@@ -90,7 +90,7 @@ this._oTPC = new TablePersoController({
 
 		},
 		
-				getReversal: function () {
+						getReversal: function () {
 
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			// globalModel = oModel;
@@ -112,16 +112,23 @@ this._oTPC = new TablePersoController({
 			var prodSupArea = prodSupArea;
 			var quanProd = quantityProduced;
 			var handlingUnit = handlingUnitvalue;
+			var uom = uomValue;
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
 		//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
 			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
-			var varquanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
+			var quanProdFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
-
+            var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
+
+	//Check if filter has a value and according send to to service
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter];
+			var useFilters = filters.filter(function (item) {
+				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
+			});
 
 			var that = this;
 			var oView = this.getView();
@@ -166,11 +173,12 @@ this._oTPC = new TablePersoController({
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 			//	filters: [manuOrderFilter, varquanProdFilter]
-				filters: [manuOrderFilter,operationFilter,handlingUnitFilter,varquanProdFilter]
-
+				//filters: [manuOrderFilter,operationFilter,handlingUnitFilter,varquanProdFilter]
+                 filters: useFilters
 			});
 
 		},
+		
 		
 		//Export to Excel
 		
@@ -520,13 +528,13 @@ this._oTPC = new TablePersoController({
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
 					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
-					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqUomGi);
+					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
 
 					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
 					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
 					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
-					oView.byId("addlrequiredQuantityBuomId").setText(oData.ReqUom);
+					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
 
 					sap.ui.core.BusyIndicator.hide();
 

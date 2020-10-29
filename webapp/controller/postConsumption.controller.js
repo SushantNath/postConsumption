@@ -227,7 +227,7 @@ sap.ui.define([
 			var that = this;
 			var oView = this.getView();
 			var arrayValue = [];
-			sap.ui.core.BusyIndicator.show();
+		//	sap.ui.core.BusyIndicator.show();
 			//	var oFilter3 = new sap.ui.model.Filter([manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter], true);
 
 			//aFilterData.push(oFilter3);
@@ -640,18 +640,18 @@ var iTempTotRemaining = substractVal.toFixed(3);
 						template: {
 							content: "{Lgtyp}"
 						}
-					}
-					// {
-					// 	name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityConsume"),
-					// 	template: {
-					// 		content: "{ShipName}"
-					// 	}
-					// }, {
-					// 	name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityPSA"),
-					// 	template: {
-					// 		content: "{ShipName}"
-					// 	}
-					//	}
+					},
+					{
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityConsume"),
+						template: {
+							content: "{ConsQuana}"
+						}
+					}, {
+						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityPSA"),
+						template: {
+							content: "{ConsQuanaRem}"
+						}
+						}
 
 				]
 			});
@@ -703,14 +703,14 @@ var iTempTotRemaining = substractVal.toFixed(3);
 
 				var stockProdBUOMFilter = new Filter("Quana", FilterOperator.EQ, sQuery);
 				var storageTypeFilter = new Filter("Lgtyp", FilterOperator.EQ, sQuery);
-				// var quantityConsumeFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
-				// var quanPSAFilter = new Filter("ShipCity", FilterOperator.Contains, sQuery);
+			var quantityConsumeFilter = new Filter("ConsQuana", FilterOperator.EQ, sQuery);
+				var quanPSAFilter = new Filter("ConsQuanaRem", FilterOperator.EQ, sQuery);
 
 				var oFilter = new Filter([handlingUnitFilter, prodConsumptionFilter, stockProdSupFilter, auomFilter, descriptionFilter,
 					batchFilter, shelfLifeFilter, countryOriginFilter, restrictedUseFilter, stockTypeFilter, stockTypeDescFilter,
 					prodSupAreaFilter, storageBinFilter, ownerFilter, valuationQuanFilter, valuationUnitFilter, valuationMeasFilter,
 					typeFilter, salesOrderFilter, salesOrdItemFilter, baseUOMFilter, operatioActFilter, ownerRoleFilter, partyEntitledFilter,
-					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter
+					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter,quantityConsumeFilter,quanPSAFilter
 				]);
 
 				// aFilters.push(handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
