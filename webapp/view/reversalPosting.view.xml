@@ -96,6 +96,7 @@
 										<HBox height="auto">
 											<Label wrapping="true" design="Bold" text="{i18n>consumedQuantity}:"/>
 											<Label wrapping="true" id="addlConsumedQuantityId" class="sapUiTinyMarginBegin"/>
+										    <Label wrapping="true" id="addlConsumedQuantityUnitId" class="sapUiTinyMarginBegin"  />
 										</HBox>
 										<HBox height="auto">
 											<Label wrapping="true" design="Bold" text="{i18n>consumptionProgress}:"/>
@@ -113,6 +114,7 @@
 										<HBox height="auto">
 											<Label wrapping="true" design="Bold" text="{i18n>requiredQuantityBuom}"/>
 											<Label wrapping="true" id="addlrequiredQuantityBuomId" class="sapUiTinyMarginBegin"/>
+											<Label wrapping="true" id="addlrequiredQuantityUnitId" class="sapUiTinyMarginBegin" />
 										</HBox>
 									</VBox>
 								</l:BlockLayoutCell>

@@ -99,16 +99,9 @@ sap.ui.define([
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
-			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
-			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
-			// var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
-			// var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
-			// var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
-			// var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 
-			var manuOrder = "1000443";
-			var quanProd = "4A10";
+		var manuOrder =  tableValue.MfgOrder;
+			var quanProd =  tableValue.Lgnum;
 			//var handlingUnit = "112345678000012066";
 			var handlingUnit = tableValue.Huident;
 			sap.ui.core.BusyIndicator.show();
@@ -133,12 +126,13 @@ sap.ui.define([
 					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
 					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
-
+                    oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
 					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
 					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
 					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
 					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
+					oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);
 
 					sap.ui.core.BusyIndicator.hide();
 
@@ -374,7 +368,7 @@ sap.ui.define([
 
 						}
 
-						MessageToast.show("success");
+						MessageToast.show("Consumption posted successfully");
 						that.getConsumption();
 
 					},

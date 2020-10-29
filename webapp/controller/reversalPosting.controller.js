@@ -5,8 +5,9 @@ sap.ui.define([
 		'sap/ui/core/util/ExportTypeCSV',
 		'sap/m/MessageBox',
 		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator"
-], function (Controller,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator) {
+		"sap/ui/model/FilterOperator",
+		'sap/m/MessageToast'
+], function (Controller,TablePersoController,Export,ExportTypeCSV,MessageBox,Filter,FilterOperator,MessageToast) {
 	"use strict";
 
 	return Controller.extend("sap.com.postconsumption.postConsumption.controller.reversalPosting", {
@@ -494,17 +495,10 @@ this._oTPC = new TablePersoController({
 			// this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
-			
-			// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
-			// var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
-			// var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
-			// var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
-			// var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
-			// var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
-			// var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+		
 
-			var manuOrder = "1000443";
-			var quanProd = "4A10";
+		var manuOrder =  tableValue.MfgOrder;
+			var quanProd =  tableValue.Lgnum;
 			//var handlingUnit = "112345678000012066";
 			var handlingUnit = tableValue.Huident;
 			sap.ui.core.BusyIndicator.show();
@@ -529,12 +523,13 @@ this._oTPC = new TablePersoController({
 					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
 					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
-
+                    oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
 					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
 					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
 					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
 					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
+					oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);
 
 					sap.ui.core.BusyIndicator.hide();
 
