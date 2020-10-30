@@ -9,13 +9,14 @@
 		cancel="_handleValueHelpCloseProdSup"
 		title="{i18n>prodSupply}"
 		items="{
-			path : '/Invoices'}">             
+			path : 'psaModel>/psaSet'}">             
 		<ColumnListItem>
 			<cells>
-				<ObjectIdentifier 
-				title="{ProductId}" 
-				 />
-					<Text text="{ProductName}" />	
+			<!--	<ObjectIdentifier 
+				title="{psaModel>Psa}" 
+				 />-->
+				 <Text text="{psaModel>Psa}" />
+					<Text text="{psaModel>PsaText}" />	
 				
 					
 			</cells>
