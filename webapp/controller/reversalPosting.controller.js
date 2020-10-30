@@ -468,7 +468,7 @@ tableValue.RevQuana=revQuantityValue;
 					},
 					error: function (oError) {
 						console.log("Inside singleentry error");
-					
+						MessageToast.show("Error");
 					}
 
 				};
@@ -558,9 +558,9 @@ tableValue.RevQuana=revQuantityValue;
 			});
 
 		},
+	
 		
-		
-				//Reversal table search
+			//Reversal table search
 		
 			onSearchReversal: function (oEvent) {
 			// add filter for search
@@ -593,26 +593,19 @@ tableValue.RevQuana=revQuantityValue;
 				
 				var baseUOMFilter = new Filter("Unit", FilterOperator.EQ, sQuery);
 				var operatioActFilter = new Filter("Operation", FilterOperator.EQ, sQuery);
-				var ownerRoleFilter = new Filter("OwnerRole", FilterOperator.EQ, sQuery);
+				var warehouseFilter = new Filter("Lgnum", FilterOperator.EQ, sQuery);
 				var partyEntitledFilter = new Filter("Entitled", FilterOperator.EQ, sQuery);
 				var stockIdenFilter = new Filter("Idplate", FilterOperator.EQ, sQuery);
 				
-				var stockProdBUOMFilter = new Filter("Quan", FilterOperator.EQ, sQuery);
-				var storageTypeFilter = new Filter("Lgtyp", FilterOperator.EQ, sQuery);
-				// var quantityConsumeFilter = new Filter("ShipCity", FilterOperator.EQ, sQuery);
-				// var quanPSAFilter = new Filter("ShipCity", FilterOperator.EQ, sQuery);
-				
+				var consumedQuanFilter = new Filter("Quan", FilterOperator.EQ, sQuery);
+				var manuOrderFilter = new Filter("MfgOrder", FilterOperator.EQ, sQuery);
+			
 					var oFilter = new Filter([handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
 				batchFilter,shelfLifeFilter,countryOriginFilter,restrictedUseFilter,stockTypeFilter,stockTypeDescFilter,
 				prodSupAreaFilter,storageBinFilter,ownerFilter,valuationQuanFilter,valuationUnitFilter,valuationMeasFilter,
-			baseUOMFilter,operatioActFilter,ownerRoleFilter,partyEntitledFilter,
-				stockIdenFilter,stockProdBUOMFilter,storageTypeFilter]);
+			baseUOMFilter,operatioActFilter,warehouseFilter,partyEntitledFilter,
+				stockIdenFilter,consumedQuanFilter,manuOrderFilter]);
 				
-				// aFilters.push(handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
-				// batchFilter,shelfLifeFilter,countryOriginFilter,restrictedUseFilter,stockTypeFilter,stockTypeDescFilter,
-				// prodSupAreaFilter,storageBinFilter,ownerFilter,valuationQuanFilter,valuationUnitFilter,valuationMeasFilter,
-				// typeFilter,salesOrderFilter,salesOrdItemFilter,baseUOMFilter,operatioActFilter,ownerRoleFilter,partyEntitledFilter,
-				// stockIdenFilter,stockProdBUOMFilter,storageTypeFilter,quantityConsumeFilter,quanPSAFilter);
 			}
 
 			// update list binding

@@ -412,6 +412,11 @@ sap.ui.define([
 			}
 
 		},
+		
+		//livechange event for consumption quantity field
+		onQuanConsChangeLive: function (oEvent) {
+			
+		},
 
 		// on selection of consumption quantity radio button
 

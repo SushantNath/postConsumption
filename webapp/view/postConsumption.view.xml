@@ -268,7 +268,7 @@
 										<Text text="{stockConsModel>Lgtyp}" />
 									
 											<!--<Input id="quanConsInpId" editable="true" value="{stockConsModel>ConsQuana}" submit="onQuanConsChange"/>-->
-											<Input id="quanConsInpId" editable="{path:'stockConsModel>ConsQuana', formatter:'.onFormatQuantity'}" submit="onQuanConsChange" value="{stockConsModel>ConsQuana}"  />
+											<Input id="quanConsInpId" editable="{path:'stockConsModel>ConsQuana', formatter:'.onFormatQuantity'}" submit="onQuanConsChange" value="{stockConsModel>ConsQuana}" liveChange="onQuanConsChangeLive" />
 
 									
 											<Input  id="quanPSAInpId" editable="false" value="{stockConsModel>ConsQuanaRem}" submit="onQuanRemChange"  />

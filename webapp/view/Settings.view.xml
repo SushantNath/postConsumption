@@ -12,7 +12,7 @@
 								<f:content>
 									
 										<Label text="{i18n>warehouse}" required="true"/>
-									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse" value="4A10" >
+									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse"  >
 									<!--	<customData>
                                     <core:CustomData key="required" value="true" writeToDom="true" />
                                 </customData>	-->
@@ -23,7 +23,7 @@
 									
 									
 									<Label text="{i18n>manufacturingOrder}" required="true"/>
-									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpManufacturing" value="1000443">
+									<Input id="manuOrderId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpManufacturing">
 									<!--	<customData>
                                     <core:CustomData key="required" value="true" writeToDom="true" />
                                 </customData>-->	
@@ -31,7 +31,7 @@
 						
 									</Input>
 									<Label text="{i18n>opForAct}"/>
-										<Input id="opForActId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpOperation" value="0010">
+										<Input id="opForActId"  showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpOperation" >
 									</Input>
 									<Label text="{i18n>handlingUnit}"/>
 									<Input id="handlingUnitId" showSuggestion="true" showValueHelp="false"></Input>
