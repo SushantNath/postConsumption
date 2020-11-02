@@ -7,7 +7,7 @@ sap.ui.define(function () {
 		formatterDateAllOrders: function (date) {
 			if (date !== "" && date !== null && date !== undefined) {
 				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
-					pattern: "yyyy-MM-dd",
+					pattern: "dd.MM.yyyy",  
 					UTC: false
 				});
 				return oDateFormat.format(new Date(date));

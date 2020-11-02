@@ -805,6 +805,8 @@ this.getView().byId("page").setTitle(headerText);
                     }
                     else {
                       // oView.byId("manuOrderId").setValueState("Success");
+                      
+                     //  MessageToast.show("Please enter proper unit for quantity");
                        
                       	oRouter.navTo("postConsumption");
                     }
@@ -985,7 +987,21 @@ this.getView().byId("page").setTitle(headerText);
     //         {
     //             //show an error message, rest of code will not execute.
     //             return false;
-    //         }
+    //         } 
+/*    var uomValue = this.getView().byId("unitMeasureId").getValue();
+    var oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
+var oMessageManager  = sap.ui.getCore().getMessageManager();
+
+oMessageManager.registerMessageProcessor(oMessageProcessor);
+
+oMessageManager.addMessages(
+    new sap.ui.core.message.Message({
+        message: "ZIP codes must have at least 23 digits",
+        type: sap.ui.core.MessageType.Error,
+        target: "/unitMeasureId/value",
+        processor: oMessageProcessor
+     })
+); */
 
 		},
 		

@@ -32,8 +32,6 @@ sap.ui.define([
 		 */
 		onInit: function () {
 
-		
-
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("postConsumption").attachMatched(this._onRouteMatched, this);
 
@@ -71,6 +69,35 @@ sap.ui.define([
 			//function to call consumption service
 			this.getConsumption();
 			console.log("Passed values are", manufacturingOrder, handlingUnitvalue, uomValue, operation, product, prodSupArea, quantityProduced);
+
+//logic to clear values for cards on navigation
+
+			var oView = this.getView();
+			var clearValue = "";
+
+			oView.byId("handlingTextId").setText(clearValue);
+			oView.byId("productConsumtionId").setText(clearValue);
+			oView.byId("batchId").setText(clearValue);
+			oView.byId("shelfLifeId").setText(clearValue);
+			oView.byId("descriptionId").setText(clearValue);
+			oView.byId("operationId").setText(clearValue);
+
+			//Additional manufacturing order information
+
+			oView.byId("addlFinishedProdId").setText(clearValue);
+			oView.byId("addlDescriptionId").setText(clearValue);
+			oView.byId("addlManufOrderId").setText(clearValue);
+			oView.byId("addlRequirementStartId").setText(clearValue);
+			oView.byId("addlReservationId").setText(clearValue);
+			oView.byId("addlConsumedQuantityId").setText(clearValue);
+			oView.byId("addlConsumedQuantityUnitId").setText(clearValue);
+			oView.byId("addlConsumedProgressId").setPercentValue(0);
+			oView.byId("addlConsumedProgressId").setDisplayValue(0);
+			oView.byId("addlOperationActivityId").setText(clearValue);
+			oView.byId("addlItemNoOfReservationId").setText(clearValue);
+			oView.byId("addlrequiredQuantityBuomId").setText(clearValue);
+			oView.byId("addlrequiredQuantityUnitId").setText(clearValue);
+            this.globalQuanValue = "";
 		},
 
 		onNavBack: function () {
@@ -99,9 +126,8 @@ sap.ui.define([
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-
-		var manuOrder =  tableValue.MfgOrder;
-			var quanProd =  tableValue.Lgnum;
+			var manuOrder = tableValue.MfgOrder;
+			var quanProd = tableValue.Lgnum;
 			//var handlingUnit = "112345678000012066";
 			var handlingUnit = tableValue.Huident;
 			sap.ui.core.BusyIndicator.show();
@@ -126,7 +152,7 @@ sap.ui.define([
 					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
 					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
-                    oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
+					oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
 					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
 					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
@@ -209,13 +235,12 @@ sap.ui.define([
 			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
-		    var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
+			var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
 			//Check if filter has a value and according send to to service
-			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter,prodSupAreaFilter,wareHouseFilter];
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter];
 			var useFilters = filters.filter(function (item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});
-
 
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
 			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
@@ -223,7 +248,7 @@ sap.ui.define([
 			var that = this;
 			var oView = this.getView();
 			var arrayValue = [];
-		//	sap.ui.core.BusyIndicator.show();
+			//	sap.ui.core.BusyIndicator.show();
 			//	var oFilter3 = new sap.ui.model.Filter([manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter], true);
 
 			//aFilterData.push(oFilter3);
@@ -252,10 +277,10 @@ sap.ui.define([
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
 					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
-					oTable.selectAll();
+				//	oTable.selectAll();
 					//logic to select consumption quantity to selected on navigation
-					that.getView().byId("consumptionQuantityId").setSelected(true);
-					that.consQuanSel();
+					// that.getView().byId("consumptionQuantityId").setSelected(true);
+					// that.consQuanSel();
 					sap.ui.core.BusyIndicator.hide();
 
 				},
@@ -266,8 +291,8 @@ sap.ui.define([
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 				//	filters: [manuOrderFilter, varquanProdFilter]
-				  filters: useFilters
-			//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
+				filters: useFilters
+					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
 
 		},
@@ -412,10 +437,10 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		//livechange event for consumption quantity field
 		onQuanConsChangeLive: function (oEvent) {
-			
+
 		},
 
 		// on selection of consumption quantity radio button
@@ -450,38 +475,38 @@ sap.ui.define([
 
 			console.log("Inside Quantity change");
 			//logic to calculate difference between Quantity in PSA and quantity remaining
-// 			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
-// 			var consQuanValue = selectionCheck.mAggregations.cells[27].getValue();
-// 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
-// 			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
-// 			var sPath = oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.sPath;
-//           var initialvalue =  oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.oModel.getProperty(sPath).ConsQuanaRem;
-// 			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
-// 			var iTempTotRemaining = substractVal.toFixed(3);
-// //initialvalue.setValue(iTempTotRemaining);
-// 			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
+			// 			var selectionCheck = this.getView().byId("consumptionTable").getSelectedItem();
+			// 			var consQuanValue = selectionCheck.mAggregations.cells[27].getValue();
+			// 			var prodSupAreavalue = selectionCheck.mAggregations.cells[2].getText();
+			// 			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+			// 			var sPath = oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.sPath;
+			//           var initialvalue =  oEvent.oSource.oPropagatedProperties.oBindingContexts.stockConsModel.oModel.getProperty(sPath).ConsQuanaRem;
+			// 			//	var	iTempTotRemaining = Math.ceil(parseFloat(prodSupAreavalue - consQuanValue));
+			// 			var iTempTotRemaining = substractVal.toFixed(3);
+			// //initialvalue.setValue(iTempTotRemaining);
+			// 			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
+            this.globalQuanValue = "X";
+			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
+			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+			var iTempTotRemaining = substractVal.toFixed(3);
 
-var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
-var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
-var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
-var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
-var iTempTotRemaining = substractVal.toFixed(3);
-			
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
-            oRemainingValue.setValue(iTempTotRemaining);
+			oRemainingValue.setValue(iTempTotRemaining);
 		},
 
 		//Function to handle change in Remaining Quantity
 		onQuanRemChange: function (oEvent) {
 
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
-var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
-var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
-var substractVal = parseFloat(prodSupAreavalue - consRemValue);
-var iTempTotRemaining = substractVal.toFixed(3);
-			
+			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
+			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+			var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+			var iTempTotRemaining = substractVal.toFixed(3);
+
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
-            oRemainingValue.setValue(iTempTotRemaining);
+			oRemainingValue.setValue(iTempTotRemaining);
 		},
 
 		// Export to excel
@@ -641,8 +666,7 @@ var iTempTotRemaining = substractVal.toFixed(3);
 						template: {
 							content: "{Lgtyp}"
 						}
-					},
-					{
+					}, {
 						name: this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("quantityConsume"),
 						template: {
 							content: "{ConsQuana}"
@@ -652,14 +676,14 @@ var iTempTotRemaining = substractVal.toFixed(3);
 						template: {
 							content: "{ConsQuanaRem}"
 						}
-						}
+					}
 
 				]
 			});
 
 			// download exported file
 			oExport.saveFile().catch(function (oError) {
-				MessageBox.error("Error when downloading data. Browser might not be supported!\n\n" + oError);
+				MessageBox.error("Error when downloading data. Browser might not be supported!\n\n");
 			}).then(function () {
 				oExport.destroy();
 			});
@@ -704,14 +728,14 @@ var iTempTotRemaining = substractVal.toFixed(3);
 
 				var stockProdBUOMFilter = new Filter("Quana", FilterOperator.EQ, sQuery);
 				var storageTypeFilter = new Filter("Lgtyp", FilterOperator.EQ, sQuery);
-			var quantityConsumeFilter = new Filter("ConsQuana", FilterOperator.EQ, sQuery);
+				var quantityConsumeFilter = new Filter("ConsQuana", FilterOperator.EQ, sQuery);
 				var quanPSAFilter = new Filter("ConsQuanaRem", FilterOperator.EQ, sQuery);
 
 				var oFilter = new Filter([handlingUnitFilter, prodConsumptionFilter, stockProdSupFilter, auomFilter, descriptionFilter,
 					batchFilter, shelfLifeFilter, countryOriginFilter, restrictedUseFilter, stockTypeFilter, stockTypeDescFilter,
 					prodSupAreaFilter, storageBinFilter, ownerFilter, valuationQuanFilter, valuationUnitFilter, valuationMeasFilter,
 					typeFilter, salesOrderFilter, salesOrdItemFilter, baseUOMFilter, operatioActFilter, ownerRoleFilter, partyEntitledFilter,
-					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter,quantityConsumeFilter,quanPSAFilter
+					stockIdenFilter, stockProdBUOMFilter, storageTypeFilter, quantityConsumeFilter, quanPSAFilter
 				]);
 
 				// aFilters.push(handlingUnitFilter,prodConsumptionFilter,stockProdSupFilter,auomFilter,descriptionFilter,
@@ -726,20 +750,51 @@ var iTempTotRemaining = substractVal.toFixed(3);
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(oFilter, "Application");
 		},
-		
+
 		//logic to make quantiyy field editable based on PSA
-		 onFormatQuantity : function(quantity) {
-		if(quantity > 0){
+		onFormatQuantity: function (quantity) {
+		if(this.globalQuanValue === "X"){
 
 	return true;
+
+	this.globalQuanValue = "";
+
 }
 
-else{
-	
+else {
 
-	return false;
-		}
-		 }
+			if (quantity > 0) {
+
+				return true;
+			} else {
+
+				return false;
+			}
+
+}
+		},
+		
+		//logic to set row selected based on quantity 
+		
+		onModelContextChange: function(oEvent) {
+    // var sId = oEvent.getParameter("id");
+    // var tbl = sap.ui.getCore().byId(sId);
+    // var header = tbl.$().find('thead');
+    // var selectAllCb = header.find('.sapMCb');
+    // selectAllCb.remove();
+
+    // tbl.getItems().forEach(function (r) {
+    //     var obj = r.getBindingContext("dataModel").getObject();
+    //     var oStatus = obj.checkDuplicate; 
+    //     var cb = r.$().find('.sapMCb');
+    //     var oCb = sap.ui.getCore().byId(cb.attr('id'));
+    //     if (oStatus == "true") {
+    //         oCb.setEnabled(true);
+    //     } else {
+    //         oCb.setEnabled(false);
+    //     }
+    // });
+}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
