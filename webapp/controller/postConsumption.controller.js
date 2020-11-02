@@ -270,9 +270,6 @@ sap.ui.define([
 
 				success: function (oData, Response) {
 
-					// var orderModel = new sap.ui.model.json.JSONModel();
-					// oView.setModel(orderModel, "stockConsModel");
-					// oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
 
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");

@@ -1,0 +1,40 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog id="uomDialog" contentWidth ="85%"
+	multiSelect="false"
+		noDataText="{i18n>noDataText}"
+		search= "handleSearchUOM"
+		confirm="handleCloseUOM"
+		cancel="_handleValueHelpCloseUOM"
+			title="{i18n>warehouseSelection}"
+		items="{
+			path : 'uomModel>/uomSet'}">             
+		<ColumnListItem>
+			<cells>
+			<!--	<ObjectIdentifier 
+				title="{warehouseModel>/Lgnum}" 
+				 />-->
+				 
+				 <Text text="Litre" />
+					<Text text="Litres" />	
+					
+					
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="{i18n>unit}" />
+				</header>
+			</Column>
+				<Column width="12em">
+				<header>
+					<Text text="{i18n>text}" />
+				</header>
+			</Column>
+			
+			
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>
