@@ -624,21 +624,23 @@ sap.ui.define([
 
 		},
 
-		loadUOM: function () {
+	loadUOM: function () {
 			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
 			
-				var warehouseValue = oView.byId("warehouseId").getValue();
+			//	var warehouseValue = oView.byId("warehouseId").getValue();
 			var manufacturingOrder = oView.byId("manuOrderId").getValue();
 			
-				var filters = [warehouseValue, manufacturingOrder];
-			var useFilters = filters.filter(function (item) {
-				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
-			});
+				//var useFilters = [manufacturingOrder];
+
+					var uomFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manufacturingOrder);
+var aFilterData=[];
+					aFilterData.push(uomFilter);
+
 			
 		//	 sap.ui.core.BusyIndicator.show();
-			oModel.read("/scwm_shLgnumSet", {
+			oModel.read("/ZptmshMfgordMatUomSet", {
 
 				success: function (oData, Response) {
 
@@ -652,7 +654,8 @@ sap.ui.define([
 				error: function (oData, Response, oError) {
 					console.log("Inside Error function UOM");
 					sap.ui.core.BusyIndicator.hide();
-				},	filters: useFilters
+				}
+				,	filters: aFilterData
 
 			});
 
@@ -660,12 +663,13 @@ sap.ui.define([
 
 		},
 
+
 		//Code to hadle serach inside revenue invoice value help
 		handleSearchUOM: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 
-			var filter1 = new Filter("Lgnum", sap.ui.model.FilterOperator.Contains, sValue);
-			var filter2 = new sap.ui.model.Filter("Lnumt", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter1 = new Filter("Meinh", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Mseht", sap.ui.model.FilterOperator.Contains, sValue);
 
 			var oFilter = new Filter([filter1, filter2]);
 			var oBinding = oEvent.getSource().getBinding("items");
@@ -682,7 +686,7 @@ sap.ui.define([
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedUOM = oItem.oModel.getProperty(oItem.sPath).Lgnum;
+					selectedUOM = oItem.oModel.getProperty(oItem.sPath).Meinh;
 
 				});
 

@@ -12,10 +12,10 @@
 						<!--Consumption Posting Card-->
 						<l:BlockLayoutCell class="sapUiResponsiveContentMargin sapUiTinyMarginEnd sapUiNoContentPadding detailsCard orderNumberCardStyle" title="{i18n>consumptionPosting}" width="1">
 							<VBox>
-								<HBox  height="auto">
+							<!--	<HBox  height="auto">
 									<HBox>
 									<Label wrapping="true" design="Bold"   text="{i18n>handlingUnit}:"/>
-									<!--<Input class="sapUiSmallMarginBegin" textAlign="Right">  </Input>-->
+								
 									<Label id="handlingTextId" wrapping="true"  class="sapUiTinyMarginBegin"  textAlign="Right" />
 									</HBox>
 								</HBox>
@@ -24,7 +24,7 @@
 									
 										<HBox>
 									<Label wrapping="true" design="Bold" text="{i18n>productConsumption}:"/>
-									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+								
 									<Label id="productConsumtionId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
 									</HBox>
 							
@@ -33,29 +33,29 @@
 								
 								<HBox>
 									<Label wrapping="true" design="Bold" text="{i18n>batch}:"/>
-									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+								
 									<Label id="batchId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
 									</HBox>
 								
 									<HBox>
 									<Label wrapping="true" design="Bold" text="{i18n>shelfLife}:"/>
-									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+								
 									<Label id="shelfLifeId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
 									</HBox>
 								<HBox>
 									<Label wrapping="true" design="Bold" text="{i18n>description}:"/>
-									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+								
 									<Label id="descriptionId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
 									</HBox>
 									
 										<HBox>
 									<Label wrapping="true" design="Bold"  text="{i18n>operation}:"/>
-									<!--<Input class="sapUiSmallMarginBegin">  </Input>-->
+								
 									<Label id="operationId" wrapping="true" class="sapUiTinyMarginBegin"  textAlign="Right" text=""/>
-									</HBox>
-										<HBox>
+									</HBox>-->
+									<!--	<HBox>
 									<CheckBox id="restrictedUseId" enabled="false" text="Restricted Use" select="restUseSel" />
-									</HBox>
+									</HBox>-->
 									
 									<HBox>
 								<RadioButton id="consumptionQuantityId" enabled="true" selected="true" text="Consumption Quantity" select="consQuanSel" />
@@ -66,10 +66,10 @@
 								<RadioButton id="remainingQuantityId" enabled="true" text="Remaining Quantity" select="remQuanSel" />
 									</HBox>
 									
-								<HBox>
+<!--								<HBox>
 									<Button enabled="false" text="{i18n>valuation}" press="onValuationPress" />
 				                  <Button enabled="false" text="{i18n>serial}" press="onSerialNoPress" />
-									</HBox>
+									</HBox>-->
 									
 							</VBox>
 						</l:BlockLayoutCell>
@@ -94,10 +94,8 @@
 								
 								</Link>
 								</HBox>
-								<!--<HBox  height="auto">
-									<Label wrapping="true" id="custPoNumLabel2" text="{orderDetails>/PurchOrdNoExt}"/>
-								</HBox>-->
-								<HBox height="auto">
+							
+						<!--		<HBox height="auto">
 									<Label wrapping="true"  design="Bold" text="{i18n>requirementStart}:"/>
 										<Label  id="addlRequirementStartId" class="sapUiTinyMarginBegin"  wrapping="true" 
 									/>
@@ -142,7 +140,7 @@
 									<Label wrapping="true"  design="Bold" text="{i18n>requiredQuantityBuom}"/>
 										<Label wrapping="true" id="addlrequiredQuantityBuomId" class="sapUiTinyMarginBegin" />
 										<Label wrapping="true" id="addlrequiredQuantityUnitId" class="sapUiTinyMarginBegin" />
-								</HBox>
+								</HBox>-->
 								
 							
 								
@@ -268,10 +266,10 @@
 										<Text text="{stockConsModel>Lgtyp}" />
 									
 											<!--<Input id="quanConsInpId" editable="true" value="{stockConsModel>ConsQuana}" submit="onQuanConsChange"/>-->
-											<Input id="quanConsInpId" editable="{path:'stockConsModel>ConsQuana', formatter:'.onFormatQuantity'}" submit="onQuanConsChange" value="{stockConsModel>ConsQuana}" liveChange="onQuanConsChangeLive" />
+											<Input id="quanConsInpId" editable="{path:'stockConsModel>ConsQuana', formatter:'.onFormatQuantity'}"  value="{stockConsModel>ConsQuana}" liveChange="onQuanConsChangeLive" />
 
 									
-											<Input  id="quanPSAInpId" editable="false" value="{stockConsModel>ConsQuanaRem}" submit="onQuanRemChange"  />
+											<Input  id="quanPSAInpId" editable="false" value="{stockConsModel>ConsQuanaRem}" submit="onQuanRemChange" liveChange="onQuanRemChangeLive" />
 									
 
 									

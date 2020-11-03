@@ -45,7 +45,7 @@
 										
 									</Input>
 									<Label text="{i18n>unitMeasure}" />
-									<Input id="unitMeasureId" showSuggestion="true" showValueHelp="true"  valueHelpRequest="onValueHelpUOM" >
+									<Input id="unitMeasureId" showSuggestion="true" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onValueHelpUOM" >
 									
 									</Input>
 								

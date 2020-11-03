@@ -7,7 +7,7 @@
 		search= "handleSearchUOM"
 		confirm="handleCloseUOM"
 		cancel="_handleValueHelpCloseUOM"
-			title="{i18n>warehouseSelection}"
+			title="{i18n>uomSelection}"
 		items="{
 			path : 'uomModel>/uomSet'}">             
 		<ColumnListItem>
@@ -16,8 +16,8 @@
 				title="{warehouseModel>/Lgnum}" 
 				 />-->
 				 
-				 <Text text="Litre" />
-					<Text text="Litres" />	
+				 <Text text="{uomModel>Meinh}" />
+					<Text text="{uomModel>Mseht}" />	
 					
 					
 			</cells>

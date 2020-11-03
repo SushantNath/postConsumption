@@ -75,19 +75,19 @@ sap.ui.define([
 			var oView = this.getView();
 			var clearValue = "";
 
-			oView.byId("handlingTextId").setText(clearValue);
+		/*	oView.byId("handlingTextId").setText(clearValue);
 			oView.byId("productConsumtionId").setText(clearValue);
 			oView.byId("batchId").setText(clearValue);
 			oView.byId("shelfLifeId").setText(clearValue);
 			oView.byId("descriptionId").setText(clearValue);
-			oView.byId("operationId").setText(clearValue);
+			oView.byId("operationId").setText(clearValue);*/
 
 			//Additional manufacturing order information
 
 			oView.byId("addlFinishedProdId").setText(clearValue);
 			oView.byId("addlDescriptionId").setText(clearValue);
 			oView.byId("addlManufOrderId").setText(clearValue);
-			oView.byId("addlRequirementStartId").setText(clearValue);
+			/*oView.byId("addlRequirementStartId").setText(clearValue);
 			oView.byId("addlReservationId").setText(clearValue);
 			oView.byId("addlConsumedQuantityId").setText(clearValue);
 			oView.byId("addlConsumedQuantityUnitId").setText(clearValue);
@@ -96,7 +96,7 @@ sap.ui.define([
 			oView.byId("addlOperationActivityId").setText(clearValue);
 			oView.byId("addlItemNoOfReservationId").setText(clearValue);
 			oView.byId("addlrequiredQuantityBuomId").setText(clearValue);
-			oView.byId("addlrequiredQuantityUnitId").setText(clearValue);
+			oView.byId("addlrequiredQuantityUnitId").setText(clearValue);*/
             this.globalQuanValue = "";
 		},
 
@@ -137,19 +137,19 @@ sap.ui.define([
 				success: function (oData, Response) {
 
 					//	oView.byId("handlingTextId").setText(oData.Huident);
-					oView.byId("handlingTextId").setText(oData.Huident);
+				/*	oView.byId("handlingTextId").setText(oData.Huident);
 					oView.byId("productConsumtionId").setText(oData.Matnr);
 					oView.byId("batchId").setText(oData.Charg);
 					oView.byId("shelfLifeId").setText(oData.Vfdat);
 					oView.byId("descriptionId").setText(oData.Maktx);
-					oView.byId("operationId").setText(oData.Operation);
+					oView.byId("operationId").setText(oData.Operation);*/
 
 					//Additional manufacturing order information
 
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-					oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
+				/*	oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
 					oView.byId("addlReservationId").setText(oData.AdiRsnum);
 					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
 					oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
@@ -158,7 +158,7 @@ sap.ui.define([
 					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
 					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
 					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
-					oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);
+					oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);*/
 
 					sap.ui.core.BusyIndicator.hide();
 
@@ -437,6 +437,30 @@ sap.ui.define([
 
 		//livechange event for consumption quantity field
 		onQuanConsChangeLive: function (oEvent) {
+			
+			  this.globalQuanValue = "X";
+			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
+			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+			var substractVal = parseFloat(prodSupAreavalue - consQuanValue);
+			var iTempTotRemaining = substractVal.toFixed(3);
+
+			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
+			oRemainingValue.setValue(iTempTotRemaining);
+
+		},
+		
+			//livechange event for consumption quantity field
+		onQuanRemChangeLive: function (oEvent) {
+			
+			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
+			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+			var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+			var iTempTotRemaining = substractVal.toFixed(3);
+
+			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
+			oRemainingValue.setValue(iTempTotRemaining);
 
 		},
 
@@ -496,14 +520,14 @@ sap.ui.define([
 		//Function to handle change in Remaining Quantity
 		onQuanRemChange: function (oEvent) {
 
-			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
-			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
-			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
-			var substractVal = parseFloat(prodSupAreavalue - consRemValue);
-			var iTempTotRemaining = substractVal.toFixed(3);
+			// var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
+			// var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
+			// var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
+			// var substractVal = parseFloat(prodSupAreavalue - consRemValue);
+			// var iTempTotRemaining = substractVal.toFixed(3);
 
-			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
-			oRemainingValue.setValue(iTempTotRemaining);
+			// var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
+			// oRemainingValue.setValue(iTempTotRemaining);
 		},
 
 		// Export to excel
