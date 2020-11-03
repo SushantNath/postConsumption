@@ -175,6 +175,26 @@ sap.ui.define([
 
 			});
 
+			var oSelectedItem = oEvent.getParameter("listItem");
+			var oTable = oEvent.getSource();
+			var oIndex = oTable.indexOfItem(oSelectedItem);
+			console.log("Selected index", oIndex);
+
+			var oView = this.getView();
+			var oTable = this.getView().byId("consumptionTable");
+			var aItems = oTable.getSelectedItems();
+
+			if (oView.byId("consumptionQuantityId").getSelected() === true) {
+				oTable.getItems()[oIndex].getCells()[27].setEditable(true);
+				oTable.getItems()[oIndex].getCells()[28].setEditable(false);
+
+			} else {
+
+				oTable.getItems()[oIndex].getCells()[28].setEditable(true);
+				oTable.getItems()[oIndex].getCells()[27].setEditable(false);
+
+			}
+
 		},
 
 		//open manufacture details
@@ -428,13 +448,13 @@ sap.ui.define([
 		// on selection of consumption quantity radio button
 
 		consQuanSel: function (oEvent) {
-			this.getView().byId("consumptionQuantityId").setEnabled(true);
+	/*		this.getView().byId("consumptionQuantityId").setEnabled(true);
 			var oTable = this.getView().byId("consumptionTable");
 			var aItems = oTable.getItems();
 			for (var i = 0; i < aItems.length; i++) {
 				aItems[i].getCells()[27].setEditable(aItems[i].getSelected());
 				aItems[i].getCells()[28].setEditable(false);
-			}
+			}*/
 
 		},
 
@@ -467,20 +487,20 @@ sap.ui.define([
 
 		},
 
-		// on selection of consumption quantity radio button
+		// on selection of consumption quantity radio button - not used
 
 		remQuanSel: function (oEvent) {
-			this.getView().byId("remainingQuantityId").setEnabled(true);
+		/*	this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oTable = this.getView().byId("consumptionTable");
 			var aItems = oTable.getItems();
 			for (var i = 0; i < aItems.length; i++) {
 				aItems[i].getCells()[28].setEditable(aItems[i].getSelected());
 				aItems[i].getCells()[27].setEditable(false);
-			}
+			}*/
 
 		},
 
-		// on selection of restriced use checkbox
+		// on selection of restriced use checkbox - not used
 
 		restUseSel: function (oEvent) {
 			//	this.getView().byId("remainingQuantityId").setEnabled(true);
@@ -494,7 +514,7 @@ sap.ui.define([
 
 		},
 
-		//Function to handle change in quantity
+		//Function to handle change in quantity - not used
 		onQuanConsChange: function (oEvent) {
 
 			console.log("Inside Quantity change");
@@ -520,7 +540,7 @@ sap.ui.define([
 			oRemainingValue.setValue(iTempTotRemaining);
 		},
 
-		//Function to handle change in Remaining Quantity
+		//Function to handle change in Remaining Quantity - not used
 		onQuanRemChange: function (oEvent) {
 
 			// var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
