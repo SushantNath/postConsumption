@@ -2,7 +2,7 @@
 	controllerName="sap.com.postconsumption.postConsumption.controller.postConsumption" xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="Title" showNavButton="true" navButtonPress="onNavBack">
+			<Page title="Consumption Details" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					
 						<Panel backgroundDesign="Transparent"  expandable="true" expanded="true" height="auto"
