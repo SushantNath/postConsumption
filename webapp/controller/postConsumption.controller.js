@@ -70,17 +70,17 @@ sap.ui.define([
 			this.getConsumption();
 			console.log("Passed values are", manufacturingOrder, handlingUnitvalue, uomValue, operation, product, prodSupArea, quantityProduced);
 
-//logic to clear values for cards on navigation
+			//logic to clear values for cards on navigation
 
 			var oView = this.getView();
 			var clearValue = "";
 
-		/*	oView.byId("handlingTextId").setText(clearValue);
-			oView.byId("productConsumtionId").setText(clearValue);
-			oView.byId("batchId").setText(clearValue);
-			oView.byId("shelfLifeId").setText(clearValue);
-			oView.byId("descriptionId").setText(clearValue);
-			oView.byId("operationId").setText(clearValue);*/
+			/*	oView.byId("handlingTextId").setText(clearValue);
+				oView.byId("productConsumtionId").setText(clearValue);
+				oView.byId("batchId").setText(clearValue);
+				oView.byId("shelfLifeId").setText(clearValue);
+				oView.byId("descriptionId").setText(clearValue);
+				oView.byId("operationId").setText(clearValue);*/
 
 			//Additional manufacturing order information
 
@@ -97,7 +97,11 @@ sap.ui.define([
 			oView.byId("addlItemNoOfReservationId").setText(clearValue);
 			oView.byId("addlrequiredQuantityBuomId").setText(clearValue);
 			oView.byId("addlrequiredQuantityUnitId").setText(clearValue);*/
-            this.globalQuanValue = "";
+			this.globalQuanValue = "";
+			this.consQuanRadio = "e";
+			this.remQuanRadio = "ne";
+
+			this.getView().byId("consumptionQuantityId").setSelected(true);
 		},
 
 		onNavBack: function () {
@@ -137,28 +141,28 @@ sap.ui.define([
 				success: function (oData, Response) {
 
 					//	oView.byId("handlingTextId").setText(oData.Huident);
-				/*	oView.byId("handlingTextId").setText(oData.Huident);
-					oView.byId("productConsumtionId").setText(oData.Matnr);
-					oView.byId("batchId").setText(oData.Charg);
-					oView.byId("shelfLifeId").setText(oData.Vfdat);
-					oView.byId("descriptionId").setText(oData.Maktx);
-					oView.byId("operationId").setText(oData.Operation);*/
+					/*	oView.byId("handlingTextId").setText(oData.Huident);
+						oView.byId("productConsumtionId").setText(oData.Matnr);
+						oView.byId("batchId").setText(oData.Charg);
+						oView.byId("shelfLifeId").setText(oData.Vfdat);
+						oView.byId("descriptionId").setText(oData.Maktx);
+						oView.byId("operationId").setText(oData.Operation);*/
 
 					//Additional manufacturing order information
 
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-				/*	oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
-					oView.byId("addlReservationId").setText(oData.AdiRsnum);
-					oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
-					oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
-					oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
-					oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
-					oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
-					oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
-					oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
-					oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);*/
+					/*	oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
+						oView.byId("addlReservationId").setText(oData.AdiRsnum);
+						oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
+						oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
+						oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
+						oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
+						oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
+						oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
+						oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
+						oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);*/
 
 					sap.ui.core.BusyIndicator.hide();
 
@@ -270,11 +274,10 @@ sap.ui.define([
 
 				success: function (oData, Response) {
 
-
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
 					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
-				//	oTable.selectAll();
+					//	oTable.selectAll();
 					//logic to select consumption quantity to selected on navigation
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
@@ -437,8 +440,8 @@ sap.ui.define([
 
 		//livechange event for consumption quantity field
 		onQuanConsChangeLive: function (oEvent) {
-			
-			  this.globalQuanValue = "X";
+
+			this.globalQuanValue = "X";
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
 			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
@@ -449,10 +452,10 @@ sap.ui.define([
 			oRemainingValue.setValue(iTempTotRemaining);
 
 		},
-		
-			//livechange event for consumption quantity field
+
+		//livechange event for consumption quantity field
 		onQuanRemChangeLive: function (oEvent) {
-			
+
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
 			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
@@ -506,7 +509,7 @@ sap.ui.define([
 			// 			var iTempTotRemaining = substractVal.toFixed(3);
 			// //initialvalue.setValue(iTempTotRemaining);
 			// 			var selectedRow = selectionCheck.mAggregations.cells[28].setValue(iTempTotRemaining);
-            this.globalQuanValue = "X";
+			this.globalQuanValue = "X";
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
 			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
@@ -774,48 +777,46 @@ sap.ui.define([
 
 		//logic to make quantiyy field editable based on PSA
 		onFormatQuantity: function (quantity) {
-		if(this.globalQuanValue === "X"){
-
-	return true;
-
-	this.globalQuanValue = "";
-
-}
-
-else {
-
-			if (quantity > 0) {
+			if (this.globalQuanValue === "X") {
 
 				return true;
+
+				this.globalQuanValue = "";
+
 			} else {
 
-				return false;
+				if (quantity > 0) {
+
+					return true;
+				} else {
+
+					return false;
+				}
+
 			}
-
-}
 		},
-		
-		//logic to set row selected based on quantity 
-		
-		onModelContextChange: function(oEvent) {
-    // var sId = oEvent.getParameter("id");
-    // var tbl = sap.ui.getCore().byId(sId);
-    // var header = tbl.$().find('thead');
-    // var selectAllCb = header.find('.sapMCb');
-    // selectAllCb.remove();
 
-    // tbl.getItems().forEach(function (r) {
-    //     var obj = r.getBindingContext("dataModel").getObject();
-    //     var oStatus = obj.checkDuplicate; 
-    //     var cb = r.$().find('.sapMCb');
-    //     var oCb = sap.ui.getCore().byId(cb.attr('id'));
-    //     if (oStatus == "true") {
-    //         oCb.setEnabled(true);
-    //     } else {
-    //         oCb.setEnabled(false);
-    //     }
-    // });
-}
+		//logic to set row selected based on quantity 
+
+		onModelContextChange: function (oEvent) {
+			// var sId = oEvent.getParameter("id");
+			// var tbl = sap.ui.getCore().byId(sId);
+			// var header = tbl.$().find('thead');
+			// var selectAllCb = header.find('.sapMCb');
+			// selectAllCb.remove();
+
+			// tbl.getItems().forEach(function (r) {
+			//     var obj = r.getBindingContext("dataModel").getObject();
+			//     var oStatus = obj.checkDuplicate; 
+			//     var cb = r.$().find('.sapMCb');
+			//     var oCb = sap.ui.getCore().byId(cb.attr('id'));
+			//     if (oStatus == "true") {
+			//         oCb.setEnabled(true);
+			//     } else {
+			//         oCb.setEnabled(false);
+			//     }
+			// });
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

@@ -9,15 +9,13 @@
 		cancel="_handleValueHelpCloseManufacturing"
 			title="{i18n>manufacturingHeader}"
 		items="{
-			path : '/Invoices'}">             
+			path : 'manufOrderModel>/manufOrderSet'}">             
 		<ColumnListItem>
 			<cells>
-				<ObjectIdentifier 
-				title="{ProductId}" 
-				 />
-					
-					<!--<Text text="{ProductName}" visible="{path:'ProductName', formatter:'.onFormatDate'}"  />-->
-					<Text text="{ProductName}"/>
+			
+					<Text text="{manufOrderModel>Lgnum}"/>	
+				
+					<Text text="{manufOrderModel>MfgOrder}"/>
 			</cells>
 		</ColumnListItem>
 		<columns>

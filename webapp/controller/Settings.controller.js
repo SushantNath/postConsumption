@@ -182,28 +182,39 @@ sap.ui.define([
 		},
 
 		loadManufacturing: function () {
-			//	var oModel = this.getView().getModel("revenueModel");
+			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
-			// sap.ui.core.BusyIndicator.show();
-			// oModel.read("/DebiaSet", {
+			
+			//	var warehouseValue = oView.byId("warehouseId").getValue();
+			var warehouseValue = this.getView().byId("warehouseId").getValue();
+			
+				//var useFilters = [manufacturingOrder];
 
-			// 	success: function (oData, Response) {
+					var warehouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouseValue);
+var aFilterData=[];
+					aFilterData.push(warehouseFilter);
 
-			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(stockConsModel, "stockConsModel");
-			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-			// 		sap.ui.core.BusyIndicator.hide();
-			// 		console.log("Inside Success function revenue invoice", oData.results);
-			// 	},
+			
+		//	 sap.ui.core.BusyIndicator.show();
+			oModel.read("/ZptmshMfgOrderConsSet", {
 
-			// 	error: function (oData, Response, oError) {
-			// 		console.log("Inside Error function");
-			// 	}
+				success: function (oData, Response) {
 
-			// });
+					var manufOrderModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(manufOrderModel, "manufOrderModel");
+					oView.getModel("manufOrderModel").setProperty("/manufOrderSet", oData.results);
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside manufacturing order success function", oData.results);
+				},
 
-			// console.log("Inside Filter options");
+				error: function (oData, Response, oError) {
+					console.log("Inside manufacturing order error");
+					sap.ui.core.BusyIndicator.hide();
+				}
+				,	filters: aFilterData
+
+			});
 
 		},
 
@@ -211,8 +222,8 @@ sap.ui.define([
 		handleSearchManufacturing: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 
-			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
-			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter1 = new Filter("Lgnum", sap.ui.model.FilterOperator.EQ, sValue);
+			var filter2 = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, sValue);
 
 			var oFilter = new Filter([filter1, filter2]);
 			var oBinding = oEvent.getSource().getBinding("items");
@@ -229,7 +240,7 @@ sap.ui.define([
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedManufacturing = oItem.oModel.getProperty(oItem.sPath).ProductName;
+					selectedManufacturing = oItem.oModel.getProperty(oItem.sPath).MfgOrder;
 
 				});
 
