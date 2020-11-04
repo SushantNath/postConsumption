@@ -101,7 +101,7 @@ sap.ui.define([
 			this.consQuanRadio = "e";
 			this.remQuanRadio = "ne";
 
-			this.getView().byId("consumptionQuantityId").setSelected(true);
+			//	this.getView().byId("consumptionQuantityId").setSelected(true);
 		},
 
 		onNavBack: function () {
@@ -301,6 +301,15 @@ sap.ui.define([
 					//logic to select consumption quantity to selected on navigation
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
+
+					oTable.getItems().forEach(function (item) {
+
+						if (item.getCells()[27].getValue() > 0) {
+							item.addStyleClass("overdueRow");
+
+						}
+					});
+
 					sap.ui.core.BusyIndicator.hide();
 
 				},
@@ -319,7 +328,8 @@ sap.ui.define([
 
 		//Post consumption functionality
 		onPostConsumption: function (oEvent) {
-			var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
+		//	var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
+		var consTableLength = this.getView().byId("consumptionTable").getItems();
 			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
@@ -341,8 +351,10 @@ sap.ui.define([
 					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
 					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 					//	var serverMessage;
+					if (oItem.getCells()[27].getValue() > 0) {
+						selectedArray.push(tableValue);
 
-					selectedArray.push(tableValue);
+					}
 
 					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
 
@@ -448,13 +460,13 @@ sap.ui.define([
 		// on selection of consumption quantity radio button
 
 		consQuanSel: function (oEvent) {
-	/*		this.getView().byId("consumptionQuantityId").setEnabled(true);
-			var oTable = this.getView().byId("consumptionTable");
-			var aItems = oTable.getItems();
-			for (var i = 0; i < aItems.length; i++) {
-				aItems[i].getCells()[27].setEditable(aItems[i].getSelected());
-				aItems[i].getCells()[28].setEditable(false);
-			}*/
+			/*		this.getView().byId("consumptionQuantityId").setEnabled(true);
+					var oTable = this.getView().byId("consumptionTable");
+					var aItems = oTable.getItems();
+					for (var i = 0; i < aItems.length; i++) {
+						aItems[i].getCells()[27].setEditable(aItems[i].getSelected());
+						aItems[i].getCells()[28].setEditable(false);
+					}*/
 
 		},
 
@@ -490,13 +502,13 @@ sap.ui.define([
 		// on selection of consumption quantity radio button - not used
 
 		remQuanSel: function (oEvent) {
-		/*	this.getView().byId("remainingQuantityId").setEnabled(true);
-			var oTable = this.getView().byId("consumptionTable");
-			var aItems = oTable.getItems();
-			for (var i = 0; i < aItems.length; i++) {
-				aItems[i].getCells()[28].setEditable(aItems[i].getSelected());
-				aItems[i].getCells()[27].setEditable(false);
-			}*/
+			/*	this.getView().byId("remainingQuantityId").setEnabled(true);
+				var oTable = this.getView().byId("consumptionTable");
+				var aItems = oTable.getItems();
+				for (var i = 0; i < aItems.length; i++) {
+					aItems[i].getCells()[28].setEditable(aItems[i].getSelected());
+					aItems[i].getCells()[27].setEditable(false);
+				}*/
 
 		},
 
