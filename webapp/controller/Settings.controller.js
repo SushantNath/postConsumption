@@ -46,6 +46,39 @@ sap.ui.define([
 				this.byId("warehouseId").setValue(storagevalue);
 
 			}
+			
+			//logic to read startup values:
+			var ParameterData = this.getOwnerComponent().getComponentData();
+			
+			if (ParameterData.startupParameters.ManufacturingOrder) {
+
+var manufOrder = ParameterData.startupParameters.ManufacturingOrder[0];// “Getting the Purchase Order Value passed along with the URL
+
+var manufInput = this.getView().byId("manuOrderId");
+
+manufInput.setValue(manufOrder);// “Here we are setting the Purchase Order Value
+
+}
+
+	if (ParameterData.startupParameters.Operation) {
+
+var operation = ParameterData.startupParameters.Operation[0];// “Getting the Purchase Order Value passed along with the URL
+
+var operationInput = this.getView().byId("opForActId");
+
+operationInput.setValue(operation);// “Here we are setting the Purchase Order Value
+
+}
+
+if (ParameterData.startupParameters.Warehouse) {
+
+var warehouse = ParameterData.startupParameters.Warehouse[0];// “Getting the Purchase Order Value passed along with the URL
+
+var warehouseInput = this.getView().byId("warehouseId");
+
+warehouseInput.setValue(warehouse);// “Here we are setting the Purchase Order Value
+
+}
 
 			/*		oModel.read("/HTvfkSet", {
 
