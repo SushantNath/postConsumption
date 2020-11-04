@@ -153,7 +153,7 @@
 			
 			
 				<Table id="consumptionTable" class="sapUiResponsiveMargin " width="95%" items="{path : 'stockConsModel>/stockConsSet'}" 
-						 modelContextChange=".onModelContextChange" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber" select="onselectChange" >
+						 modelContextChange=".onModelContextChange" updateFinished="onUpdateFinished" selectionChange="onPressOrderNumber" itemPress="onselectChange" >
 							<headerToolbar>
 								
 								<Toolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
@@ -213,7 +213,7 @@
 							
 							</columns>
 							<items>
-								<ColumnListItem>
+								<ColumnListItem type="Active">
 									<cells>
 											<Text text="{stockConsModel>Huident}"/>
 									

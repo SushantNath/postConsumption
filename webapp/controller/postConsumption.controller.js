@@ -200,6 +200,61 @@ sap.ui.define([
 		onselectChange: function (oEvent) {
 			
 			
+					//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
+			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
+			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
+			console.log("Inside press order number");
+			//	this.getView().byId("restrictedUseId").setEnabled(true);
+			// this.getView().byId("consumptionQuantityId").setEnabled(true);
+			// this.getView().byId("remainingQuantityId").setEnabled(true);
+			var oView = this.getView();
+			var oModel = this.getOwnerComponent().getModel("consumptionModel");
+
+			var manuOrder = tableValue.MfgOrder;
+			var quanProd = tableValue.Lgnum;
+			//var handlingUnit = "112345678000012066";
+			var handlingUnit = tableValue.Huident;
+			sap.ui.core.BusyIndicator.show();
+
+			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
+
+				success: function (oData, Response) {
+
+					//	oView.byId("handlingTextId").setText(oData.Huident);
+					/*	oView.byId("handlingTextId").setText(oData.Huident);
+						oView.byId("productConsumtionId").setText(oData.Matnr);
+						oView.byId("batchId").setText(oData.Charg);
+						oView.byId("shelfLifeId").setText(oData.Vfdat);
+						oView.byId("descriptionId").setText(oData.Maktx);
+						oView.byId("operationId").setText(oData.Operation);*/
+
+					//Additional manufacturing order information
+
+					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
+					oView.byId("addlDescriptionId").setText(oData.CatTxt);
+					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+					/*	oView.byId("addlRequirementStartId").setText(oData.AdiReqStartDate);
+						oView.byId("addlReservationId").setText(oData.AdiRsnum);
+						oView.byId("addlConsumedQuantityId").setText(oData.AdiReqQuanGi);
+						oView.byId("addlConsumedQuantityUnitId").setText(oData.AdiReqUomGi);
+						oView.byId("addlConsumedProgressId").setPercentValue(oData.AdiConsProg);
+						oView.byId("addlConsumedProgressId").setDisplayValue(oData.AdiConsProg);
+						oView.byId("addlOperationActivityId").setText(oData.AdiOperation);
+						oView.byId("addlItemNoOfReservationId").setText(oData.AdiRspos);
+						oView.byId("addlrequiredQuantityBuomId").setText(oData.AdiReqQuan);
+						oView.byId("addlrequiredQuantityUnitId").setText(oData.AdiReqUom);*/
+
+					sap.ui.core.BusyIndicator.hide();
+
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function");
+				}
+
+			});
+			
 		},
 
 		//open manufacture details
@@ -477,7 +532,7 @@ sap.ui.define([
 
 		//livechange event for consumption quantity field
 		onQuanConsChangeLive: function (oEvent) {
-
+           var oTable = this.getView().byId("consumptionTable");
 			this.globalQuanValue = "X";
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
@@ -487,12 +542,20 @@ sap.ui.define([
 
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
 			oRemainingValue.setValue(iTempTotRemaining);
+			
+			oTable.getItems().forEach(function (item) {
+
+						if (item.getCells()[27].getValue() > 0) {
+							item.addStyleClass("overdueRow");
+
+						}
+					});
 
 		},
 
 		//livechange event for consumption quantity field
 		onQuanRemChangeLive: function (oEvent) {
-
+             var oTable = this.getView().byId("consumptionTable");
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
 			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
@@ -501,6 +564,19 @@ sap.ui.define([
 
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
 			oRemainingValue.setValue(iTempTotRemaining);
+			
+			oTable.getItems().forEach(function (item) {
+
+						if (item.getCells()[27].getValue() > 0) {
+							item.addStyleClass("overdueRow");
+
+						}
+
+					
+
+
+					});
+
 
 		},
 
