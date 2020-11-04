@@ -383,8 +383,45 @@ sap.ui.define([
 				filters: useFilters
 					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
+			
+			
+			//logic to fetch the list of additional information
+			
+			
+				var manuOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			
+			var quanProd = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
+
+			
+
+			var oModel = this.getOwnerComponent().getModel("consumptionModel");
+
+   	oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+
+				success: function (oData, Response) {
+
+
+					//Additional manufacturing order information
+
+					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
+					oView.byId("addlDescriptionId").setText(oData.CatTxt);
+					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+				
+
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function for additional information");
+				}
+
+			});
+
 
 		},
+		
+		
+		
 
 		//Post consumption functionality
 		onPostConsumption: function (oEvent) {
