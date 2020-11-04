@@ -809,23 +809,23 @@ sap.ui.define([
 
 		//logic to make quantiyy field editable based on PSA
 		onFormatQuantity: function (quantity) {
-			if (this.globalQuanValue === "X") {
+			// if (this.globalQuanValue === "X") {
 
-				return true;
+			// 	return true;
 
-				this.globalQuanValue = "";
+			// 	this.globalQuanValue = "";
 
-			} else {
+			// } else {
 
-				if (quantity > 0) {
+			// 	if (quantity > 0) {
 
-					return true;
-				} else {
+			// 		return true;
+			// 	} else {
 
-					return false;
-				}
+			// 		return false;
+			// 	}
 
-			}
+			// }
 		},
 
 		//logic to set row selected based on quantity 
