@@ -125,8 +125,8 @@ sap.ui.define([
 			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 			console.log("Inside press order number");
 			//	this.getView().byId("restrictedUseId").setEnabled(true);
-			this.getView().byId("consumptionQuantityId").setEnabled(true);
-			this.getView().byId("remainingQuantityId").setEnabled(true);
+			// this.getView().byId("consumptionQuantityId").setEnabled(true);
+			// this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
@@ -184,17 +184,22 @@ sap.ui.define([
 			var oTable = this.getView().byId("consumptionTable");
 			var aItems = oTable.getSelectedItems();
 
-			if (oView.byId("consumptionQuantityId").getSelected() === true) {
-				oTable.getItems()[oIndex].getCells()[27].setEditable(true);
-				oTable.getItems()[oIndex].getCells()[28].setEditable(false);
+			// if (oView.byId("consumptionQuantityId").getSelected() === true) {
+			// 	oTable.getItems()[oIndex].getCells()[27].setEditable(true);
+			// 	oTable.getItems()[oIndex].getCells()[28].setEditable(false);
 
-			} else {
+			// } else {
 
-				oTable.getItems()[oIndex].getCells()[28].setEditable(true);
-				oTable.getItems()[oIndex].getCells()[27].setEditable(false);
+			// 	oTable.getItems()[oIndex].getCells()[28].setEditable(true);
+			// 	oTable.getItems()[oIndex].getCells()[27].setEditable(false);
 
-			}
+			// }
 
+		},
+		
+		onselectChange: function (oEvent) {
+			
+			
 		},
 
 		//open manufacture details
