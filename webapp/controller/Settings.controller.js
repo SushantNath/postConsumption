@@ -80,6 +80,26 @@ warehouseInput.setValue(warehouse);// “Here we are setting the Purchase Order 
 
 }
 
+if (ParameterData.startupParameters.Quantity) {
+
+var quantity = ParameterData.startupParameters.Quantity[0];// “Getting the Purchase Order Value passed along with the URL
+
+var quantityInput = this.getView().byId("quantityProducedId");
+
+quantityInput.setValue(quantity);// “Here we are setting the Purchase Order Value
+
+}
+
+if (ParameterData.startupParameters.Unit) {
+
+var unit = ParameterData.startupParameters.Unit[0];// “Getting the Purchase Order Value passed along with the URL
+
+var unitInput = this.getView().byId("unitMeasureId");
+
+unitInput.setValue(unit);// “Here we are setting the Purchase Order Value
+
+}
+
 			/*		oModel.read("/HTvfkSet", {
 
 							success: function (oData, Response) {
