@@ -163,7 +163,7 @@
 									<SearchField  search=".onSearchConsumption" width="50%"/>	
 									<Button icon="sap-icon://download" press="_onDataExport"/>
 									<Button icon="sap-icon://action-settings" press="_onPersoButtonPressed"/>
-										<Button class="sapUiTinyMargin" id="postConsId" press="onPostConsumption" text="Post Consumption" type="Transparent">
+										<Button class="sapUiTinyMargin" id="postConsId" press="confirmPost" text="Post Consumption" type="Transparent">
 					<customData>
 						<core:CustomData key="option" value="expXmlBtn"/>
 					</customData>

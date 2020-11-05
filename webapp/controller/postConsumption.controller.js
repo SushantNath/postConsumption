@@ -17,6 +17,7 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	'sap/m/MessageToast',
+	'sap/m/MessageBox',
 	'sap/ui/model/json/JSONModel',
 	"sap/com/postconsumption/postConsumption/utilities/Formatter"
 ], function (Controller, History, TablePersoController, Export, ExportTypeCSV, MessageBox, Filter, FilterOperator, MessageToast,
@@ -420,7 +421,22 @@ sap.ui.define([
 
 		},
 		
-		
+		//confirm post from user:
+		confirmPost: function (oEvent) { 
+			var that = this;
+			MessageBox.show("Please Confirm to Post consumption", {
+    icon: MessageBox.Icon.INFORMATION,
+    title: "Dear User",
+    actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+    onClose: function(oAction) {
+        if (oAction == "YES") {
+        	that.onPostConsumption();
+           console.log("Inside confirm Yes")
+        }
+    }.bind(this)
+});
+			
+		},
 		
 
 		//Post consumption functionality
