@@ -117,7 +117,7 @@ sap.ui.define([
 			//	this.oTablePersoController.openDialog();
 		},
 
-		// on selecta particular comsumption
+		// on select a particular comsumption - Not used
 
 		onPressOrderNumber: function (oEvent) {
 
@@ -198,6 +198,8 @@ sap.ui.define([
 
 		},
 
+
+// Not -used
 		onselectChange: function (oEvent) {
 
 			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
@@ -257,7 +259,7 @@ sap.ui.define([
 
 		},
 
-		//open manufacture details
+		//open manufacture details - for manufature number hyperlink
 		onManufacturePress: function (oEvent) {
 			console.log("Inside manufacture link press");
 
@@ -689,7 +691,7 @@ sap.ui.define([
 
 		},
 
-		// on selection of consumption quantity radio button
+		// on selection of consumption quantity radio button - Not used
 
 		consQuanSel: function (oEvent) {
 			/*		this.getView().byId("consumptionQuantityId").setEnabled(true);
@@ -1056,7 +1058,7 @@ sap.ui.define([
 			oBinding.filter(oFilter, "Application");
 		},
 
-		//logic to make quantiyy field editable based on PSA
+		//logic to make quantiyy field editable based on PSA - Not used
 		onFormatQuantity: function (quantity) {
 			// if (this.globalQuanValue === "X") {
 
@@ -1077,7 +1079,7 @@ sap.ui.define([
 			// }
 		},
 
-		//logic to set row selected based on quantity 
+		//logic to set row selected based on quantity  - Not used
 
 		onModelContextChange: function (oEvent) {
 			// var sId = oEvent.getParameter("id");

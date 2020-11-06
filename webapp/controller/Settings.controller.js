@@ -32,9 +32,9 @@ sap.ui.define([
 
 			var oModel = this.getView().getModel("revenueModel");
 
-			var storagevalue = localStorage.getItem("warehouse");
+		//	var storagevalue = localStorage.getItem("warehouse");
 
-			if (storagevalue === null) {
+		/*	if (storagevalue === null) {
 
 				console.log("No warehouse value saved");
 			} else {
@@ -45,7 +45,7 @@ sap.ui.define([
 
 				this.byId("warehouseId").setValue(storagevalue);
 
-			}
+			} */
 			
 			//logic to read startup values:
 			var ParameterData = this.getOwnerComponent().getComponentData();

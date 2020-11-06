@@ -41,7 +41,7 @@
 									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProdSup" ></Input>
 								
 									<Label text="{i18n>quantityProduced}"/>
-									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpQuanProd" >
+									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true"  >
 										
 									</Input>
 									<Label text="{i18n>unitMeasure}" />
