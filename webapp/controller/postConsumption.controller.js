@@ -197,11 +197,10 @@ sap.ui.define([
 			// }
 
 		},
-		
+
 		onselectChange: function (oEvent) {
-			
-			
-					//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
+
+			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
 			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
 			var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
 			console.log("Inside press order number");
@@ -255,7 +254,7 @@ sap.ui.define([
 				}
 
 			});
-			
+
 		},
 
 		//open manufacture details
@@ -384,30 +383,24 @@ sap.ui.define([
 				filters: useFilters
 					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
-			
-			
-			//logic to fetch the list of additional information
-			
-			
-				var manuOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
-			
-			var quanProd = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
 
-			
+			//logic to fetch the list of additional information
+
+			var manuOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+
+			var quanProd = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
 
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-   	oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
 
 				success: function (oData, Response) {
-
 
 					//Additional manufacturing order information
 
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-				
 
 				},
 
@@ -418,31 +411,157 @@ sap.ui.define([
 
 			});
 
-
 		},
-		
+
 		//confirm post from user:
-		confirmPost: function (oEvent) { 
-			var that = this;
-			MessageBox.show("Please Confirm to Post consumption", {
-    icon: MessageBox.Icon.INFORMATION,
-    title: "Dear User",
-    actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
-    onClose: function(oAction) {
-        if (oAction == "YES") {
-        	that.onPostConsumption();
-           console.log("Inside confirm Yes")
-        }
-    }.bind(this)
-});
-			
-		},
-		
+		confirmPost: function (oEvent) {
 
-		//Post consumption functionality
+			var consTableLength = this.getView().byId("consumptionTable").getItems();
+			var oModel = this.getView().getModel("consumptionModel");
+			var aSelectedItems = [];
+			var selectedArray = [];
+			var that = this;
+			if (consTableLength.length > 0) {
+
+				var aItems = this.getView().byId('consumptionTable').getItems();
+				var aSelectedItems = [];
+				for (var i = 0; i < aItems.length; i++) {
+					if (aItems[i].getSelected()) {
+						aSelectedItems.push(aItems[i]);
+					}
+				}
+
+				consTableLength.forEach(function (oItem) {
+
+					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
+					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
+					//	var serverMessage;
+					if (oItem.getCells()[27].getValue() > 0) {
+						selectedArray.push(tableValue);
+
+					}
+
+					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
+
+				});
+
+				var aCreateDocPayload = selectedArray;
+				oModel.setDeferredGroups(["PostConsumptionBatch"]);
+				oModel.setUseBatch(true);
+				//	var aCreateDocPayload = selectedArray;
+				var that = this;
+
+				var that = this;
+				MessageBox.show("Please Confirm to Post consumption", {
+					icon: MessageBox.Icon.INFORMATION,
+					title: "Dear User",
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+					onClose: function (oAction) {
+						if (oAction == "YES") {
+
+							sap.ui.core.BusyIndicator.show();
+
+							//////////////////////
+
+							var mParameter = {
+
+								urlParameters: null,
+								groupId: "PostConsumptionBatch",
+								success: function (oData, oRet) {
+
+									var serverMessage = oRet.headers["sap-message"];
+
+									//	console.log("Message from server", serverMessage);
+									console.log("Inside mparameter success");
+									sap.ui.core.BusyIndicator.hide();
+									//This success handler will only be called if batch support is enabled. 
+									//If multiple batch groups are submitted the handlers will be called for every batch group.
+
+								},
+								error: function (oError) {
+									console.log("Inside mparameter error");
+									sap.ui.core.BusyIndicator.hide();
+
+								}
+							};
+
+							var singleentry = {
+								groupId: "PostConsumptionBatch",
+								urlParameters: null,
+								success: function (oData, oRet) {
+									console.log("Inside singleentry success");
+									//The success callback function for each record
+
+									var serverMessage = oRet.headers["sap-message"];
+
+									if (serverMessage === undefined) {
+										console.log("Inside if block for message toast");
+
+									} else {
+
+										console.log("Inside else block for message toast");
+
+									}
+									//Message box for post consumption success
+									MessageBox.show("Consumption posted sucessfully. YES button will navigate you to the previous screen", {
+										icon: MessageBox.Icon.SUCCESS,
+										title: "Dear User",
+										actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+										onClose: function (oAction) {
+											if (oAction == "YES") {
+
+												that.onNavBack();
+											}
+										}.bind(this)
+									});
+									that.getConsumption();
+
+								},
+								error: function (oError) {
+									console.log("Inside singleentry error");
+									//Message box for post consumption success
+
+									MessageBox.show("Error in posting consumption", {
+										icon: MessageBox.Icon.ERROR,
+										title: "Dear User",
+										actions: [sap.m.MessageBox.Action.OK],
+
+									});
+									//The error callback function for each record
+								}
+
+							};
+
+							for (var m = 0; m < aCreateDocPayload.length; m++) {
+								//oModel.create("/DeliverySet", aCreateDocPayload[m], mParameters);
+
+								singleentry.properties = aCreateDocPayload[m];
+								singleentry.changeSetId = "changeset " + m;
+								oModel.createEntry("/StockForConsumptionSet", singleentry);
+
+							}
+							oModel.submitChanges(mParameter);
+
+							console.log("Inside table length", aSelectedItems);
+
+							////////////////////
+
+							console.log("Inside confirm Yes")
+						}
+					}.bind(this)
+				});
+
+			} else {
+				MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("tableLengthMessage"));
+				console.log("Outside table length");
+			}
+
+		},
+
+		//Post consumption functionality - Not used
 		onPostConsumption: function (oEvent) {
-		//	var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
-		var consTableLength = this.getView().byId("consumptionTable").getItems();
+			//	var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
+			var consTableLength = this.getView().byId("consumptionTable").getItems();
 			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
@@ -585,7 +704,7 @@ sap.ui.define([
 
 		//livechange event for consumption quantity field
 		onQuanConsChangeLive: function (oEvent) {
-           var oTable = this.getView().byId("consumptionTable");
+			var oTable = this.getView().byId("consumptionTable");
 			this.globalQuanValue = "X";
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consQuanValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27].getValue();
@@ -595,20 +714,20 @@ sap.ui.define([
 
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
 			oRemainingValue.setValue(iTempTotRemaining);
-			
+
 			oTable.getItems().forEach(function (item) {
 
-						if (item.getCells()[27].getValue() > 0) {
-							item.addStyleClass("overdueRow");
+				if (item.getCells()[27].getValue() > 0) {
+					item.addStyleClass("overdueRow");
 
-						}
-					});
+				}
+			});
 
 		},
 
 		//livechange event for consumption quantity field
 		onQuanRemChangeLive: function (oEvent) {
-             var oTable = this.getView().byId("consumptionTable");
+			var oTable = this.getView().byId("consumptionTable");
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
 			var prodSupAreavalue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[2].getText();
@@ -617,19 +736,15 @@ sap.ui.define([
 
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
 			oRemainingValue.setValue(iTempTotRemaining);
-			
+
 			oTable.getItems().forEach(function (item) {
 
-						if (item.getCells()[27].getValue() > 0) {
-							item.addStyleClass("overdueRow");
+				if (item.getCells()[27].getValue() > 0) {
+					item.addStyleClass("overdueRow");
 
-						}
+				}
 
-					
-
-
-					});
-
+			});
 
 		},
 
