@@ -12,7 +12,7 @@
 								<f:content>
 									
 										<Label text="{i18n>warehouse}" required="true"/>
-									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse"  >
+									<Input id="warehouseId"  showValueHelp="true" valueHelpRequest="onValueHelpWarehouse" valueHelpOnly="true"  >
 									<!--	<customData>
                                     <core:CustomData key="required" value="true" writeToDom="true" />
                                 </customData>	-->
@@ -41,7 +41,7 @@
 									<Input id="prodSupAreaId" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpProdSup" ></Input>
 								
 									<Label text="{i18n>quantityProduced}"/>
-									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="true"  >
+									<Input id="quantityProducedId" showSuggestion="true" showValueHelp="false"  >
 										
 									</Input>
 									<Label text="{i18n>unitMeasure}" />

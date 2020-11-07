@@ -717,13 +717,25 @@ sap.ui.define([
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28];
 			oRemainingValue.setValue(iTempTotRemaining);
 
-			oTable.getItems().forEach(function (item) {
+			/*oTable.getItems().forEach(function (item) {
 
 				if (item.getCells()[27].getValue() > 0) {
 					item.addStyleClass("overdueRow");
 
 				}
-			});
+			}); */
+			
+			if(consQuanValue > 0){
+	this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
+this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].addStyleClass("overdueRow");
+
+}
+
+else{
+this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
+
+	
+}
 
 		},
 
