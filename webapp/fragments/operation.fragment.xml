@@ -16,7 +16,7 @@
 				title="{ProductId}" 
 				 />-->
 				 	<Text text="{operationModel>Operation}"/>	
-					<Text text="{operationModel>Maktx}" />	
+					<Text text="{operationModel>OperationDescr}" />	
 					
 					
 			</cells>

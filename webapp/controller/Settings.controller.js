@@ -331,7 +331,6 @@ sap.ui.define([
 			}
 
 		},
-
 		loadOperation: function () {
 			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
@@ -351,7 +350,7 @@ sap.ui.define([
 			aFilterData.push(warehouseFilter, manufacturingOrderFilter);
 
 
-				oModel.read("/ZptmshMfgordComponentSet", {
+				oModel.read("/ZptmshMfgordOperationSet", {
 
 					success: function (oData, Response) {
 
@@ -370,6 +369,7 @@ sap.ui.define([
 				});
 
 		},
+
 
 		//Code to hadle serach inside revenue invoice value help
 		handleSearchOperation: function (oEvent) {
