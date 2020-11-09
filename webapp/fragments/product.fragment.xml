@@ -9,13 +9,14 @@
 		cancel="_handleValueHelpCloseProduct"
 		title="{i18n>prodConsumption}"
 		items="{
-			path : '/Invoices'}">             
+			path : 'productModel>/productSet'}">             
 		<ColumnListItem>
 			<cells>
-				<ObjectIdentifier 
+			<!--	<ObjectIdentifier 
 				title="{ProductId}" 
-				 />
-					<Text text="{ProductName}" />	
+				 />-->
+				 	<Text text="{productModel>Matnr}"/>
+					<Text text="{productModel>Maktx}" />	
 				
 					
 			</cells>

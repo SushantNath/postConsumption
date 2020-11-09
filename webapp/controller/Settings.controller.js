@@ -32,73 +32,73 @@ sap.ui.define([
 
 			var oModel = this.getView().getModel("revenueModel");
 
-		//	var storagevalue = localStorage.getItem("warehouse");
+			//	var storagevalue = localStorage.getItem("warehouse");
 
-		/*	if (storagevalue === null) {
+			/*	if (storagevalue === null) {
 
-				console.log("No warehouse value saved");
-			} else {
+					console.log("No warehouse value saved");
+				} else {
 
-				var headerText = "Warehouse is :" + storagevalue;
+					var headerText = "Warehouse is :" + storagevalue;
 
-				this.getView().byId("page").setTitle(headerText);
+					this.getView().byId("page").setTitle(headerText);
 
-				this.byId("warehouseId").setValue(storagevalue);
+					this.byId("warehouseId").setValue(storagevalue);
 
-			} */
-			
+				} */
+
 			//logic to read startup values:
 			var ParameterData = this.getOwnerComponent().getComponentData();
-			
+
 			if (ParameterData.startupParameters.ManufacturingOrder) {
 
-var manufOrder = ParameterData.startupParameters.ManufacturingOrder[0];// “Getting the Purchase Order Value passed along with the URL
+				var manufOrder = ParameterData.startupParameters.ManufacturingOrder[0]; // “Getting the Purchase Order Value passed along with the URL
 
-var manufInput = this.getView().byId("manuOrderId");
+				var manufInput = this.getView().byId("manuOrderId");
 
-manufInput.setValue(manufOrder);// “Here we are setting the Purchase Order Value
+				manufInput.setValue(manufOrder); // “Here we are setting the Purchase Order Value
 
-}
+			}
 
-	if (ParameterData.startupParameters.Operation) {
+			if (ParameterData.startupParameters.Operation) {
 
-var operation = ParameterData.startupParameters.Operation[0];// “Getting the Purchase Order Value passed along with the URL
+				var operation = ParameterData.startupParameters.Operation[0]; // “Getting the Purchase Order Value passed along with the URL
 
-var operationInput = this.getView().byId("opForActId");
+				var operationInput = this.getView().byId("opForActId");
 
-operationInput.setValue(operation);// “Here we are setting the Purchase Order Value
+				operationInput.setValue(operation); // “Here we are setting the Purchase Order Value
 
-}
+			}
 
-if (ParameterData.startupParameters.Warehouse) {
+			if (ParameterData.startupParameters.Warehouse) {
 
-var warehouse = ParameterData.startupParameters.Warehouse[0];// “Getting the Purchase Order Value passed along with the URL
+				var warehouse = ParameterData.startupParameters.Warehouse[0]; // “Getting the Purchase Order Value passed along with the URL
 
-var warehouseInput = this.getView().byId("warehouseId");
+				var warehouseInput = this.getView().byId("warehouseId");
 
-warehouseInput.setValue(warehouse);// “Here we are setting the Purchase Order Value
+				warehouseInput.setValue(warehouse); // “Here we are setting the Purchase Order Value
 
-}
+			}
 
-if (ParameterData.startupParameters.Quantity) {
+			if (ParameterData.startupParameters.Quantity) {
 
-var quantity = ParameterData.startupParameters.Quantity[0];// “Getting the Purchase Order Value passed along with the URL
+				var quantity = ParameterData.startupParameters.Quantity[0]; // “Getting the Purchase Order Value passed along with the URL
 
-var quantityInput = this.getView().byId("quantityProducedId");
+				var quantityInput = this.getView().byId("quantityProducedId");
 
-quantityInput.setValue(quantity);// “Here we are setting the Purchase Order Value
+				quantityInput.setValue(quantity); // “Here we are setting the Purchase Order Value
 
-}
+			}
 
-if (ParameterData.startupParameters.Unit) {
+			if (ParameterData.startupParameters.Unit) {
 
-var unit = ParameterData.startupParameters.Unit[0];// “Getting the Purchase Order Value passed along with the URL
+				var unit = ParameterData.startupParameters.Unit[0]; // “Getting the Purchase Order Value passed along with the URL
 
-var unitInput = this.getView().byId("unitMeasureId");
+				var unitInput = this.getView().byId("unitMeasureId");
 
-unitInput.setValue(unit);// “Here we are setting the Purchase Order Value
+				unitInput.setValue(unit); // “Here we are setting the Purchase Order Value
 
-}
+			}
 
 			/*		oModel.read("/HTvfkSet", {
 
@@ -238,18 +238,17 @@ unitInput.setValue(unit);// “Here we are setting the Purchase Order Value
 			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
-			
+
 			//	var warehouseValue = oView.byId("warehouseId").getValue();
 			var warehouseValue = this.getView().byId("warehouseId").getValue();
-			
-				//var useFilters = [manufacturingOrder];
 
-					var warehouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouseValue);
-var aFilterData=[];
-					aFilterData.push(warehouseFilter);
+			//var useFilters = [manufacturingOrder];
 
-			
-		//	 sap.ui.core.BusyIndicator.show();
+			var warehouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouseValue);
+			var aFilterData = [];
+			aFilterData.push(warehouseFilter);
+
+			//	 sap.ui.core.BusyIndicator.show();
 			oModel.read("/ZptmshMfgOrderConsSet", {
 
 				success: function (oData, Response) {
@@ -264,8 +263,8 @@ var aFilterData=[];
 				error: function (oData, Response, oError) {
 					console.log("Inside manufacturing order error");
 					sap.ui.core.BusyIndicator.hide();
-				}
-				,	filters: aFilterData
+				},
+				filters: aFilterData
 
 			});
 
@@ -334,28 +333,41 @@ var aFilterData=[];
 		},
 
 		loadOperation: function () {
-			//	var oModel = this.getView().getModel("revenueModel");
+			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
 			// sap.ui.core.BusyIndicator.show();
-			// oModel.read("/DebiaSet", {
+			var warehouseValue = this.getView().byId("warehouseId").getValue();
 
-			// 	success: function (oData, Response) {
+			var manufacturingOrder = oView.byId("manuOrderId").getValue();
 
-			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(stockConsModel, "stockConsModel");
-			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-			// 		sap.ui.core.BusyIndicator.hide();
-			// 		console.log("Inside Success function revenue invoice", oData.results);
-			// 	},
+			var warehouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouseValue);
 
-			// 	error: function (oData, Response, oError) {
-			// 		console.log("Inside Error function");
-			// 	}
+			 var manufacturingOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manufacturingOrder);
+		
+		
+		 var aFilterData = [];
+			
+			aFilterData.push(warehouseFilter, manufacturingOrderFilter);
 
-			// });
 
-			// console.log("Inside Filter options");
+				oModel.read("/ZptmshMfgordComponentSet", {
+
+					success: function (oData, Response) {
+
+						var operationModel = new sap.ui.model.json.JSONModel();
+						oView.setModel(operationModel, "operationModel");
+						oView.getModel("operationModel").setProperty("/operationSet", oData.results);
+						sap.ui.core.BusyIndicator.hide();
+						console.log("Inside operation success function", oData.results);
+					},
+
+					error: function (oData, Response, oError) {
+						console.log("Inside operation error");
+						sap.ui.core.BusyIndicator.hide();
+					},filters: aFilterData
+
+				});
 
 		},
 
@@ -363,8 +375,8 @@ var aFilterData=[];
 		handleSearchOperation: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 
-			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
-			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter1 = new Filter("Operation", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Maktx", sap.ui.model.FilterOperator.Contains, sValue);
 
 			var oFilter = new Filter([filter1, filter2]);
 			var oBinding = oEvent.getSource().getBinding("items");
@@ -381,7 +393,7 @@ var aFilterData=[];
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedOperation = oItem.oModel.getProperty(oItem.sPath).ProductName;
+					selectedOperation = oItem.oModel.getProperty(oItem.sPath).Operation;
 
 				});
 
@@ -422,28 +434,39 @@ var aFilterData=[];
 		},
 
 		loadProduct: function () {
-			//	var oModel = this.getView().getModel("revenueModel");
+			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
 			// sap.ui.core.BusyIndicator.show();
-			// oModel.read("/DebiaSet", {
+			var warehouseValue = this.getView().byId("warehouseId").getValue();
 
-			// 	success: function (oData, Response) {
+			var manufacturingOrder = oView.byId("manuOrderId").getValue();
 
-			// 		var stockConsModel = new sap.ui.model.json.JSONModel();
-			// 		oView.setModel(stockConsModel, "stockConsModel");
-			// 		oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-			// 		sap.ui.core.BusyIndicator.hide();
-			// 		console.log("Inside Success function revenue invoice", oData.results);
-			// 	},
+			var warehouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouseValue);
 
-			// 	error: function (oData, Response, oError) {
-			// 		console.log("Inside Error function");
-			// 	}
+			 var manufacturingOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manufacturingOrder);
+		 var aFilterData = [];
+			
+			aFilterData.push(warehouseFilter, manufacturingOrderFilter);
 
-			// });
 
-			// console.log("Inside Filter options");
+				oModel.read("/ZptmshMfgordComponentSet", {
+
+					success: function (oData, Response) {
+
+						var productModel = new sap.ui.model.json.JSONModel();
+						oView.setModel(productModel, "productModel");
+						oView.getModel("productModel").setProperty("/productSet", oData.results);
+						sap.ui.core.BusyIndicator.hide();
+						console.log("Inside product success function", oData.results);
+					},
+
+					error: function (oData, Response, oError) {
+						console.log("Inside operation error");
+						sap.ui.core.BusyIndicator.hide();
+					},filters: aFilterData
+
+				});
 
 		},
 
@@ -451,8 +474,8 @@ var aFilterData=[];
 		handleSearchProduct: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 
-			var filter1 = new Filter("Land1", sap.ui.model.FilterOperator.Contains, sValue);
-			var filter2 = new sap.ui.model.Filter("Mcod1", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter1 = new Filter("Matnr", sap.ui.model.FilterOperator.Contains, sValue);
+			var filter2 = new sap.ui.model.Filter("Maktx", sap.ui.model.FilterOperator.Contains, sValue);
 
 			var oFilter = new Filter([filter1, filter2]);
 			var oBinding = oEvent.getSource().getBinding("items");
@@ -469,7 +492,7 @@ var aFilterData=[];
 				//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
 				aContexts.forEach(function (oItem) {
 
-					selectedProduct = oItem.oModel.getProperty(oItem.sPath).ProductName;
+					selectedProduct = oItem.oModel.getProperty(oItem.sPath).Matnr;
 
 				});
 
@@ -688,22 +711,21 @@ var aFilterData=[];
 
 		},
 
-	loadUOM: function () {
+		loadUOM: function () {
 			var oModel = this.getView().getModel("consumptionModel");
 			var that = this;
 			var oView = this.getView();
-			
+
 			//	var warehouseValue = oView.byId("warehouseId").getValue();
 			var manufacturingOrder = oView.byId("manuOrderId").getValue();
-			
-				//var useFilters = [manufacturingOrder];
 
-					var uomFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manufacturingOrder);
-var aFilterData=[];
-					aFilterData.push(uomFilter);
+			//var useFilters = [manufacturingOrder];
 
-			
-		//	 sap.ui.core.BusyIndicator.show();
+			var uomFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manufacturingOrder);
+			var aFilterData = [];
+			aFilterData.push(uomFilter);
+
+			//	 sap.ui.core.BusyIndicator.show();
 			oModel.read("/ZptmshMfgordMatUomSet", {
 
 				success: function (oData, Response) {
@@ -718,15 +740,14 @@ var aFilterData=[];
 				error: function (oData, Response, oError) {
 					console.log("Inside Error function UOM");
 					sap.ui.core.BusyIndicator.hide();
-				}
-				,	filters: aFilterData
+				},
+				filters: aFilterData
 
 			});
 
 			// console.log("Inside Filter options");
 
 		},
-
 
 		//Code to hadle serach inside revenue invoice value help
 		handleSearchUOM: function (oEvent) {

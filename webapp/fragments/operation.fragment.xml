@@ -9,13 +9,14 @@
 		cancel="_handleValueHelpCloseOperation"
 		title="{i18n>operationHeader}"
 		items="{
-			path : '/Invoices'}">             
+			path : 'operationModel>/operationSet'}">             
 		<ColumnListItem>
 			<cells>
-				<ObjectIdentifier 
+			<!--	<ObjectIdentifier 
 				title="{ProductId}" 
-				 />
-					<Text text="{ProductName}" />	
+				 />-->
+				 	<Text text="{operationModel>Operation}"/>	
+					<Text text="{operationModel>Maktx}" />	
 					
 					
 			</cells>
