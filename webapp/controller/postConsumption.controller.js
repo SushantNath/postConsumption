@@ -1069,6 +1069,21 @@ this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].remove
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(oFilter, "Application");
 		},
+		
+		
+		//logic to format shelf life expiration date
+			formatterDateShelfLife: function (date) {
+			if (date !== "" && date !== null && date !== undefined) {
+				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+					pattern: "dd.MM.yyyy",  
+					UTC: false
+				});
+				return oDateFormat.format(new Date(date));
+
+			}
+			return date;
+		},
+
 
 		//logic to make quantiyy field editable based on PSA - Not used
 		onFormatQuantity: function (quantity) {
