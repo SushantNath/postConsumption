@@ -47,7 +47,7 @@
 		}
 	},
 	"sap.ui5": {
-		"flexEnabled": false,
+		"flexEnabled": true,
 		"rootView": {
 			"viewName": "sap.com.postconsumption.postConsumption.view.Settings",
 			"type": "XML",

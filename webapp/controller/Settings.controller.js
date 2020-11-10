@@ -1,3 +1,5 @@
+var messageArray = [];
+
 var collectionSet;
 var storedWarehouseValue;
 var manufOrderNavigate;

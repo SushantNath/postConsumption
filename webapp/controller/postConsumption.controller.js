@@ -1,3 +1,6 @@
+var messageArray = [];
+
+
 var globalModel;
 var manufOrderNavigate;
 var operationNavigate;
@@ -277,7 +280,7 @@ sap.ui.define([
 		//Read  Consumtion service
 
 		getConsumption: function () {
-
+            messageArray = [];
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
 			var oManualEntryModel;
@@ -316,14 +319,14 @@ sap.ui.define([
 			var aFilterData = [];
 			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
 			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
-			//	var materNoFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, materNo);
+			var productFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, product);
 			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
 			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
 			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
 			var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
 			//Check if filter has a value and according send to to service
-			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter];
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter];
 			var useFilters = filters.filter(function (item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});
@@ -382,7 +385,8 @@ sap.ui.define([
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 				//	filters: [manuOrderFilter, varquanProdFilter]
-				filters: useFilters
+			//	filters: useFilters
+			filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter]
 					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
 
