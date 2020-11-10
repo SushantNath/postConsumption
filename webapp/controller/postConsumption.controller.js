@@ -366,8 +366,15 @@ sap.ui.define([
 					//logic to select consumption quantity to selected on navigation
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
+var serverMessage = Response.headers["sap-message"];
+				if(serverMessage === undefined) {
+ messageArray.push("No");
 
-					var serverMessage = Response.headers["sap-message"];
+					}
+
+					else{
+
+				//	var serverMessage = Response.headers["sap-message"];
 
 					// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
@@ -377,7 +384,10 @@ sap.ui.define([
 
 					// var res = messagevalue1.slice(10, 25);
 
-					messageArray.push(JSON.parse(serverMessage).details);
+					messageArray.push(JSON.parse(serverMessage).details); 
+						
+						
+					}
 
 					oTable.getItems().forEach(function (item) {
 
@@ -420,7 +430,7 @@ sap.ui.define([
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
 					
-					//Display Quantity warning popup
+					//Display Quantity warning
 					that._onserverMessageDisplay();
 
 				},
@@ -437,6 +447,13 @@ sap.ui.define([
 		//Quantity warning message popup
 
 		_onserverMessageDisplay: function (oEvent) {
+
+			if ( messageArray[0] === "No"){
+
+				console.log("No action");
+			}
+
+			else{
 
 			if (!this._oDialog) {
 				//	this._oDialog = sap.ui.xmlfragment("com.bp.lubescustfinancial.fragments.OrderChangeHx", this);
@@ -457,7 +474,7 @@ sap.ui.define([
 			this.getView().setModel(messageModel, "messageModel");
 			this.getView().getModel("messageModel").setProperty("/messageSet", messageArray2);
 			sap.ui.core.BusyIndicator.hide();
-
+			}
 
 		},
 

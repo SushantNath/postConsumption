@@ -17,6 +17,8 @@
 			<m:headerToolbar>
 				<m:OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
 					<m:Title text="Quantity consumed warning message"/>
+					<core:Icon
+			src="sap-icon://warning" />
 					<m:ToolbarSpacer/>
 					<m:Button icon="sap-icon://decline" press="handleClose"/>
 				</m:OverflowToolbar>
