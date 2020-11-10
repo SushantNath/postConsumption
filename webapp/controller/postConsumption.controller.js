@@ -1,6 +1,5 @@
 var messageArray = [];
 
-
 var globalModel;
 var manufOrderNavigate;
 var operationNavigate;
@@ -71,7 +70,7 @@ sap.ui.define([
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 
 			//function to call consumption service
-			this.getConsumption();
+				this.getConsumption();
 			console.log("Passed values are", manufacturingOrder, handlingUnitvalue, uomValue, operation, product, prodSupArea, quantityProduced);
 
 			//logic to clear values for cards on navigation
@@ -201,8 +200,7 @@ sap.ui.define([
 
 		},
 
-
-// Not -used
+		// Not -used
 		onselectChange: function (oEvent) {
 
 			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
@@ -280,7 +278,7 @@ sap.ui.define([
 		//Read  Consumtion service
 
 		getConsumption: function () {
-            messageArray = [];
+			messageArray = [];
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
 			var oManualEntryModel;
@@ -326,7 +324,9 @@ sap.ui.define([
 			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
 			var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
 			//Check if filter has a value and according send to to service
-			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter];
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,
+				productFilter
+			];
 			var useFilters = filters.filter(function (item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});
@@ -367,6 +367,18 @@ sap.ui.define([
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
 
+					var serverMessage = Response.headers["sap-message"];
+
+					// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+					// 							var messagevalue1 = messageValue[0].message;
+					// console.log("Message from server", messageValue);
+					// 								//var str = "Visit W3Schools!";
+
+					// var res = messagevalue1.slice(10, 25);
+
+					messageArray.push(JSON.parse(serverMessage).details);
+
 					oTable.getItems().forEach(function (item) {
 
 						if (item.getCells()[27].getValue() > 0) {
@@ -385,8 +397,8 @@ sap.ui.define([
 				},
 				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
 				//	filters: [manuOrderFilter, varquanProdFilter]
-			//	filters: useFilters
-			filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter]
+				filters: useFilters
+					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter]
 					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
 			});
 
@@ -407,6 +419,9 @@ sap.ui.define([
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+					
+					//Display Quantity warning popup
+					that._onserverMessageDisplay();
 
 				},
 
@@ -417,6 +432,41 @@ sap.ui.define([
 
 			});
 
+		},
+
+		//Quantity warning message popup
+
+		_onserverMessageDisplay: function (oEvent) {
+
+			if (!this._oDialog) {
+				//	this._oDialog = sap.ui.xmlfragment("com.bp.lubescustfinancial.fragments.OrderChangeHx", this);
+				this._oDialog = sap.ui.xmlfragment("sap.com.postconsumption.postConsumption.fragments.serverMessage", this);
+			}
+
+			this.getView().addDependent(this._oDialog);
+			this._oDialog.open();
+
+			var messageArray2 = [];
+			for (var m = 0; m < messageArray[0].length; m++) {
+
+				messageArray2.push(messageArray[0][m]);
+
+			}
+			
+				var messageModel = new sap.ui.model.json.JSONModel();
+			this.getView().setModel(messageModel, "messageModel");
+			this.getView().getModel("messageModel").setProperty("/messageSet", messageArray2);
+			sap.ui.core.BusyIndicator.hide();
+
+
+		},
+
+		handleClose: function (oEvent) {
+			/* This function closes the dialog box */
+			if (this._oDialog) {
+
+				this._oDialog.close();
+			}
 		},
 
 		//confirm post from user:
@@ -728,18 +778,15 @@ sap.ui.define([
 
 				}
 			}); */
-			
-			if(consQuanValue > 0){
-	this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
-this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].addStyleClass("overdueRow");
 
-}
+			if (consQuanValue > 0) {
+				this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
+				this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].addStyleClass("overdueRow");
 
-else{
-this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
+			} else {
+				this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].removeStyleClass("overdueRow");
 
-	
-}
+			}
 
 		},
 
@@ -1073,13 +1120,12 @@ this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].remove
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(oFilter, "Application");
 		},
-		
-		
+
 		//logic to format shelf life expiration date
-			formatterDateShelfLife: function (date) {
+		formatterDateShelfLife: function (date) {
 			if (date !== "" && date !== null && date !== undefined) {
 				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
-					pattern: "dd.MM.yyyy",  
+					pattern: "dd.MM.yyyy",
 					UTC: false
 				});
 				return oDateFormat.format(new Date(date));
@@ -1087,7 +1133,6 @@ this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].remove
 			}
 			return date;
 		},
-
 
 		//logic to make quantiyy field editable based on PSA - Not used
 		onFormatQuantity: function (quantity) {
