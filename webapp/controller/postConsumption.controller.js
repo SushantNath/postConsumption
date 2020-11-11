@@ -443,6 +443,177 @@ var serverMessage = Response.headers["sap-message"];
 			});
 
 		},
+		
+		
+			//Refresh consumption table after post
+
+			refreshConsumption: function () {
+			messageArray = [];
+			var oModel = this.getOwnerComponent().getModel("consumptionModel");
+			globalModel = oModel;
+			var oManualEntryModel;
+			var oTable = this.getView().byId("consumptionTable");
+			//Read values to variables
+
+			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+			var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
+			var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
+			var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
+			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
+			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
+			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
+			var warehouse = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
+
+			// var manuOrder = "1000443";
+			// var operation = "0010";
+			// var materNo = "3008040";
+			// var prodSupArea = "PSA-P100 /4110";
+			// var quanProd = "4A10";
+			// var handlingUnit = "112345678000012066";
+
+			var manuOrder = manufacturingOrder;
+			var operation = operation;
+			//var materNo = "3008040";
+			var prodSupArea = prodSupArea;
+			var quanProd = quantityProduced;
+			var handlingUnit = handlingUnitvalue;
+			var warehouse = warehouse;
+			var uom = uomValue;
+			//logic to handle blank quantity produced field
+			// if (quanProd === "") {
+			// 	quanProd = "0";
+
+			// }
+			var aFilterData = [];
+			var manuOrderFilter = new sap.ui.model.Filter("MfgOrder", sap.ui.model.FilterOperator.EQ, manuOrder);
+			var operationFilter = new sap.ui.model.Filter("Operation", sap.ui.model.FilterOperator.EQ, operation);
+			var productFilter = new sap.ui.model.Filter("Matnr", sap.ui.model.FilterOperator.EQ, product);
+			var prodSupAreaFilter = new sap.ui.model.Filter("Psa", sap.ui.model.FilterOperator.EQ, prodSupArea);
+			var quanProdFilter = new sap.ui.model.Filter("QtyTobeProduced", sap.ui.model.FilterOperator.EQ, quanProd);
+			var handlingUnitFilter = new sap.ui.model.Filter("Huident", sap.ui.model.FilterOperator.EQ, handlingUnit);
+			var uomFilter = new sap.ui.model.Filter("QtyProducedUOM", sap.ui.model.FilterOperator.EQ, uom);
+			var wareHouseFilter = new sap.ui.model.Filter("Lgnum", sap.ui.model.FilterOperator.EQ, warehouse);
+			//Check if filter has a value and according send to to service
+			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,
+				productFilter
+			];
+			var useFilters = filters.filter(function (item) {
+				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
+			});
+
+			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,varquanProdFilter,handlingUnitFilter);
+			//	aFilterData.push(manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter);
+
+			var that = this;
+			var oView = this.getView();
+			var arrayValue = [];
+			//	sap.ui.core.BusyIndicator.show();
+			//	var oFilter3 = new sap.ui.model.Filter([manuOrderFilter,operationFilter,materNoFilter,prodSupAreaFilter,handlingUnitFilter,varquanProdFilter], true);
+
+			//aFilterData.push(oFilter3);
+
+			// aFilterData.push(new Filter({
+			// 			filters: [
+
+			// 			oFilter3	
+
+			// 			],
+			// 			and: true
+			// 		}));
+
+			var that = this;
+			var oView = this.getView();
+			var arrayValue = [];
+			sap.ui.core.BusyIndicator.show();
+			oModel.read("/StockForConsumptionSet", {
+
+				success: function (oData, Response) {
+
+					var orderModel = new sap.ui.model.json.JSONModel();
+					oView.setModel(orderModel, "stockConsModel");
+					oView.getModel("stockConsModel").setProperty("/stockConsSet", oData.results);
+					//	oTable.selectAll();
+					//logic to select consumption quantity to selected on navigation
+					// that.getView().byId("consumptionQuantityId").setSelected(true);
+					// that.consQuanSel();
+var serverMessage = Response.headers["sap-message"];
+				if(serverMessage === undefined) {
+ messageArray.push("No");
+
+					}
+
+					else{
+
+				//	var serverMessage = Response.headers["sap-message"];
+
+					// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+					// 							var messagevalue1 = messageValue[0].message;
+					// console.log("Message from server", messageValue);
+					// 								//var str = "Visit W3Schools!";
+
+					// var res = messagevalue1.slice(10, 25);
+
+					messageArray.push(JSON.parse(serverMessage).details); 
+						
+						
+					}
+
+					oTable.getItems().forEach(function (item) {
+
+						if (item.getCells()[27].getValue() > 0) {
+							item.addStyleClass("overdueRow");
+
+						}
+					});
+
+					sap.ui.core.BusyIndicator.hide();
+
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function");
+				},
+				//	filters: [manuOrderFilter, varquanProdFilter,operationFilter,materNoFilter,handlingUnitFilter]
+				//	filters: [manuOrderFilter, varquanProdFilter]
+				filters: useFilters
+					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,productFilter]
+					//	filters: [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter]
+			});
+
+			//logic to fetch the list of additional information
+
+			var manuOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
+
+			var quanProd = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
+
+			var oModel = this.getOwnerComponent().getModel("consumptionModel");
+
+			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+
+				success: function (oData, Response) {
+
+					//Additional manufacturing order information
+
+					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
+					oView.byId("addlDescriptionId").setText(oData.CatTxt);
+					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
+					
+					//Display Quantity warning
+				//	that._onserverMessageDisplay();
+
+				},
+
+				error: function (oData, Response, oError) {
+					sap.ui.core.BusyIndicator.hide();
+					console.log("Inside Error function for additional information");
+				}
+
+			});
+
+		},
+
 
 		//Quantity warning message popup
 
@@ -587,7 +758,8 @@ var serverMessage = Response.headers["sap-message"];
 											}
 										}.bind(this)
 									});
-									that.getConsumption();
+								//	that.getConsumption();
+								that.refreshConsumption();
 
 								},
 								error: function (oError) {
@@ -733,7 +905,7 @@ var serverMessage = Response.headers["sap-message"];
 						}
 
 						MessageToast.show("Consumption posted successfully");
-						that.getConsumption();
+					//	that.getConsumption();
 
 					},
 					error: function (oError) {
