@@ -52,6 +52,8 @@ sap.ui.define([
 			//logic to read startup values:
 			var ParameterData = this.getOwnerComponent().getComponentData();
 
+			if(ParameterData !== undefined){
+
 			if (ParameterData.startupParameters.ManufacturingOrder) {
 
 				var manufOrder = ParameterData.startupParameters.ManufacturingOrder[0]; // “Getting the Purchase Order Value passed along with the URL
@@ -101,6 +103,7 @@ sap.ui.define([
 				unitInput.setValue(unit); // “Here we are setting the Purchase Order Value
 
 			}
+}
 
 			/*		oModel.read("/HTvfkSet", {
 
