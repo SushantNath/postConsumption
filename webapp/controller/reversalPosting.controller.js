@@ -30,24 +30,12 @@ this._oTPC = new TablePersoController({
     table: this.getView().byId("reversalPostingTable"),
     persoService: oProvider2
   // persoService: persoService
-}).activate();
+}).activate(); 
 
 
 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("reversalPosting").attachMatched(this._onRouteMatched, this);
-//passed values from Setting view
 
-	// var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
-	// 		var handlingUnitvalue = sap.ui.getCore().getModel("settingsDefaultModel").oData.handlingUnitvalue;
-	// 		var uomValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.uomValue;
-	// 		var operation = sap.ui.getCore().getModel("settingsDefaultModel").oData.operation;
-	// 		var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
-	// 		var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
-	// 		var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
-
-	// 		console.log("Passed values inside reversal posting view is", manufacturingOrder,handlingUnitvalue,uomValue,operation,product,prodSupArea,quantityProduced);
-
-//this.getReversal();
 
 		},
 		
@@ -392,7 +380,7 @@ this._oTPC = new TablePersoController({
 					}
 				}
 
-	sap.ui.core.BusyIndicator.show();
+
 
 //	var revQuantityValue = this.getView().byId("reversalQuanId").getValue();
 
@@ -411,6 +399,20 @@ tableValue.RevQuana=revQuantityValue;
 
 				var revQuantityValue= this.getView().byId("reversalQuanId").getValue();
                 selectedArray.RevQuana=revQuantityValue;
+                var compareRevvalue=  parseInt(revQuantityValue);
+                var compareQuanValue =parseInt(selectedArray[0].Quan);
+               
+                
+                if(compareRevvalue > compareQuanValue){
+
+MessageToast.show("Please enter the reversal quantity less than the quantity consumed");
+that.getView().byId("reversalQuanId").setValueState(sap.ui.core.ValueState.Error);
+sap.ui.core.BusyIndicator.hide();
+return;
+
+}
+that.getView().byId("reversalQuanId").setValueState(sap.ui.core.ValueState.None);
+                	sap.ui.core.BusyIndicator.show();
 				var aCreateDocPayload = selectedArray;
 				oModel.setDeferredGroups(["ReversalConsumptionBatch"]);
 				oModel.setUseBatch(true);
