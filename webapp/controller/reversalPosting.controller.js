@@ -154,6 +154,8 @@ this._oTPC = new TablePersoController({
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "reverseConsModel");
 					oView.getModel("reverseConsModel").setProperty("/reverseConsSet", oData.results);
+					oView.byId("reversalQuanId").setEnabled(false);
+					oView.byId("reversalQuanId").setValue("");
 
 					sap.ui.core.BusyIndicator.hide();
 
