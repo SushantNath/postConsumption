@@ -52,7 +52,7 @@ sap.ui.define([
 				table: this.getView().byId("consumptionTable"),
 				persoService: oProvider
 					// persoService: persoService
-			}).activate();
+			}).activate(); 
 
 			//		this.getConsumption();
 
@@ -420,8 +420,8 @@ var serverMessage = Response.headers["sap-message"];
 
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
-
+		//	oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+	oModel.read("/OrderHeadSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
 				success: function (oData, Response) {
 
 					//Additional manufacturing order information
