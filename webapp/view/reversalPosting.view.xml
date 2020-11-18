@@ -185,7 +185,7 @@
 									<Text text="{reverseConsModel>Maktx}"/>
 									<Text text="{reverseConsModel>Charg}"/>
 									
-									<Text text="{reverseConsModel>Vfdat}"/>
+									<Text text="{path: 'reverseConsModel>Vfdat', formatter: '.formatterDateShelfLife'}"/>
 									<Text text="{reverseConsModel>Coo}"/>
 									<CheckBox  enabled="false"  />
 									<!--<Text text="{reverseConsModel>Brestr}"/>-->

@@ -563,6 +563,18 @@ that.getView().byId("reversalQuanId").setValueState(sap.ui.core.ValueState.None)
 
 		},
 	
+		//logic to format shelf life expiration date
+		formatterDateShelfLife: function (date) {
+			if (date !== "" && date !== null && date !== undefined) {
+				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+					pattern: "dd.MM.yyyy",
+					UTC: false
+				});
+				return oDateFormat.format(new Date(date));
+
+			}
+			return date;
+		},
 		
 			//Reversal table search
 		
