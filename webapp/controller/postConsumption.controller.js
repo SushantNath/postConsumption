@@ -78,28 +78,14 @@ sap.ui.define([
 			var oView = this.getView();
 			var clearValue = "";
 
-			/*	oView.byId("handlingTextId").setText(clearValue);
-				oView.byId("productConsumtionId").setText(clearValue);
-				oView.byId("batchId").setText(clearValue);
-				oView.byId("shelfLifeId").setText(clearValue);
-				oView.byId("descriptionId").setText(clearValue);
-				oView.byId("operationId").setText(clearValue);*/
+		
 
 			//Additional manufacturing order information
 
 			oView.byId("addlFinishedProdId").setText(clearValue);
 			oView.byId("addlDescriptionId").setText(clearValue);
 			oView.byId("addlManufOrderId").setText(clearValue);
-			/*oView.byId("addlRequirementStartId").setText(clearValue);
-			oView.byId("addlReservationId").setText(clearValue);
-			oView.byId("addlConsumedQuantityId").setText(clearValue);
-			oView.byId("addlConsumedQuantityUnitId").setText(clearValue);
-			oView.byId("addlConsumedProgressId").setPercentValue(0);
-			oView.byId("addlConsumedProgressId").setDisplayValue(0);
-			oView.byId("addlOperationActivityId").setText(clearValue);
-			oView.byId("addlItemNoOfReservationId").setText(clearValue);
-			oView.byId("addlrequiredQuantityBuomId").setText(clearValue);
-			oView.byId("addlrequiredQuantityUnitId").setText(clearValue);*/
+		
 			this.globalQuanValue = "";
 			this.consQuanRadio = "e";
 			this.remQuanRadio = "ne";
@@ -198,7 +184,7 @@ sap.ui.define([
 
 			// }
 
-		},
+		}, 
 
 		// Not -used
 		onselectChange: function (oEvent) {
@@ -294,12 +280,7 @@ sap.ui.define([
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 			var warehouse = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
 
-			// var manuOrder = "1000443";
-			// var operation = "0010";
-			// var materNo = "3008040";
-			// var prodSupArea = "PSA-P100 /4110";
-			// var quanProd = "4A10";
-			// var handlingUnit = "112345678000012066";
+		
 
 			var manuOrder = manufacturingOrder;
 			var operation = operation;
