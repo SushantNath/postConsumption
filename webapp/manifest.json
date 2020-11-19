@@ -14,13 +14,7 @@
 			"version": "1.38.11"
 		},
 		"dataSources": {
-			"Northwind": {
-				"uri": "/destinations/northwind/V2/Northwind/Northwind.svc/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0"
-				}
-			},
+		
 			"Consumption": {
 				"uri": "/sap/opu/odata/sap/ZPTM_CONSUMPTION_BY_PROD_SRV",
 				"type": "OData",
