@@ -105,28 +105,12 @@ sap.ui.define([
 			}
 }
 
-			/*		oModel.read("/HTvfkSet", {
-
-							success: function (oData, Response) {
-
-								var orderModel = new sap.ui.model.json.JSONModel();
-								oView.setModel(orderModel, "stockConsModel");
-								oView.getModel("stockConsModel").setProperty("/ShipToPartySet", oData.results);
-								sap.ui.core.BusyIndicator.hide();
-								collectionSet = oData.results;
-								console.log("Inside Success function", oData.results);
-							},
-
-							error: function (oData, Response, oError) {
-								console.log("Inside Error function");
-							}
-
-						});  */
+		
 
 		},
 
 		//value help for Warehouse
-		//value help for manufacturing order
+	
 		onValueHelpWarehouse: function () {
 
 			this.loadWarehouse();
@@ -170,7 +154,7 @@ sap.ui.define([
 
 			});
 
-			// console.log("Inside Filter options");
+		
 
 		},
 
@@ -913,11 +897,7 @@ sap.ui.define([
 		onClickConsumption: function () {
 
 			var oView = this.getView();
-			// var manufacturingOrder=this.maufOrder;
-			// var operation= this.operation;
-			// var product= this.productCons;
-			// var prodSupArea = this.productSupply;
-			// var quantityProduced = this.quantityProd;
+			
 			var manufacturingOrder = oView.byId("manuOrderId").getValue();
 			var operation = oView.byId("opForActId").getValue();
 			var product = oView.byId("prodForConsId").getValue();
@@ -927,7 +907,7 @@ sap.ui.define([
 			var uomValue = oView.byId("unitMeasureId").getValue();
 			var warehouseValue = oView.byId("warehouseId").getValue();
 
-			if (operation === undefined) {
+	/*		if (operation === undefined) {
 
 				operation = "";
 			}
@@ -945,7 +925,7 @@ sap.ui.define([
 			if (quantityProduced === undefined) {
 
 				quantityProduced = "";
-			}
+			} */
 
 			// json model to pass parameters from one view to other 	
 			var oViewModel = new sap.ui.model.json.JSONModel({
@@ -970,9 +950,7 @@ sap.ui.define([
 				// oView.byId("manuOrderId").setValueState("Error");
 				MessageToast.show("Please fill all mandatory fields");
 			} else {
-				// oView.byId("manuOrderId").setValueState("Success");
-
-				//  MessageToast.show("Please enter proper unit for quantity");
+			
 
 				oRouter.navTo("postConsumption");
 			}
@@ -986,6 +964,8 @@ sap.ui.define([
 			//         }
 
 		},
+		
+		//Not used
 		returnIdListOfRequiredFields: function () {
 			var requiredInputs = [];
 			$('[data-required="true"]').each(function () {
@@ -993,6 +973,7 @@ sap.ui.define([
 			});
 			return requiredInputs;
 		},
+		//Not used
 		validateEventFeedbackForm: function (requiredInputs) {
 
 			var oView = this.getView();
@@ -1009,7 +990,7 @@ sap.ui.define([
 			var handlingUnitvalue = oView.byId("handlingUnitId").getValue();
 			var uomValue = oView.byId("unitMeasureId").getValue();
 
-			if (operation === undefined) {
+		/*	if (operation === undefined) {
 
 				operation = "";
 			}
@@ -1031,7 +1012,7 @@ sap.ui.define([
 			if (uomValue === undefined) {
 
 				uomValue = "";
-			}
+			} */
 
 			// json model to pass parameters from one view to other 	
 			var oViewModel = new sap.ui.model.json.JSONModel({
@@ -1092,7 +1073,7 @@ sap.ui.define([
 			var uomValue = oView.byId("unitMeasureId").getValue();
 			var warehouseValue = oView.byId("warehouseId").getValue();
 
-			if (operation === undefined) {
+	/*		if (operation === undefined) {
 
 				operation = "";
 			}
@@ -1110,7 +1091,7 @@ sap.ui.define([
 			if (quantityProduced === undefined) {
 
 				quantityProduced = "";
-			}
+			}*/
 
 			// json model to pass parameters from one view to other 	
 			var oViewModel = new sap.ui.model.json.JSONModel({
@@ -1163,7 +1144,7 @@ sap.ui.define([
 			); */
 
 		},
-
+            //Not used
 		validateEventFeedbackFormReversal: function (requiredInputs) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var _self = this;
