@@ -645,6 +645,7 @@ var serverMessage = Response.headers["sap-message"];
 			var oModel = this.getView().getModel("consumptionModel");
 			var aSelectedItems = [];
 			var selectedArray = [];
+			var selectedNegativeArray = [];
 			var that = this;
 			if (consTableLength.length > 0) {
 
@@ -665,10 +666,32 @@ var serverMessage = Response.headers["sap-message"];
 						selectedArray.push(tableValue);
 
 					}
+					
+					if (oItem.getCells()[28].getValue() < 0) {
+						selectedNegativeArray.push(tableValue);
+					
+
+					}
+					
+					
 
 					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
 
 				});
+				
+				//logic to pop up the message box for negative value in PSA remaining quantity
+				if (selectedNegativeArray.length > 0){
+
+					MessageBox.show("Quantity remaining in the PSA cannot be negative. Please check the quantity declared to consume.", {
+										icon: MessageBox.Icon.ERROR,
+										title: "Error text",
+										actions: [sap.m.MessageBox.Action.OK],
+										onClose: function (oAction) {
+										
+										}.bind(this)
+									});
+					return;
+				}
 
 				var aCreateDocPayload = selectedArray;
 				oModel.setDeferredGroups(["PostConsumptionBatch"]);
@@ -885,7 +908,7 @@ var serverMessage = Response.headers["sap-message"];
 
 						}
 
-						MessageToast.show("Consumption posted successfully");
+						MessageToast.show("Consumption submitted successfully");
 					//	that.getConsumption();
 
 					},
