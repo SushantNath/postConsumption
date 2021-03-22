@@ -751,7 +751,7 @@ var serverMessage = Response.headers["sap-message"];
 
 									}
 									//Message box for post consumption success
-									MessageBox.show("Consumption posted sucessfully. YES button will navigate you to the previous screen", {
+									MessageBox.show("Consumption submitted sucessfully. YES button will navigate you to the previous screen", {
 										icon: MessageBox.Icon.SUCCESS,
 										title: "Dear User",
 										actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],

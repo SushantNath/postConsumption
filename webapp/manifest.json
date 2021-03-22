@@ -14,7 +14,6 @@
 			"version": "1.38.11"
 		},
 		"dataSources": {
-		
 			"Consumption": {
 				"uri": "/sap/opu/odata/sap/ZPTM_CONSUMPTION_BY_PROD_SRV",
 				"type": "OData",
@@ -133,7 +132,7 @@
 		}
 	},
 	"sap.platform.abap": {
-		"uri": "/sap/bc/ui5_ui5/sap/z_postconsum82/webapp",
+		"uri": "/sap/bc/ui5_ui5/sap/z_postconsum85/webapp",
 		"_version": "1.1.0"
 	}
 }
