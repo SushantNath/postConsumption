@@ -920,7 +920,6 @@ var serverMessage = Response.headers["sap-message"];
 
 				};
 
-
 				for (var m = 0; m < aCreateDocPayload.length; m++) {
 					//oModel.create("/DeliverySet", aCreateDocPayload[m], mParameters);
 
