@@ -1,0 +1,6 @@
+{
+  "deploy": {
+    "destination": "DE4",
+    "name": "Z_POSTCONSUM87"
+  }
+}

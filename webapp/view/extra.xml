@@ -1,137 +1,215 @@
-	<Table id="productsTable" >
-					
-					
-						<headerToolbar>
-					<OverflowToolbar class="overFlowToolbarBackground sapUiLargeMarginTop">
-						<Title text="{i18n>stockConsumption}"/>
-						<Title id="materialResultsText" text=""/>
-							<ToolbarSpacer/>
-					<Button icon="sap-icon://download" id="ordersSortTblBtn" press="handleSortButtonPressed"/>
-					<Button icon="sap-icon://action-settings" type="Transparent" press="_onPersoButtonPressed"/>
-					</OverflowToolbar>
-				</headerToolbar>
-					
-					<columns>
-						<Column width="auto" demandPopin="true" visible="true">
-							<Text text="{i18n>matIdText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
-							<Text text="{i18n>descripText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
-							<Text text="{i18n>unitText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
-							<Text text="{i18n>plantText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>plntDesText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>qtyOrdText}"/>
-						</Column>
-					<!--	<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="true">
-							<Text text="{i18n>qtyDelText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>matStatText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>delNumText}"/>
-						</Column>
-							<Column width="auto" visible="false" demandPopin="true">
-							<Text text="{i18n>matIdText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>descripText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>unitText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>plantText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>plntDesText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>qtyOrdText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>qtyDelText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>matStatText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>delNumText}"/>
-						</Column>
-							<Column width="auto" visible="false" demandPopin="true">
-							<Text text="{i18n>matIdText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>descripText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>unitText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>plantText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>plntDesText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>qtyOrdText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>qtyDelText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>matStatText}"/>
-						</Column>
-						<Column demandPopin="true" minScreenWidth="Tablet" width="auto" visible="false">
-							<Text text="{i18n>delNumText}"/>
-						</Column>-->
-					</columns>
-					
-						<items>
-				<ColumnListItem>
+	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}">
+			<!-- DynamicPage Title -->
+		<!--	<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<vm:VariantManagement standardItemText="Filter options">
+						</vm:VariantManagement>
+					</f:heading>
+					<f:actions>
+						<ToolbarSpacer/>
+						
+					</f:actions>
+				</f:DynamicPageTitle>
+			</f:title> -->
+			<!-- DynamicPage Header -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
 				
-					<cells>
+					<f:content>
+					<fb:FilterBar class="filterLabels" id="filterbar" reset="onReset" search="onApplyFilter" useToolbar="false" 
+					 showGoOnFB="true">
+						<fb:filterItems>
+							<!--  Filter Items-->
+							<fb:FilterItem label="{i18n>sapOutbound}" name="outboundFilter">
+								<fb:control>
+
+									<MultiInput id="outboundDelId" placeholder="Enter Delivery" showSuggestion="true" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="handleValueExtDev">
+									</MultiInput>
+								</fb:control>
+							</fb:FilterItem>
+							<!-- Goods issue date Filter -->
+							<fb:FilterItem label="{i18n>goodsIssuedate}" name="goodsIssueFilter">
+								<fb:control>
+									<!--<DatePicker id="goodsIssueId" placeholder="Enter goods issuedDate ..." change="handleChange" />-->
+										<DateRangeSelection 
+			id="DRS2"
+			change="handleChange"/>
+								</fb:control>
+							</fb:FilterItem>
+							<!--Ship to customer Filter-->
+							<fb:FilterItem name="shipToCustomerFilter" label="{i18n>shipToCustomer}">
+								<fb:control>
+										<Input id="shipToCustomerId" placeholder="Enter ship to customer " showSuggestion="true" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="handleValueShipTo"></Input>
+								<!--<RangeSlider showAdvancedTooltip="true"  min="0" max="100" width="80%" class="sapUiMediumMarginBottom" />-->
+								</fb:control>
+							</fb:FilterItem>
+							<!--Sold to Customer-->
+							<fb:FilterItem name="soldToCustomerFilter" label="{i18n>soldToCustomer}">
+							<fb:control>
+									<Input id="soldToInputId" placeholder="Enter sold to customer " showSuggestion="true" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="handleValueSoldTo" ></Input>
+							<!--<RangeSlider showAdvancedTooltip="true"  min="0" max="100" width="80%" class="sapUiMediumMarginBottom" />-->
+								</fb:control>
+							</fb:FilterItem>
+							
+								<!--External delivery Filter-->
+							
+							<fb:FilterItem name="externaldeliveryFilter" label="{i18n>externalDelivery}">
+								<fb:control>
+									<Input id="externalDeliveryId" placeholder="Enter external delivery"  showSuggestion="true" showValueHelp="false"  valueHelpRequest="handleValueExtDev" ></Input>
+									<!--<RangeSlider showAdvancedTooltip="true"  min="0" max="100" width="80%" class="sapUiMediumMarginBottom" />-->
+								</fb:control>
+							</fb:FilterItem>
+							
+							<!-- Immediate Invoice type Filter-->
+								
+									<fb:FilterItem name="ImminvoiceTypeFilter" label="{i18n>immInvoicetype}"  >
+								<fb:control>
+									<Input id="ImminvoiceTypeInputId" placeholder="Enter immediate invoice type " showSuggestion="true" value="ZF30" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="handleValueHelpImmInv">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+									</Input>
+									</fb:control>
+							</fb:FilterItem>
+							
+							
+								<!-- revenue Invoice type Filter-->
+								
+									<fb:FilterItem name="invoiceTypeFilter" label="{i18n>invoiceType}">
+								<fb:control>
+									<Input id="invoiceTypeInputId" placeholder="Enter revenue invoice type " showSuggestion="true" value="ZF20" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="handleValueHelpRevInv">
+										<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+									</Input>
+									</fb:control>
+							</fb:FilterItem>
+							
+							<!--Revenue invoice Date-->	
+							
+							<fb:FilterItem name="revenueInvoiceDateFilter" label="{i18n>revenueInvoiceDate}">
+							<fb:control>
+									<DatePicker id="invoiceDateInpuIdt"  placeholder="Enter revenue invoice date ..." change="handleChange" class="sapUiSmallMarginBottom" value="{/Delivery/Revinvdate}" >
+								<customData>
+                                    <core:CustomData key="required" value="true" writeToDom="true" />
+                                </customData>
+                                </DatePicker>
+								</fb:control>
+							</fb:FilterItem>	
+							
+						</fb:filterItems>
+						
+	
+					</fb:FilterBar>
 					
-						<Text text="StatusText"/>
-						<Text text="ICustPoNumber"/>
-						<Text text="formatStringDate"/>
-						<Text text="formatCreatedTime"/>
-						<Text text="ShipToExt"/>
-						<Text text="ShipToName"/>
-					<!--	<Text text="ShipToAddress"/>
-							<Text text="StatusText"/>
-						<Text text="ICustPoNumber"/>
-						<Text text="formatStringDate"/>
-						<Text text="formatCreatedTime"/>
-						<Text text="ShipToExt"/>
-						<Text text="ShipToName"/>
-						<Text text="ShipToAddress"/>
-							<Text text="StatusText"/>
-						<Text text="ICustPoNumber"/>
-						<Text text="formatStringDate"/>
-						<Text text="formatCreatedTime"/>
-						<Text text="ShipToExt"/>
-						<Text text="ShipToName"/>
-						<Text text="ShipToAddress"/>
-							<Text text="StatusText"/>
-						<Text text="ICustPoNumber"/>
-						<Text text="formatStringDate"/>
-						<Text text="formatCreatedTime"/>
-						<Text text="ShipToExt"/>
-						<Text text="ShipToName"/>
-					-->
+				<!--	<smartFilterBar:SmartFilterBar smartVariant="idSmartVManagement" id="smartFilterBar" search="handleGOBtnPress" useToolbar="false" entitySet="invoiceData>/allFilterOptionsSet">
+						</smartFilterBar:SmartFilterBar>-->
+				</f:content>
+				
+				
+				</f:DynamicPageHeader>
+			</f:header>
+
+			<!-- DynamicPage Content -->
+			<f:content>
+			<Table id="idProductsTable"  mode="MultiSelect"
+				 items="{
+			path : 'docTableModel>/docTableSet'}"
+		 selectionChange="onSelectionChange" itemPress="handleOperationSelect"  modelContextChange="onModelContextChange"
+		>
+	
+		<headerToolbar>
+			<Toolbar>
+			
+					<Title   text="{i18n>documents}"/>
+					<ToolbarSpacer/>
+					<Label text="{i18n>podDate}"/>
+					<DatePicker width = "50%" 
+			id="podDateId"
+			placeholder="Enter POD Date ..."
+			change="handlePodChange"
+		>
+				</DatePicker>
+			<Button
+								text="{i18n>extractDocuments}"
+								type="Accept" press="onClickGetDocs"/>
+								
+									<Button
+								
+								icon="sap-icon://message-popup" press="onClickInformation"/>
+			</Toolbar>
+		</headerToolbar>
+	
+		<columns>
+			<Column
+				>
+				<Text text="{i18n>salesOrg}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>deliveryNum}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>externDevNum}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>soldToId}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>shipToId}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>immediateInvNum}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>immediateInvReversal}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>revenueInvoice}" />
+			</Column>
+			<Column
+				>
+				<Text text="{i18n>podStatus}" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{}"
+						text="{docTableModel>Salesorg}"/>
+					<Text
+						text="{docTableModel>DeliveryNo}" />
+					<Text
+						text="{docTableModel>Externaldelno}" />
+					<Text
+						text="{docTableModel>Soldtoparty}" />
+					<Text
+						text="{docTableModel>Shiptoparty}" />
+							<Text
+						text="{docTableModel>Imminvoiceno}" />
+							<Text
+						text="{docTableModel>Imminvreversalno}" />
+							<Text
+						text="{docTableModel>Revenueinvoice}" />
+<Text
+						text= "{=${docTableModel>Poddelstat}=== 'A' ? 'Not yet processed'  :  ${docTableModel>Poddelstat}=== 'B' ? 'Partially processed' : 'Completely processed' }" />
+						
 					
-					</cells>
-				</ColumnListItem>
-			</items>
-					
-					
-				</Table>
+						
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+			</f:content>
+
+			<!-- DynamicPage Footer -->
+		
+		</f:DynamicPage>

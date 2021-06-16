@@ -8,6 +8,7 @@ var productNavigate;
 var prodSupplyNavigate;
 var quanProdNavigate;
 var uomNavigate;
+var applicationValue;
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
@@ -22,7 +23,7 @@ sap.ui.define([
 	'sap/m/MessageBox',
 	'sap/ui/model/json/JSONModel',
 	"sap/com/postconsumption/postConsumption/utilities/Formatter"
-], function (Controller, History, TablePersoController, Export, ExportTypeCSV, MessageBox, Filter, FilterOperator, MessageToast,
+], function(Controller, History, TablePersoController, Export, ExportTypeCSV, MessageBox, Filter, FilterOperator, MessageToast,
 	JSONModel, Formatter) {
 	"use strict";
 
@@ -33,7 +34,7 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf sap.com.postconsumption.postConsumption.view.postConsumption
 		 */
-		onInit: function () {
+		onInit: function() {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("postConsumption").attachMatched(this._onRouteMatched, this);
@@ -44,7 +45,7 @@ sap.ui.define([
 				item: "myitem-1"
 			};
 
-			// // Get a personalization service provider from the shell (or create your own)
+			// Get a personalization service provider from the shell (or create your own)
 			var oProvider = sap.ushell.Container.getService("Personalization").getPersonalizer(oPersId);
 
 			// Instantiate a controller connecting your table and the persistence service
@@ -54,11 +55,11 @@ sap.ui.define([
 					// persoService: persoService
 			}).activate(); 
 
-			//		this.getConsumption();
+		
 
 		},
 
-		_onRouteMatched: function (oEvent) {
+		_onRouteMatched: function(oEvent) {
 
 			//logic to get values from first screen using json model
 			var manufacturingOrder = sap.ui.getCore().getModel("settingsDefaultModel").oData.manufacturingOrder;
@@ -68,9 +69,10 @@ sap.ui.define([
 			var product = sap.ui.getCore().getModel("settingsDefaultModel").oData.product;
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
-
+			applicationValue = sap.ui.getCore().getModel("settingsDefaultModel").oData.application;
 			//function to call consumption service
-				this.getConsumption();
+			console.log("Application value is", applicationValue);
+			this.getConsumption();
 			console.log("Passed values are", manufacturingOrder, handlingUnitvalue, uomValue, operation, product, prodSupArea, quantityProduced);
 
 			//logic to clear values for cards on navigation
@@ -78,14 +80,12 @@ sap.ui.define([
 			var oView = this.getView();
 			var clearValue = "";
 
-		
-
 			//Additional manufacturing order information
 
 			oView.byId("addlFinishedProdId").setText(clearValue);
 			oView.byId("addlDescriptionId").setText(clearValue);
 			oView.byId("addlManufOrderId").setText(clearValue);
-		
+
 			this.globalQuanValue = "";
 			this.consQuanRadio = "e";
 			this.remQuanRadio = "ne";
@@ -93,21 +93,21 @@ sap.ui.define([
 			//	this.getView().byId("consumptionQuantityId").setSelected(true);
 		},
 
-		onNavBack: function () {
+		onNavBack: function() {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("RouteSettings", true);
 		},
 
 		//Personalisation button click event
-		_onPersoButtonPressed: function (oEvent) {
+		_onPersoButtonPressed: function(oEvent) {
 			this._oTPC.openDialog();
 			//	this.oTablePersoController.openDialog();
 		},
 
 		// on select a particular comsumption - Not used
 
-		onPressOrderNumber: function (oEvent) {
+		onPressOrderNumber: function(oEvent) {
 
 			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
 			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
@@ -127,7 +127,7 @@ sap.ui.define([
 
 			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
 
-				success: function (oData, Response) {
+				success: function(oData, Response) {
 
 					//	oView.byId("handlingTextId").setText(oData.Huident);
 					/*	oView.byId("handlingTextId").setText(oData.Huident);
@@ -157,7 +157,7 @@ sap.ui.define([
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				}
@@ -184,10 +184,10 @@ sap.ui.define([
 
 			// }
 
-		}, 
+		},
 
 		// Not -used
-		onselectChange: function (oEvent) {
+		onselectChange: function(oEvent) {
 
 			//	var selectedvalue	= oEvent.getParameter("listItem").getBindingContext().getObject();
 			var selectedValue = oEvent.getParameter("listItem").oBindingContexts.stockConsModel.sPath;
@@ -207,7 +207,7 @@ sap.ui.define([
 
 			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',Huident='" + handlingUnit + "',MfgOrder='" + manuOrder + "')", {
 
-				success: function (oData, Response) {
+				success: function(oData, Response) {
 
 					//	oView.byId("handlingTextId").setText(oData.Huident);
 					/*	oView.byId("handlingTextId").setText(oData.Huident);
@@ -237,7 +237,7 @@ sap.ui.define([
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				}
@@ -247,7 +247,7 @@ sap.ui.define([
 		},
 
 		//open manufacture details - for manufature number hyperlink
-		onManufacturePress: function (oEvent) {
+		onManufacturePress: function(oEvent) {
 			console.log("Inside manufacture link press");
 
 			var urlValue = window.location.href;
@@ -263,7 +263,7 @@ sap.ui.define([
 
 		//Read  Consumtion service
 
-		getConsumption: function () {
+		getConsumption: function() {
 			messageArray = [];
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
@@ -279,8 +279,6 @@ sap.ui.define([
 			var prodSupArea = sap.ui.getCore().getModel("settingsDefaultModel").oData.prodSupArea;
 			var quantityProduced = sap.ui.getCore().getModel("settingsDefaultModel").oData.quantityProduced;
 			var warehouse = sap.ui.getCore().getModel("settingsDefaultModel").oData.warehouse;
-
-		
 
 			var manuOrder = manufacturingOrder;
 			var operation = operation;
@@ -308,7 +306,7 @@ sap.ui.define([
 			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,
 				productFilter
 			];
-			var useFilters = filters.filter(function (item) {
+			var useFilters = filters.filter(function(item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});
 
@@ -338,7 +336,7 @@ sap.ui.define([
 			sap.ui.core.BusyIndicator.show();
 			oModel.read("/StockForConsumptionSet", {
 
-				success: function (oData, Response) {
+				success: function(oData, Response) {
 
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
@@ -347,30 +345,27 @@ sap.ui.define([
 					//logic to select consumption quantity to selected on navigation
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
-var serverMessage = Response.headers["sap-message"];
-				if(serverMessage === undefined) {
- messageArray.push("No");
+					var serverMessage = Response.headers["sap-message"];
+					if (serverMessage === undefined) {
+						messageArray.push("No");
+
+					} else {
+
+						//	var serverMessage = Response.headers["sap-message"];
+
+						// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+						// 							var messagevalue1 = messageValue[0].message;
+						// console.log("Message from server", messageValue);
+						// 								//var str = "Visit W3Schools!";
+
+						// var res = messagevalue1.slice(10, 25);
+
+						messageArray.push(JSON.parse(serverMessage).details);
 
 					}
 
-					else{
-
-				//	var serverMessage = Response.headers["sap-message"];
-
-					// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
-
-					// 							var messagevalue1 = messageValue[0].message;
-					// console.log("Message from server", messageValue);
-					// 								//var str = "Visit W3Schools!";
-
-					// var res = messagevalue1.slice(10, 25);
-
-					messageArray.push(JSON.parse(serverMessage).details); 
-						
-						
-					}
-
-					oTable.getItems().forEach(function (item) {
+					oTable.getItems().forEach(function(item) {
 
 						if (item.getCells()[27].getValue() > 0) {
 							item.addStyleClass("overdueRow");
@@ -382,7 +377,7 @@ var serverMessage = Response.headers["sap-message"];
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				},
@@ -401,22 +396,22 @@ var serverMessage = Response.headers["sap-message"];
 
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 
-		//	oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
-	oModel.read("/OrderHeadSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
-				success: function (oData, Response) {
+			//	oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+			oModel.read("/OrderHeadSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
+				success: function(oData, Response) {
 
 					//Additional manufacturing order information
 
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-					
+
 					//Display Quantity warning
 					that._onserverMessageDisplay();
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function for additional information");
 				}
@@ -424,11 +419,10 @@ var serverMessage = Response.headers["sap-message"];
 			});
 
 		},
-		
-		
-			//Refresh consumption table after post
 
-			refreshConsumption: function () {
+		//Refresh consumption table after post
+
+		refreshConsumption: function() {
 			messageArray = [];
 			var oModel = this.getOwnerComponent().getModel("consumptionModel");
 			globalModel = oModel;
@@ -478,7 +472,7 @@ var serverMessage = Response.headers["sap-message"];
 			var filters = [manuOrderFilter, operationFilter, handlingUnitFilter, quanProdFilter, uomFilter, prodSupAreaFilter, wareHouseFilter,
 				productFilter
 			];
-			var useFilters = filters.filter(function (item) {
+			var useFilters = filters.filter(function(item) {
 				return item.oValue1 !== null && item.oValue1 !== undefined && item.oValue1 !== '';
 			});
 
@@ -508,7 +502,7 @@ var serverMessage = Response.headers["sap-message"];
 			sap.ui.core.BusyIndicator.show();
 			oModel.read("/StockForConsumptionSet", {
 
-				success: function (oData, Response) {
+				success: function(oData, Response) {
 
 					var orderModel = new sap.ui.model.json.JSONModel();
 					oView.setModel(orderModel, "stockConsModel");
@@ -517,30 +511,27 @@ var serverMessage = Response.headers["sap-message"];
 					//logic to select consumption quantity to selected on navigation
 					// that.getView().byId("consumptionQuantityId").setSelected(true);
 					// that.consQuanSel();
-var serverMessage = Response.headers["sap-message"];
-				if(serverMessage === undefined) {
- messageArray.push("No");
+					var serverMessage = Response.headers["sap-message"];
+					if (serverMessage === undefined) {
+						messageArray.push("No");
+
+					} else {
+
+						//	var serverMessage = Response.headers["sap-message"];
+
+						// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+						// 							var messagevalue1 = messageValue[0].message;
+						// console.log("Message from server", messageValue);
+						// 								//var str = "Visit W3Schools!";
+
+						// var res = messagevalue1.slice(10, 25);
+
+						messageArray.push(JSON.parse(serverMessage).details);
 
 					}
 
-					else{
-
-				//	var serverMessage = Response.headers["sap-message"];
-
-					// 							var messageValue =	sap.ui.getCore().getMessageManager().getMessageModel().getData();
-
-					// 							var messagevalue1 = messageValue[0].message;
-					// console.log("Message from server", messageValue);
-					// 								//var str = "Visit W3Schools!";
-
-					// var res = messagevalue1.slice(10, 25);
-
-					messageArray.push(JSON.parse(serverMessage).details); 
-						
-						
-					}
-
-					oTable.getItems().forEach(function (item) {
+					oTable.getItems().forEach(function(item) {
 
 						if (item.getCells()[27].getValue() > 0) {
 							item.addStyleClass("overdueRow");
@@ -552,7 +543,7 @@ var serverMessage = Response.headers["sap-message"];
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function");
 				},
@@ -573,20 +564,20 @@ var serverMessage = Response.headers["sap-message"];
 
 			oModel.read("/HandlUnitStockSet(Lgnum='" + quanProd + "',MfgOrder='" + manuOrder + "')", {
 
-				success: function (oData, Response) {
+				success: function(oData, Response) {
 
 					//Additional manufacturing order information
 
 					oView.byId("addlFinishedProdId").setText(oData.AdiMatnr);
 					oView.byId("addlDescriptionId").setText(oData.CatTxt);
 					oView.byId("addlManufOrderId").setText(oData.AdiMfgOrder);
-					
+
 					//Display Quantity warning
-				//	that._onserverMessageDisplay();
+					//	that._onserverMessageDisplay();
 
 				},
 
-				error: function (oData, Response, oError) {
+				error: function(oData, Response, oError) {
 					sap.ui.core.BusyIndicator.hide();
 					console.log("Inside Error function for additional information");
 				}
@@ -595,42 +586,39 @@ var serverMessage = Response.headers["sap-message"];
 
 		},
 
-
 		//Quantity warning message popup
 
-		_onserverMessageDisplay: function (oEvent) {
+		_onserverMessageDisplay: function(oEvent) {
 
-			if ( messageArray[0] === "No"){
+			if (messageArray[0] === "No") {
 
 				console.log("No action");
-			}
+			} else {
 
-			else{
+				if (!this._oDialog) {
+					//	this._oDialog = sap.ui.xmlfragment("com.bp.lubescustfinancial.fragments.OrderChangeHx", this);
+					this._oDialog = sap.ui.xmlfragment("sap.com.postconsumption.postConsumption.fragments.serverMessage", this);
+				}
 
-			if (!this._oDialog) {
-				//	this._oDialog = sap.ui.xmlfragment("com.bp.lubescustfinancial.fragments.OrderChangeHx", this);
-				this._oDialog = sap.ui.xmlfragment("sap.com.postconsumption.postConsumption.fragments.serverMessage", this);
-			}
+				this.getView().addDependent(this._oDialog);
+				this._oDialog.open();
 
-			this.getView().addDependent(this._oDialog);
-			this._oDialog.open();
+				var messageArray2 = [];
+				for (var m = 0; m < messageArray[0].length; m++) {
 
-			var messageArray2 = [];
-			for (var m = 0; m < messageArray[0].length; m++) {
+					messageArray2.push(messageArray[0][m]);
 
-				messageArray2.push(messageArray[0][m]);
+				}
 
-			}
-			
 				var messageModel = new sap.ui.model.json.JSONModel();
-			this.getView().setModel(messageModel, "messageModel");
-			this.getView().getModel("messageModel").setProperty("/messageSet", messageArray2);
-			sap.ui.core.BusyIndicator.hide();
+				this.getView().setModel(messageModel, "messageModel");
+				this.getView().getModel("messageModel").setProperty("/messageSet", messageArray2);
+				sap.ui.core.BusyIndicator.hide();
 			}
 
 		},
 
-		handleClose: function (oEvent) {
+		handleClose: function(oEvent) {
 			/* This function closes the dialog box */
 			if (this._oDialog) {
 
@@ -639,7 +627,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//confirm post from user:
-		confirmPost: function (oEvent) {
+		confirmPost: function(oEvent) {
 
 			var consTableLength = this.getView().byId("consumptionTable").getItems();
 			var oModel = this.getView().getModel("consumptionModel");
@@ -657,7 +645,7 @@ var serverMessage = Response.headers["sap-message"];
 					}
 				}
 
-				consTableLength.forEach(function (oItem) {
+				consTableLength.forEach(function(oItem) {
 
 					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
 					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
@@ -666,30 +654,27 @@ var serverMessage = Response.headers["sap-message"];
 						selectedArray.push(tableValue);
 
 					}
-					
+
 					if (oItem.getCells()[28].getValue() < 0) {
 						selectedNegativeArray.push(tableValue);
-					
 
 					}
-					
-					
 
 					//logic to give highlighted color to table rows having Invoice reversal and revenue invoice not blank value
 
 				});
-				
+
 				//logic to pop up the message box for negative value in PSA remaining quantity
-				if (selectedNegativeArray.length > 0){
+				if (selectedNegativeArray.length > 0) {
 
 					MessageBox.show("Quantity remaining in the PSA cannot be negative. Please check the quantity declared to consume.", {
-										icon: MessageBox.Icon.ERROR,
-										title: "Error text",
-										actions: [sap.m.MessageBox.Action.OK],
-										onClose: function (oAction) {
-										
-										}.bind(this)
-									});
+						icon: MessageBox.Icon.ERROR,
+						title: "Error text",
+						actions: [sap.m.MessageBox.Action.OK],
+						onClose: function(oAction) {
+
+						}.bind(this)
+					});
 					return;
 				}
 
@@ -704,7 +689,7 @@ var serverMessage = Response.headers["sap-message"];
 					icon: MessageBox.Icon.INFORMATION,
 					title: "Dear User",
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
-					onClose: function (oAction) {
+					onClose: function(oAction) {
 						if (oAction == "YES") {
 
 							sap.ui.core.BusyIndicator.show();
@@ -715,7 +700,7 @@ var serverMessage = Response.headers["sap-message"];
 
 								urlParameters: null,
 								groupId: "PostConsumptionBatch",
-								success: function (oData, oRet) {
+								success: function(oData, oRet) {
 
 									var serverMessage = oRet.headers["sap-message"];
 
@@ -726,7 +711,7 @@ var serverMessage = Response.headers["sap-message"];
 									//If multiple batch groups are submitted the handlers will be called for every batch group.
 
 								},
-								error: function (oError) {
+								error: function(oError) {
 									console.log("Inside mparameter error");
 									sap.ui.core.BusyIndicator.hide();
 
@@ -736,7 +721,7 @@ var serverMessage = Response.headers["sap-message"];
 							var singleentry = {
 								groupId: "PostConsumptionBatch",
 								urlParameters: null,
-								success: function (oData, oRet) {
+								success: function(oData, oRet) {
 									console.log("Inside singleentry success");
 									//The success callback function for each record
 
@@ -755,18 +740,34 @@ var serverMessage = Response.headers["sap-message"];
 										icon: MessageBox.Icon.SUCCESS,
 										title: "Dear User",
 										actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
-										onClose: function (oAction) {
+										onClose: function(oAction) {
 											if (oAction == "YES") {
+												//code for cross navigation to quantity declaration app
+												if (applicationValue === "QuantityDeclaration") {
+													
+													console.log("Cross navigation to product order monitor");
+
+													sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
+														target: {
+															semanticObject: "ZPTM",
+															action: "display"
+														}
+
+													});
+													
+													return;
+
+												}
 
 												that.onNavBack();
 											}
 										}.bind(this)
 									});
-								//	that.getConsumption();
-								that.refreshConsumption();
+									//	that.getConsumption();
+									that.refreshConsumption();
 
 								},
-								error: function (oError) {
+								error: function(oError) {
 									console.log("Inside singleentry error");
 									//Message box for post consumption success
 
@@ -808,7 +809,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//Post consumption functionality - Not used
-		onPostConsumption: function (oEvent) {
+		onPostConsumption: function(oEvent) {
 			//	var consTableLength = this.getView().byId("consumptionTable").getSelectedItems();
 			var consTableLength = this.getView().byId("consumptionTable").getItems();
 			var oModel = this.getView().getModel("consumptionModel");
@@ -827,7 +828,7 @@ var serverMessage = Response.headers["sap-message"];
 
 				sap.ui.core.BusyIndicator.show();
 
-				consTableLength.forEach(function (oItem) {
+				consTableLength.forEach(function(oItem) {
 
 					var selectedValue = oItem.oBindingContexts.stockConsModel.sPath;
 					var tableValue = oEvent.getSource().getModel("stockConsModel").getProperty(selectedValue);
@@ -872,7 +873,7 @@ var serverMessage = Response.headers["sap-message"];
 
 					urlParameters: null,
 					groupId: "PostConsumptionBatch",
-					success: function (oData, oRet) {
+					success: function(oData, oRet) {
 
 						var serverMessage = oRet.headers["sap-message"];
 
@@ -883,7 +884,7 @@ var serverMessage = Response.headers["sap-message"];
 						//If multiple batch groups are submitted the handlers will be called for every batch group.
 
 					},
-					error: function (oError) {
+					error: function(oError) {
 						console.log("Inside mparameter error");
 						sap.ui.core.BusyIndicator.hide();
 
@@ -893,7 +894,7 @@ var serverMessage = Response.headers["sap-message"];
 				var singleentry = {
 					groupId: "PostConsumptionBatch",
 					urlParameters: null,
-					success: function (oData, oRet) {
+					success: function(oData, oRet) {
 						console.log("Inside singleentry success");
 						//The success callback function for each record
 
@@ -909,10 +910,10 @@ var serverMessage = Response.headers["sap-message"];
 						}
 
 						MessageToast.show("Consumption submitted successfully");
-					//	that.getConsumption();
+						//	that.getConsumption();
 
 					},
-					error: function (oError) {
+					error: function(oError) {
 						console.log("Inside singleentry error");
 						MessageToast.show("Error");
 						//The error callback function for each record
@@ -940,7 +941,7 @@ var serverMessage = Response.headers["sap-message"];
 
 		// on selection of consumption quantity radio button - Not used
 
-		consQuanSel: function (oEvent) {
+		consQuanSel: function(oEvent) {
 			/*		this.getView().byId("consumptionQuantityId").setEnabled(true);
 					var oTable = this.getView().byId("consumptionTable");
 					var aItems = oTable.getItems();
@@ -952,7 +953,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//livechange event for consumption quantity field
-		onQuanConsChangeLive: function (oEvent) {
+		onQuanConsChangeLive: function(oEvent) {
 			var oTable = this.getView().byId("consumptionTable");
 			this.globalQuanValue = "X";
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
@@ -984,7 +985,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//livechange event for consumption quantity field
-		onQuanRemChangeLive: function (oEvent) {
+		onQuanRemChangeLive: function(oEvent) {
 			var oTable = this.getView().byId("consumptionTable");
 			var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
@@ -995,7 +996,7 @@ var serverMessage = Response.headers["sap-message"];
 			var oRemainingValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[27];
 			oRemainingValue.setValue(iTempTotRemaining);
 
-			oTable.getItems().forEach(function (item) {
+			oTable.getItems().forEach(function(item) {
 
 				if (item.getCells()[27].getValue() > 0) {
 					item.addStyleClass("overdueRow");
@@ -1008,7 +1009,7 @@ var serverMessage = Response.headers["sap-message"];
 
 		// on selection of consumption quantity radio button - not used
 
-		remQuanSel: function (oEvent) {
+		remQuanSel: function(oEvent) {
 			/*	this.getView().byId("remainingQuantityId").setEnabled(true);
 				var oTable = this.getView().byId("consumptionTable");
 				var aItems = oTable.getItems();
@@ -1021,7 +1022,7 @@ var serverMessage = Response.headers["sap-message"];
 
 		// on selection of restriced use checkbox - not used
 
-		restUseSel: function (oEvent) {
+		restUseSel: function(oEvent) {
 			//	this.getView().byId("remainingQuantityId").setEnabled(true);
 			var oTable = this.getView().byId("consumptionTable");
 			var aItems = oTable.getItems();
@@ -1034,7 +1035,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//Function to handle change in quantity - not used
-		onQuanConsChange: function (oEvent) {
+		onQuanConsChange: function(oEvent) {
 
 			console.log("Inside Quantity change");
 			//logic to calculate difference between Quantity in PSA and quantity remaining
@@ -1060,7 +1061,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//Function to handle change in Remaining Quantity - not used
-		onQuanRemChange: function (oEvent) {
+		onQuanRemChange: function(oEvent) {
 
 			// var rowIndex = oEvent.getSource().getParent().getBindingContextPath().split("/")[2];
 			// var consRemValue = this.getView().byId("consumptionTable").getAggregation("items")[rowIndex].getAggregation("cells")[28].getValue();
@@ -1074,7 +1075,7 @@ var serverMessage = Response.headers["sap-message"];
 
 		// Export to excel
 
-		_onDataExport: function (oEvent) {
+		_onDataExport: function(oEvent) {
 
 			var oExport = new Export({
 
@@ -1245,16 +1246,16 @@ var serverMessage = Response.headers["sap-message"];
 			});
 
 			// download exported file
-			oExport.saveFile().catch(function (oError) {
+			oExport.saveFile().catch(function(oError) {
 				MessageBox.error("Error when downloading data. Browser might not be supported!\n\n");
-			}).then(function () {
+			}).then(function() {
 				oExport.destroy();
 			});
 		},
 
 		//Consumption table search
 
-		onSearchConsumption: function (oEvent) {
+		onSearchConsumption: function(oEvent) {
 			// add filter for search
 			var aFilters = [];
 			var sQuery = oEvent.getSource().getValue();
@@ -1315,7 +1316,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//logic to format shelf life expiration date
-		formatterDateShelfLife: function (date) {
+		formatterDateShelfLife: function(date) {
 			if (date !== "" && date !== null && date !== undefined) {
 				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
 					pattern: "dd.MM.yyyy",
@@ -1328,7 +1329,7 @@ var serverMessage = Response.headers["sap-message"];
 		},
 
 		//logic to make quantiyy field editable based on PSA - Not used
-		onFormatQuantity: function (quantity) {
+		onFormatQuantity: function(quantity) {
 			// if (this.globalQuanValue === "X") {
 
 			// 	return true;
@@ -1350,7 +1351,7 @@ var serverMessage = Response.headers["sap-message"];
 
 		//logic to set row selected based on quantity  - Not used
 
-		onModelContextChange: function (oEvent) {
+		onModelContextChange: function(oEvent) {
 			// var sId = oEvent.getParameter("id");
 			// var tbl = sap.ui.getCore().byId(sId);
 			// var header = tbl.$().find('thead');

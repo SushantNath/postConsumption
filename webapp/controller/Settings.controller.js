@@ -9,6 +9,7 @@ var productNavigate;
 var prodSupplyNavigate;
 var quanProdNavigate;
 var uomNavigate;
+var applicationValue;
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
@@ -93,6 +94,15 @@ sap.ui.define([
 				quantityInput.setValue(quantity); // “Here we are setting the Purchase Order Value
 
 			}
+				if (ParameterData.startupParameters.application) {
+
+				var application = ParameterData.startupParameters.application[0]; // “Getting the Purchase Order Value passed along with the URL
+                applicationValue=application;
+			//	var operationInput = this.getView().byId("opForActId");
+
+			//	operationInput.setValue(operation); // “Here we are setting the Purchase Order Value
+
+			}
 
 			if (ParameterData.startupParameters.Unit) {
 
@@ -104,7 +114,12 @@ sap.ui.define([
 
 			}
 }
-
+       if(applicationValue === undefined){
+       	
+       	applicationValue= "No value";
+       }
+       
+       
 		
 
 		},
@@ -936,7 +951,8 @@ sap.ui.define([
 				"product": product,
 				"prodSupArea": prodSupArea,
 				"quantityProduced": quantityProduced,
-				"warehouse": warehouseValue
+				"warehouse": warehouseValue,
+				"application":applicationValue
 			});
 
 			sap.ui.getCore().setModel(oViewModel, "settingsDefaultModel");
